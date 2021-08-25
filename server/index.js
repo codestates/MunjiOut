@@ -5,9 +5,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const express = require("express");
+const controllers = require("./controllers");
 const app = express();
-
-// const controllers = require("./controllers");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -19,9 +18,10 @@ app.use(
   })
 );
 app.use(cookieParser());
-// app.post("/login", controllers.login);
-// app.get("/accesstokenrequest", controllers.accessTokenRequest);
-// app.get("/refreshtokenrequest", controllers.refreshTokenRequest);
+
+app.get("/userinfo", controllers.userinfo);
+app.patch("/editUserinfo", controllers.editUserinfo);
+app.post("/withdrawal", controllers.withdrawal);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 

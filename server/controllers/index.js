@@ -1,6 +1,5 @@
 module.exports = {
-  signController: require("./sign"),
-  locationController: require("./location"),
-  mypageController: require("./mypage"),
-  searchController: require("./search"),
+  userinfo: require("./mypage/userinfo"),
+  editUserinfo: require("./mypage/editUserInfo"),
+  withdrawal: require("./mypage/withdrawal"),
 };
