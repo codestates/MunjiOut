@@ -6,10 +6,12 @@ module.exports = async (req, res) => {
     const data = isAuthorized(req);
 
     if (!data) {
-      return res.status(404).send({ message: "존재하지 않는 회원입니다." });
+      return res.status(404).send({ message: "잘못된 접근입니다." });
     } else {
       let newUserInfo = await User.update({
-        where: { id: data.id },
+        where: {
+          id: data.id,
+        },
       });
 
       res
