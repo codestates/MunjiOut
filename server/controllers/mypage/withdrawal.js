@@ -3,12 +3,6 @@ const { isAuthorized } = require("../tokenFunctions");
 
 module.exports = async (req, res) => {
   try {
-    // const { email } = req.body;
-
-    // const deleteUser = await User.findOne({
-    //   where: { email: email },
-    // });
-
     const data = isAuthorized(req);
 
     if (!data) {
