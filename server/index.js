@@ -19,9 +19,9 @@ app.use(
 );
 app.use(cookieParser());
 
-app.get("/userinfo", controllers.userinfo);
-app.patch("/editUserinfo", controllers.editUserinfo);
-app.post("/withdrawal", controllers.withdrawal);
+// app.get("/userinfo", controllers.userinfo);
+// app.patch("/editUserinfo", controllers.editUserinfo);
+// app.post("/withdrawal", controllers.withdrawal);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 
