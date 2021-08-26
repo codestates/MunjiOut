@@ -1,5 +1,3 @@
-import logo from "./logo.svg";
-import "./App.css";
 import Signup from "./pages/SignUp";
 
 function App() {

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import logo from "../MunjioutLogo.png";
+import "./SignUp.css";
 
 function Signup() {
   const [userInfo, setUserInfo] = useState({
@@ -35,14 +36,14 @@ function Signup() {
   };
 
   return (
-    <div>
+    <div className="Signup">
       <img src={logo}></img>
       <div>
-        <div>이름</div>
+        <div className="info">이름</div>
         <input type="text" onChange={handleInputValue("username")}></input>
       </div>
       <div>
-        <div>이메일</div>
+        <div className="info">이메일</div>
         <input
           type="email"
           onChange={handleInputValue("email")}
@@ -50,7 +51,7 @@ function Signup() {
         ></input>
       </div>
       <div>
-        <div>비밀번호</div>
+        <div className="info">비밀번호</div>
         <input
           type="password"
           onChange={handleInputValue("password")}
@@ -59,17 +60,20 @@ function Signup() {
         ></input>
       </div>
       <div>
-        <div>비밀번호 확인</div>
+        <div className="info">비밀번호 확인</div>
         <input type="password" onChange={handleCheckPassword}></input>
         <div>{checkPassword ? null : "비밀번호가 일치하지 않습니다"}</div>
       </div>
       <div>
-        <div>전화번호</div>
+        <div className="info">전화번호</div>
         <input type="text" onChange={handleInputValue("mobile")}></input>
       </div>
       <div>
-        <div>주소</div>
-        <input type="text" onChange={handleInputValue("address")}></input>
+        <div className="info">주소</div>
+        <input
+          placeholder="주소를 검색해주세요"
+          onBlur={handleInputValue("address")}
+        ></input>
       </div>
       <button>회원가입</button>
     </div>
