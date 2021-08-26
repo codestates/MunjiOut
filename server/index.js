@@ -7,7 +7,7 @@ const express = require('express');
 const app = express();
 
 const controllers = require('./controllers');
-const { findAll } = require('./controllers/search/search');
+const { findOne } = require('./controllers/search/search');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -20,11 +20,15 @@ app.use(
   );
   
 app.use(cookieParser());
+
 app.get('/auth', controllers.auth);
 app.post('/signup', controllers.signup);
 app.post('/login', controllers.login);
 app.post('/logout', controllers.logout);
-app.get('/search', findAll);
+app.get('/search', findOne);
+app.get("/userinfo", controllers.userinfo);
+app.post("/editUserinfo", controllers.editUserinfo);
+app.post("/withdrawal", controllers.withdrawal);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 
