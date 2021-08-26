@@ -8,4 +8,5 @@ module.exports = {
   withdrawal: require("./mypage/withdrawal"),
   setLocations: require("./locations/setLocations"),
   unsetLocations: require("./locations/unsetLocations"),
+  userLocations: require("./locations/userLocations"),
 };

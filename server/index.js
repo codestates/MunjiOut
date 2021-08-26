@@ -29,6 +29,7 @@ app.post("/editUserinfo", controllers.editUserinfo);
 app.post("/withdrawal", controllers.withdrawal);
 app.post("/setLocation", controllers.setLocations);
 app.post("/unsetLocation", controllers.unsetLocations);
+app.get("/userLocation", controllers.userLocations);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 
