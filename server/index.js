@@ -7,7 +7,7 @@ const express = require('express');
 const app = express();
 
 const controllers = require('./controllers');
-const { findAll } = require('./controllers/search/search');
+const { findOne } = require('./controllers/search/search');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,7 +24,7 @@ app.get('/auth', controllers.auth);
 app.post('/signup', controllers.signup);
 app.post('/login', controllers.login);
 app.post('/logout', controllers.logout);
-app.get('/search', findAll);
+app.get('/search', findOne);
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 
