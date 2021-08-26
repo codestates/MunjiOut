@@ -1,0 +1,16 @@
+.Signup {
+  text-align: center;
+}
+
+body {
+  background-color: rgb(235, 235, 235);
+}
+
+input {
+  width: 300px;
+  height: 25px;
+}
+
+.info {
+  font-size: 17px;
+}
