@@ -9,12 +9,14 @@ module.exports = {
         await res.cookie('set-cookie', { jwt : accessToken }, { httpOnly: true, Secure: true, SameSite: "None" }).send({ message: 'ok' });
     },
     isAuthorized: req => {
-        const accessToken = req["set-cookie"];
-
-        if (accessToken) {
-            const payload = verify(accessToken.jwt, process.env.ACCESS_SECRET);
-            return payload;
-        } else {
+        const authorization = req.headers.cookie;
+        if (!authorization) {
+            return null;
+        }
+        const token = authorization.split("=")[1];
+        try {
+            return verify(token, process.env.ACCESS_SECRET);
+        } catch (err) {
             return null;
         }
     },

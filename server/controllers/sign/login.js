@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     })
     .then((data) => {
         if (!data) {
-            return res.status(404).send('invalid user');
+            return res.status(404).json({ 'message': 'invalid user' });
         } else {
             const accessToken = generateAccessToken(data.dataValues);
             sendAccessToken(res, accessToken);
