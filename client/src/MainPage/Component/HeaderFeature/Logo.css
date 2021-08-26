@@ -1,0 +1,14 @@
+.logo {
+  margin: 2px;
+  padding: 4px 12px;
+  width: 60px;
+  height: 24px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: burlywood;
+}
+
+.logo:hover {
+  background-color: rgb(228, 206, 175);
+}
