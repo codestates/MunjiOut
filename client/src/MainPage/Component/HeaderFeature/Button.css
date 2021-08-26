@@ -1,0 +1,14 @@
+.btn {
+  margin: 2px;
+  padding: 4px 12px;
+  width: 80px;
+  height: 30px;
+  border-radius: 3px;
+  display: inline;
+  font-size: 14px;
+  background-color: yellowgreen;
+}
+
+.btn:hover {
+  background-color: rgb(196, 233, 123);
+}
