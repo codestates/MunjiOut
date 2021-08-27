@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import logo from "../MunjioutLogo.png";
 import "./SignUp.css";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 function Mypage() {
   return (
     <div className="Mypage">
-      <img src={logo}></img>
+      <Link to='/'>
+        <img src={logo}></img>
+      </Link>
       <div className="Mypage_container">
         <div>
           <div>이름</div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import logo from "../MunjioutLogo.png";
 import "./SignUp.css";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 function Signup() {
   const [userInfo, setUserInfo] = useState({
@@ -89,7 +90,9 @@ function Signup() {
 
   return (
     <div className="Signup">
-      <img src={logo}></img>
+      <Link to="/">
+        <img src={logo}></img>
+      </Link>
       <div className="Signup_container">
         <div>
           <div className="info">이름</div>

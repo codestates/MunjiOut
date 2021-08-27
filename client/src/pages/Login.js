@@ -1,10 +1,13 @@
 import React from "react";
 import logo from "../MunjioutLogo.png";
+import { Link } from 'react-router-dom';
 
 function Login() {
   return (
     <div className="Login">
-      <img src={logo}></img>
+      <Link to="/">
+        <img src={logo}></img>
+      </Link>
       <div className="login_container">
         <div>
           <div>이메일</div>
