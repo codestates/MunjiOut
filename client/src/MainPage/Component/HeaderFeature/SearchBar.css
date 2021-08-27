@@ -1,0 +1,17 @@
+.searchBar {
+  margin: 2px;
+  padding: 4px 12px;
+  width: 65vw;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.deleteBtn {
+  margin: 2px;
+  padding: 10px;
+  font-size: 20px;
+  background-color: rgb(255, 196, 185);
+  border-radius: 5px;
+  border: 1px solid whitesmoke;
+}

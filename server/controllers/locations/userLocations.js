@@ -12,6 +12,8 @@ module.exports = async (req, res) => {
         .status(404)
         .send({ data: null, message: "존재하지 않는 유저입니다." });
     } else {
+      delete data.password;
+
       const result = await User.findAll({
         where: {
           id: data.id,
