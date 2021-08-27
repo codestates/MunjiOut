@@ -1,5 +1,8 @@
 import MainPage from "./MainPage/MainPage";
 import { useState } from "react";
+import Signup from "./pages/SignUp";
+import Login from "./pages/Login";
+import Mypage from "./pages/Mypage";
 
 function App() {
   // SearchBar test Start
