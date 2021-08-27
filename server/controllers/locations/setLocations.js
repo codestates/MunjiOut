@@ -16,6 +16,6 @@ module.exports = async (req, res) => {
 
     res.status(200).json({ message: "즐겨찾기에 추가하였습니다." });
   } catch {
-    console.log(err);
+    res.status(400).json({ message: "에러입니다." });
   }
 };
