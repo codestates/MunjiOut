@@ -10,7 +10,8 @@ module.exports = async (req, res) => {
         .status(404)
         .send({ data: null, message: "존재하지 않는 유저입니다." });
     } else {
-      // delete data.password;
+      // password 삭제
+      delete data.password;
 
       const userInfo = await User.findOne({ where: { id: data.id } });
 

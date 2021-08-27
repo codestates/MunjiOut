@@ -47,7 +47,7 @@ module.exports = async (req, res) => {
             }
             // console.log('++++++++++++\n', result.dataValues);
             const jwt = generateAccessToken(result.dataValues);
-            res.cookie('jwt', jwt).status(201).json({ message: 'thank you for sining up!' });
+            res.cookie('jwt', jwt).status(201).json({ message: 'thank you for signing up!' });
         });
     });
 };
