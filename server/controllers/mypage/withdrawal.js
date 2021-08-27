@@ -18,6 +18,6 @@ module.exports = async (req, res) => {
         .json({ message: "회원탈퇴가 성공적으로 완료되었습니다." });
     }
   } catch {
-    console.log(err);
+    res.status(400).json({ message: "에러입니다." });
   }
 };

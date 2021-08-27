@@ -36,6 +36,6 @@ module.exports = async (req, res) => {
         .json({ data: result, message: "해당 정보를 불러왔습니다." });
     }
   } catch {
-    console.log(err);
+    res.status(400).json({ message: "에러입니다." });
   }
 };

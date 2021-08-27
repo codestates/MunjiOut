@@ -19,6 +19,6 @@ module.exports = async (req, res) => {
         .json({ data: newUserInfo, message: "회원정보가 수정되었습니다." });
     }
   } catch {
-    console.log(err);
+    res.status(400).json({ message: "에러입니다." });
   }
 };

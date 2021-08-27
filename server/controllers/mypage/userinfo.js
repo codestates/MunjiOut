@@ -19,6 +19,6 @@ module.exports = async (req, res) => {
         .json({ data: userInfo, message: "유저정보를 불러왔습니다." });
     }
   } catch {
-    console.log(err);
+    res.status(400).json({ message: "에러입니다." });
   }
 };

@@ -10,12 +10,11 @@ module.exports = async (req, res) => {
     });
 
     await UserLocation.destroy({
-      userId: userId,
-      locationId: locationId.id,
+      where: { userId: userId, locationId: locationId.id },
     });
 
     res.status(200).json({ message: "즐겨찾기에서 삭제되었습니다." });
   } catch {
-    console.log(err);
+    res.status(400).json({ message: "에러입니다." });
   }
 };
