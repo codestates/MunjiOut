@@ -7,7 +7,6 @@ const express = require("express");
 const app = express();
 
 const controllers = require("./controllers");
-const controllers = require("./controllers");
 const { findOne } = require("./controllers/search/search");
 
 app.use(express.json());
@@ -22,10 +21,6 @@ app.use(
 
 app.use(cookieParser());
 
-app.get("/auth", controllers.auth);
-app.post("/signup", controllers.signup);
-app.post("/login", controllers.login);
-app.post("/logout", controllers.logout);
 app.get("/auth", controllers.auth);
 app.post("/signup", controllers.signup);
 app.post("/login", controllers.login);
