@@ -1,6 +1,10 @@
-import MainPage from "./MainPage/MainPage";
 import LocationName from "./Database/LocationName";
+import MainPage from "./MainPage/MainPage";
+import Signup from "./pages/SignUp";
+import Login from "./pages/Login";
+import Mypage from "./pages/Mypage";
 import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
   // SearchBar test Start
@@ -39,41 +43,46 @@ function App() {
 
   // SearchBar test End
 
+  // ! Router test를 위해선 isLogin useState 값을 true, false로 변경하세요!
   const [isLogin, setIsLogin] = useState(false);
   const [isStared, setIsStared] = useState(isStaredDummy);
   const [isSearched, setIsSearched] = useState(isSearchedDummy);
 
-  function changeLoginForTest() {
+  function handleIsLogin () {
     setIsLogin(!isLogin);
-    console.log("🟢 isLogin", isLogin);
-  }
-
-  function showDummyDataForTest() {
-    console.log("🌕 isStared", isStared);
-    console.log("🌑 isSearched", isSearched);
   }
 
   return (
-    <div>
-      <MainPage
-        keyword={keyword}
-        searchResult={searchResult}
-        handleKeywordChange={handleKeywordChange}
-        handleKeywordDelete={handleKeywordDelete}
-        handleDropDownClick={handleDropDownClick}
-        isLogin={isLogin}
-        isStared={isStared}
-        isSearched={isSearched}
-      />
+    <BrowserRouter>
       <div>
-        <button onClick={changeLoginForTest}>
-          test {isLogin ? "login" : "logout"}
-        </button>
+        <Switch>
+          <Route exact path="/">
+            <MainPage
+            keyword={keyword}
+            searchResult={searchResult}
+            handleKeywordChange={handleKeywordChange}
+            handleKeywordDelete={handleKeywordDelete}
+            handleDropDownClick={handleDropDownClick}
+            isLogin={isLogin}
+            isStared={isStared}
+            isSearched={isSearched}
+            />
+          </ Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/mypage">
+            <Mypage />
+          </Route>
+          {/* <Route>
+            <EpmtyPage />
+          </Route> */}
+        </Switch>
       </div>
-      <div>
-        <button onClick={showDummyDataForTest}>console.log dummy data</button>
-      </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
