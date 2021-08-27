@@ -2,14 +2,26 @@ import './MainPage.css';
 import Header from './Component/Header';
 import Body from './Component/Body';
 
-export default function MainPage ({ searchBarDummy, keyword, searchResult, isLogin, isStared, isSearched }) {
+export default function MainPage (
+    { 
+        keyword, 
+        searchResult, 
+        handleKeywordChange, 
+        handleKeywordDelete, 
+        handleDropDownClick, 
+        isLogin, 
+        isStared, 
+        isSearched 
+    }) {
 
     return (
         <div>
             <Header 
-                searchBarDummy={searchBarDummy}
                 keyword={keyword}
                 searchResult={searchResult}
+                handleKeywordChange={handleKeywordChange}
+                handleKeywordDelete={handleKeywordDelete}
+                handleDropDownClick={handleDropDownClick}
                 isLogin={isLogin} 
             />
             <Body 
