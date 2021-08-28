@@ -9,10 +9,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        field: 'userId',
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onDelete: 'cascade',
       },
       locationId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        field: 'locationId',
+        references: {
+          model: 'Locations',
+          key: 'id',
+        },
+        onDelete: 'cascade',
       },
       createdAt: {
         allowNull: false,

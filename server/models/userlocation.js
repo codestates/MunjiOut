@@ -1,5 +1,7 @@
 'use strict';
-const { Model } = require('sequelize');
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class UserLocation extends Model {
     /**
@@ -9,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      UserLocation.belongsTo(models.User, {
+        onDelete: 'CASCADE',
+        foreignKey: 'userId',
+      });
+      UserLocation.belongsTo(models.Location, {
+        onDelete: 'CASCADE',
+        foreignKey: 'locationId'
+      });
     }
   };
   UserLocation.init({
