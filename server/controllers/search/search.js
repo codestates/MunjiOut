@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const locations = require('../../api/locationList');
 
 const apiKey = process.env.API_KEY;
-const rowNum = 5;
+const rowNum = 1;
 let stationLocation;
 let lastUpdated;
 let pmValue;
@@ -14,7 +14,7 @@ module.exports = {
         if (req.query.query !== undefined) {
             console.log(req.query.query);
             if (req.query.query.length == 0) {
-                return res.status(400).json({ message: "please enter a search term" });
+                return res.status(400).json({ message: 'please enter a search term' });
             }
             const list = locations.filter((location) => {
                 return location.locationName == req.query.query;
@@ -23,7 +23,7 @@ module.exports = {
             if (list.length > 0) {
                 console.log(list[0].locationName);
                 stationLocation = list[0].locationName
-                // console.log("station: " + stationLocation);
+                // console.log('station: ' + stationLocation);
                 // console.log(list[0].locationName);
                 const encodedLocation = encodeURIComponent(stationLocation.split(' ')[1]);
                 const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=${encodedLocation}&dataTerm=month&pageNo=1&numOfRows=${rowNum}&returnType=json&serviceKey=${apiKey}`;
@@ -34,14 +34,18 @@ module.exports = {
                     lastUpdated = res.response.body.items[0].dataTime;
                     pmValue = res.response.body.items[0].pm10Value;
                 })
-                .then(() =>
-                    res.status(200).json({ stationName: stationLocation, lastUpdated: lastUpdated, pm10_value: pmValue })
-                )
+                .then(() => {
+                    // 측정소가 점검 중일 경우 => pm10Value가 '-'으로 표기됨
+                    if (pmValue === '-') {
+                        return res.status(200).json({ stationName: stationLocation, lastUpdated: lastUpdated, pm10_value: 'the station is currently under inspection.' });
+                    }
+                    return res.status(200).json({ stationName: stationLocation, lastUpdated: lastUpdated, pm10_value: pmValue });
+                })
                 .catch(error => {
                     throw(error);
                 });
             } else {
-                return res.status(404).json({ message: "please check the location name again" });
+                return res.status(404).json({ message: 'please check the location name again' });
             }
         } else {
             return res.status(400);
