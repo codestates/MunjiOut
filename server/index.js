@@ -26,6 +26,7 @@ app.post('/signup', controllers.signup);
 app.post('/login', controllers.login);
 app.post('/logout', controllers.logout);
 app.get('/search', findOne);
+app.post('/email', controllers.email);
 app.get("/userinfo", controllers.userinfo);
 app.post("/editUserinfo", controllers.editUserinfo);
 app.post("/withdrawal", controllers.withdrawal);
