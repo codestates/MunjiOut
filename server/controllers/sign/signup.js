@@ -53,7 +53,8 @@ module.exports = async (req, res) => {
                 return res.status(409).json({ message: 'conflicting user info exists' });
             }
             // console.log('++++++++++++\n', result.dataValues);
-            res.status(201).json({ message: 'thank you for signing up!' });
+            userInfo = result.dataValues;
+            res.status(201).json({ data: userInfo, message: 'thank you for signing up!' });
         });
     });
 };
