@@ -11,12 +11,12 @@ const controllers = require('./controllers');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
-    cors({
-      origin: ["https://localhost:3000"],
-      credentials: true,
-      methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-    })
-  );
+  cors({
+    origin: ["https://localhost:3000"],
+    credentials: true,
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  })
+);
   
 app.use(cookieParser());
 app.get('/auth', controllers.auth);
