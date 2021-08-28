@@ -3,21 +3,31 @@ const { isAuthorized } = require("../tokenFunctions");
 
 module.exports = async (req, res) => {
   try {
-    const data = isAuthorized(req);
+    // const data = isAuthorized(req);
 
-    if (!data) {
+    // if (!data) {
+    //   return res
+    //     .status(404)
+    //     .send({ data: null, message: "존재하지 않는 유저입니다." });
+    // } else {
+    //   // password 삭제
+    //   delete data.password;
+    // console.log(req.body);
+    const email = await User.findOne({
+      where: { email: req.body.email },
+    });
+
+    if (!email) {
       return res
         .status(404)
         .send({ data: null, message: "존재하지 않는 유저입니다." });
     } else {
-      // password 삭제
-      delete data.password;
-
-      const userInfo = await User.findOne({ where: { id: data.id } });
+      const userInfo = await User.findOne({ where: { email: req.body.email } });
 
       res
         .status(200)
         .json({ data: userInfo, message: "유저정보를 불러왔습니다." });
+      // }
     }
   } catch {
     res.status(400).json({ message: "에러입니다." });
