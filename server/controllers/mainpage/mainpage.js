@@ -48,17 +48,17 @@ module.exports = async (req, res) => {
                     });
 
                     // 측정소가 점검 중일 경우 => pm10Value가 "-"으로 표기됨
-                    if (res.data.response.body.items[0].pm10Value === "-") {
+                    if (res.data.response.body.items[0].pm10Value = "-") {
                         return {
-                            station: station,
+                            stationName: station,
                             lastUpdated: res.data.response.body.items[0].dataTime,
-                            pmValue: "the station is currently under inspection."
+                            pm10_value: "the station is currently under inspection."
                         };
                     }
                     return {
-                        station: station,
+                        stationName: station,
                         lastUpdated: res.data.response.body.items[0].dataTime,
-                        pmValue: res.data.response.body.items[0].pm10Value
+                        pm10_value: res.data.response.body.items[0].pm10Value
                     };
                 });
                 
