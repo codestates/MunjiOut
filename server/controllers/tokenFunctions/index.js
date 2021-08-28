@@ -2,30 +2,20 @@ require("dotenv").config();
 const { sign, verify } = require("jsonwebtoken");
 
 module.exports = {
-  gernerateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
-  },
-
-  sendAccessToken: (res, accessToken) => {
-    res
-      .cookie(`jwt=${accessToken}`, {
-        httpOnly: true,
-        secure: true,
-        samesite: "none",
-      })
-      .json({ data: { accessToken }, message: "ok" });
-  },
-
-  isAuthorized: (req) => {
-    const authorization = req.headers.cookie;
-    if (!authorization) {
-      return null;
-    }
-    const token = authorization.split("=")[1];
-    try {
-      return verify(token, process.env.ACCESS_SECRET);
-    } catch (err) {
-      return null;
-    }
-  },
+    generateAccessToken: data => {
+        return sign(data, process.env.ACCESS_SECRET, { expiresIn: '1h' });
+    },
+    sendAccessToken: async (res, accessToken) => {
+      await res.cookie('set-cookie', { jwt : accessToken }, { httpOnly: true, Secure: true, SameSite: "None" }).send({ message: 'ok' });
+    },
+    isAuthorized: req => {
+      const accessToken = req["set-cookie"];
+      console.log(accessToken);
+      if (accessToken) {
+          const payload = verify(accessToken.jwt, process.env.ACCESS_SECRET);
+          return payload;
+      } else {
+          return null;
+      }
+    },
 };
