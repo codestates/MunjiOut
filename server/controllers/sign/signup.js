@@ -1,10 +1,17 @@
+const { isAuthorized } = require('../tokenFunctions');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const db = require('../../models');
-const { generateAccessToken } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
     // console.log('++++++++++++\n', req.body)
+    const accessTokenData = isAuthorized(req);
+
+    // 이미 로그인 중인 상태에서 회원가입을 시도하는 경우
+    if (accessTokenData) {
+        return res.status(403).json({ message: 'you are already a user' });
+    }
+
     if (
         !req.body.username ||
         !req.body.email ||
@@ -46,8 +53,6 @@ module.exports = async (req, res) => {
                 return res.status(409).json({ message: 'conflicting user info exists' });
             }
             // console.log('++++++++++++\n', result.dataValues);
-            const jwt = generateAccessToken(result.dataValues);
-            res.cookie('jwt', jwt).status(201).json({ message: 'thank you for signing up!' });
         });
     });
 };
