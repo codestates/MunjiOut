@@ -9,7 +9,7 @@ module.exports = {
       return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: '7d' });
     },
     resendAccessToken: (res, accessToken, data) => {
-      res.json({ data: { accessToken, data }, message: "ok" });
+      res.json({ data: { accessToken, data }, message: 'ok' });
     },
     isAuthorized: req => {
       const authorization = req.headers.cookie.split('; ')[0].split('accessToken=')[1];
