@@ -63,3 +63,18 @@ img {
   border: 1px solid transparent;
   border-radius: 0.25rem;
 }
+
+.nonHoverOption,
+.hoverOption {
+  list-style: none;
+  font-size: 14px;
+  margin: 5px;
+  padding: 8px 4px;
+}
+
+.nonHoverOption:hover,
+.hoverOption {
+  background-color: whitesmoke;
+  font-weight: bold;
+  color: orange;
+}
