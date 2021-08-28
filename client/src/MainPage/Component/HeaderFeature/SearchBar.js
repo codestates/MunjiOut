@@ -1,0 +1,46 @@
+import './SearchBar.css';
+import { useState } from 'react';
+
+export default function SearchBar (
+    { 
+        keyword, 
+        searchResult, 
+        searchResultIdx, 
+        handleKeywordChange, 
+        handleKeywordDelete, 
+        handleDropDownClick, 
+        handleDropDown 
+    }) {
+        
+    return (
+        <div>
+            <div className="searchContainer">
+                <input 
+                    type="text"
+                    className="searchBar"
+                    placeholder="시/구를 입력해 주세요!" 
+                    value={keyword} 
+                    onChange={(e) => handleKeywordChange(e)}
+                    onKeyUp={(e) => handleDropDown(e)}
+                /> 
+                <input type="submit" className="deleteBtn" onClick={handleKeywordDelete} value={"x"} />
+            </div>
+            {searchResult.length === 0 ? null :
+                <div className="searchList">
+                    {searchResult.map((el, idx) => 
+                        <li
+                            className={searchResultIdx === idx ? "hoverList" : "resultList"}
+                            value={el}
+                            onClick={(e) => {
+                                handleDropDownClick(e)
+                            }}
+                            key={idx}
+                        >
+                            {el}
+                        </li>
+                    )}
+                </div>
+            }
+        </div>
+    );
+}

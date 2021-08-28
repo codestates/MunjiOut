@@ -1,0 +1,18 @@
+.stared,
+.searched {
+  margin: 10px;
+  height: 250px;
+  border-radius: 8px;
+  border: solid lightgray;
+  background-color: beige;
+}
+
+.title {
+  text-align: center;
+}
+
+.staredCards,
+.searchedCards {
+  display: flex;
+  justify-content: space-evenly;
+}
