@@ -28,8 +28,8 @@ module.exports = async (req, res) => {
                 stations.push(el.Location.location_name);
             }));
             // console.log(stations);
-            async function fetchStationInfo () {
-                const updated = stations.map(async (station) => {
+            const fetchStationInfo = async () => {
+                const stationInfo = stations.map(async (station) => {
                     station = station.split(' ')[1];
                     const encodedLocation = encodeURIComponent(station);
                     const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=${encodedLocation}&dataTerm=month&pageNo=1&numOfRows=${rowNum}&returnType=json&serviceKey=${apiKey}`;
@@ -38,7 +38,15 @@ module.exports = async (req, res) => {
                         method: 'GET',
                         url: url,
                     });
-                    
+
+                    // 측정소가 점검 중일 경우 => pm10Value가 "-"으로 표기됨
+                    if (res.data.response.body.items[0].pm10Value = "-") {
+                        return {
+                            station: station,
+                            lastUpdated: res.data.response.body.items[0].dataTime,
+                            pmValue: "the station is currently under inspection."
+                        };
+                    }
                     return {
                         station: station,
                         lastUpdated: res.data.response.body.items[0].dataTime,
@@ -46,7 +54,7 @@ module.exports = async (req, res) => {
                     };
                 });
                 
-                const results = await Promise.all(updated);
+                const results = await Promise.all(stationInfo);
                 // console.log(results);
                 res.status(200).json(results);
             }
