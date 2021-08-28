@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const db = require('../../models');
 const { generateAccessToken, generateRefreshToken, isAuthorized } = require('../tokenFunctions');
 
@@ -25,21 +26,25 @@ module.exports = async (req, res) => {
             if (!data) {
                 // 가입된 유저가 아닐 경우
                 return res.status(404).send({ message: 'invalid user' });
-            } else if (data.password !== password) {
-                // 비밀번호가 틀렸을 경우
-                return res.status(400).json({ message: 'please check your password and try again' });
             } else {
-                const accessToken = generateAccessToken(data.dataValues);
-                const refreshToken = generateRefreshToken(data.dataValues);
-                const cookieOptions = {
-                    httpOnly: true,
-                    sameSite: 'None',
-                    secure: true,
+                const dbPassword = data.password;
+                const salt = data.salt;
+                let hashedPassword = crypto.pbkdf2Sync(password, salt, 9999, 64, 'sha512').toString('base64');
+                if (hashedPassword !== dbPassword ) {
+                    return res.status(400).json({ message: 'please check your password and try again' });
+                } else {
+                    const accessToken = generateAccessToken(data.dataValues);
+                    const refreshToken = generateRefreshToken(data.dataValues);
+                    const cookieOptions = {
+                        httpOnly: true,
+                        sameSite: 'None',
+                        secure: true,
+                    }
+                    
+                    res.cookie('accessToken', accessToken, cookieOptions);
+                    res.cookie('refreshToken', refreshToken, cookieOptions);
+                    return res.status(200).json({ accessToken, refreshToken, message: 'logged in successfully' });
                 }
-                  
-                res.cookie('accessToken', accessToken, cookieOptions);
-                res.cookie('refreshToken', refreshToken, cookieOptions);
-                return res.status(200).json({ accessToken, refreshToken, message: 'logged in successfully' });
             }
         });
     } catch(err) {
