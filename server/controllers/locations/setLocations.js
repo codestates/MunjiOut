@@ -3,6 +3,7 @@ const { UserLocation } = require("../../models");
 
 module.exports = async (req, res) => {
   try {
+    console.log(req.body);
     const { userId, location_name } = req.body;
 
     const locationId = await Location.findOne({
