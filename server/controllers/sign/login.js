@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
                 const cookieOptions = {
                     httpOnly: true,
                     sameSite: 'None',
-                    secure: true,
+                    // secure: true,
                 }
                   
                 res.cookie('accessToken', accessToken, cookieOptions);
