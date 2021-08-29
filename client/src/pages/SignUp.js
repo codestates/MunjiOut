@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "../MunjioutLogo.png";
 import "./SignUp.css";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from "react-router-dom";
 
 function Signup() {
   const [userInfo, setUserInfo] = useState({
@@ -17,6 +17,7 @@ function Signup() {
   const [checkMobile, setCheckMobile] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const history = useHistory();
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
@@ -31,7 +32,7 @@ function Signup() {
     } else {
       setCheckEmail(false);
     }
-    console.log("email :", regExp.test(e.target.value));
+    // console.log("email :", regExp.test(e.target.value));
   };
   const isValidPassword = (e) => {
     let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
@@ -40,7 +41,7 @@ function Signup() {
     } else {
       setCheckPassword(false);
     }
-    console.log("password :", regExp.test(e.target.value));
+    // console.log("password :", regExp.test(e.target.value));
   };
 
   const handleCheckPassword = (e) => {
@@ -80,10 +81,14 @@ function Signup() {
           withCredentials: true,
         })
         .then((res) => {
-          if (res.status === 409) {
-            setErrorMsg("이미 존재하는 이메일입니다");
-            console.log("이미 존재하는 이메일입니다");
+          if (res.status === 201) {
+            console.log(res);
+            // setErrorMsg("회원가입 성공");
+            history.push("/");
           }
+        })
+        .catch((error) => {
+          setErrorMsg("이미 존재하는 이메일입니다");
         });
     }
   };
@@ -95,7 +100,7 @@ function Signup() {
       </Link>
       <div className="Signup_container">
         <div>
-          <div className="info">이름</div>
+          <div className="Signup_info">이름</div>
           <input
             type="text"
             onChange={handleInputValue("username")}
@@ -103,7 +108,7 @@ function Signup() {
           ></input>
         </div>
         <div>
-          <div className="info">이메일</div>
+          <div className="Signup_info">이메일</div>
           <input
             type="email"
             onChange={handleInputValue("email")}
@@ -115,7 +120,7 @@ function Signup() {
           </div>
         </div>
         <div>
-          <div className="info">비밀번호</div>
+          <div className="Signup_info">비밀번호</div>
           <input
             type="password"
             onChange={handleInputValue("password")}
@@ -127,14 +132,14 @@ function Signup() {
           </div>
         </div>
         <div>
-          <div className="info">비밀번호 확인</div>
+          <div className="Signup_info">비밀번호 확인</div>
           <input type="password" onChange={handleCheckPassword}></input>
           <div className="check_retypepassword">
             {checkRetypePassword ? null : "비밀번호가 일치하지 않습니다"}
           </div>
         </div>
         <div>
-          <div className="info">전화번호</div>
+          <div className="Signup_info">전화번호</div>
           <input
             type="text"
             onChange={handleInputValue("mobile")}
@@ -146,13 +151,14 @@ function Signup() {
           </div>
         </div>
         <div>
-          <div className="info">주소</div>
+          <div className="Signup_info">주소</div>
           <input
             placeholder="주소를 검색해주세요"
             onBlur={handleInputValue("address")}
           ></input>
         </div>
-        <button className="btn_SU" onClick={handleSignupRequest}>
+
+        <button className="Signup_btn" onClick={handleSignupRequest}>
           회원가입
         </button>
         <div className="alert-box">{errorMsg}</div>

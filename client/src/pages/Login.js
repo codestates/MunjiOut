@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../MunjioutLogo.png";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import "./Login.css";
 
 function Login() {
   return (
@@ -8,16 +9,16 @@ function Login() {
       <Link to="/">
         <img src={logo}></img>
       </Link>
-      <div className="login_container">
+      <div className="Login_container">
         <div>
-          <div>이메일</div>
+          <div className="Login_info">이메일</div>
           <input></input>
         </div>
         <div>
-          <div>비밀번호</div>
+          <div className="Login_info">비밀번호</div>
           <input></input>
         </div>
-        <button>로그인</button>
+        <button className="Login_btn">로그인</button>
       </div>
     </div>
   );
