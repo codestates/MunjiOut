@@ -11,6 +11,11 @@
   background-color: rgb(252, 222, 52);
 }
 
+.pic_stared,
+.pic_searched {
+  background-color: pink;
+}
+
 /* .location {
   display: flex;
 }

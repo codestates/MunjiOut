@@ -12,7 +12,8 @@ export default function Header (
         handleKeywordDelete,
         handleDropDownClick, 
         handleDropDown, 
-        isLogin 
+        isLogin,
+        handleLogout
     }) {
         
     return (
@@ -27,7 +28,7 @@ export default function Header (
                 handleDropDownClick={handleDropDownClick}
                 handleDropDown={handleDropDown}
             />
-            <Button isLogin={isLogin} />
+            <Button isLogin={isLogin} handleLogout={handleLogout} />
         </div>
     );
 }

@@ -13,26 +13,36 @@ export default function MainPage (
         handleDropDown,
         isLogin, 
         isStared, 
-        isSearched 
+        isSearched,
+        handleLogout,
+        handleIsStaredDelete,
+        handleIsSearched
     }) {
 
-    return (
+        return (
         <div className="mainPage">
-            <Header 
-                keyword={keyword}
-                searchResult={searchResult}
-                searchResultIdx={searchResultIdx}
-                handleKeywordChange={handleKeywordChange}
-                handleKeywordDelete={handleKeywordDelete}
-                handleDropDownClick={handleDropDownClick}
-                handleDropDown={handleDropDown}
-                isLogin={isLogin} 
-            />
-            <Body 
-                isLogin={isLogin} 
-                isStared={isStared} 
-                isSearched={isSearched} 
-            />
+            <div className="mainPage_header">
+                <Header 
+                    keyword={keyword}
+                    searchResult={searchResult}
+                    searchResultIdx={searchResultIdx}
+                    handleKeywordChange={handleKeywordChange}
+                    handleKeywordDelete={handleKeywordDelete}
+                    handleDropDownClick={handleDropDownClick}
+                    handleDropDown={handleDropDown}
+                    isLogin={isLogin} 
+                    handleLogout={handleLogout}
+                />
+            </div>
+            <div className="mainPage_body">
+                <Body 
+                    isLogin={isLogin} 
+                    isStared={isStared} 
+                    isSearched={isSearched} 
+                    handleIsStaredDelete={handleIsStaredDelete}
+                    handleIsSearched={handleIsSearched}
+                />
+            </div>
         </div>
     );
 }
