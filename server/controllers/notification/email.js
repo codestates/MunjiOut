@@ -17,10 +17,12 @@ module.exports = async (req, res) => {
 
     const users = [{
             id: 1,
+            username: "박먼지",
             email: process.env.SENDER_ADDRESS,
         },
         {
             id: 3,
+            username: "최미세",
             email: process.env.SENDER_ADDRESS,
         }
     ];
@@ -86,8 +88,8 @@ module.exports = async (req, res) => {
                         const mailOptions = {
                             from: process.env.SENDER_ADDRESS,
                             to: user.email,
-                            subject: "Email from MunjiOut",
-                            text: results
+                            subject: "Email Notification from MunjiOut",
+                            text: user.username + "님이 설정하신 지역의 미세먼지 데이터입니다.\n\n" + results
                         };
                         // email transporter configuration
                         const transporter = nodemailer.createTransport({
@@ -112,5 +114,4 @@ module.exports = async (req, res) => {
                 }
             });
     });
-   
 };
