@@ -12,12 +12,12 @@ const { findOne } = require('./controllers/search/search');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
-    cors({
-      origin: ["https://localhost:3000"],
-      credentials: true,
-      methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-    })
-  );
+  cors({
+    origin: ["https://localhost:3000"],
+    credentials: true,
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  })
+);
   
 app.use(cookieParser());
 
@@ -27,6 +27,7 @@ app.post('/login', controllers.login);
 app.post('/logout', controllers.logout);
 app.get('/search', findOne);
 app.post('/email', controllers.email);
+app.post('/mainpage', controllers.mainpage);
 app.get("/userinfo", controllers.userinfo);
 app.post("/editUserinfo", controllers.editUserinfo);
 app.post("/withdrawal", controllers.withdrawal);

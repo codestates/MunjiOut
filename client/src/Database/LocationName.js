@@ -1,4 +1,4 @@
-module.exports = [
+const DB_Sample = [
     { locationName: "서울 강남구" },
     { locationName: "서울 강동구" },
     { locationName: "서울 강북구" },
@@ -495,3 +495,5 @@ module.exports = [
     { locationName: "제주 조천읍" },
     { locationName: "제주 한림읍" }
 ]
+
+export default DB_Sample;
