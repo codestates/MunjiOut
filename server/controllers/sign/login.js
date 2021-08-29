@@ -34,6 +34,7 @@ module.exports = async (req, res) => {
                 const cookieOptions = {
                     httpOnly: true,
                     sameSite: 'None',
+                    // HTTPS 통신 시에만 필요
                     // secure: true,
                 }
                   
