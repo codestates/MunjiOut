@@ -12,9 +12,10 @@ module.exports = {
       res.json({ data: { accessToken, data }, message: 'ok' });
     },
     isAuthorized: req => {
-      const authorization = req.headers.cookie.split('; ')[0].split('accessToken=')[1];
-      if (!authorization) {
-        return null;
+      const isCookie = req.headers.cookie;
+      console.log(isCookie);
+      if (!isCookie) {
+        return null
       }
       try {
         return jwt.verify(authorization, process.env.ACCESS_SECRET);
