@@ -1,0 +1,51 @@
+/* .Modal_container {
+  height: 15rem;
+  text-align: center;
+  margin: 1px auto;
+} */
+
+.Modal_backdrop {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+
+.Modal_btn {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  transform: translate(-50%);
+  font-size: 14px;
+}
+
+.Modal_view {
+  box-sizing: border-box;
+  width: 40vh;
+  height: 20vh;
+  min-width: 300px;
+  min-height: 150px;
+  background-color: rgb(255, 255, 255);
+  position: relative;
+  opacity: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+.Modal_message {
+  border: 1px black solid;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  width: 100%;
+}

@@ -99,7 +99,16 @@ function Signup({
           }
         })
         .catch((error) => {
-          setErrorMsg("이미 존재하는 이메일입니다");
+          console.log(error.response);
+          if (error.response.data.message === "conflict: email") {
+            setErrorMsg("이미 가입된 이메일입니다");
+          }
+          if (error.response.data.message === "conflict: mobile") {
+            setErrorMsg("이미 가입된 전화번호입니다");
+          }
+          if (error.response.data.message === "conflict: email & mobile") {
+            setErrorMsg("이미 가입된 이메일 및 전화번호입니다");
+          }
         });
     }
   };
@@ -171,11 +180,6 @@ function Signup({
         </div>
         <div>
           <div className="Signup_info">주소</div>
-          <input
-            placeholder="주소를 검색해주세요"
-            onBlur={handleInputValue("address")}
-            className="Signup_input"
-          ></input>{" "}
           <div>
             <input
               type="text"
@@ -183,10 +187,8 @@ function Signup({
                 handleKeywordChange(e);
               }}
               onKeyUp={(e) => handleDropDown(e)}
-
               onBlur={handleInputAddress}
-              placeholder="주소를 검색해주세요" 
-
+              placeholder="주소를 검색해주세요"
               value={keyword}
               className="Signup_input"
             />
