@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../MunjioutLogo.png";
 import "./SignUp.css";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
+import { getRegExp } from 'korean-regexp';
 
-function Signup({
-  keyword,
-  searchResult,
-  searchResultIdx,
-  handleKeywordChange,
-  handleKeywordDelete,
-  handleDropDownClick,
-  handleDropDown,
-}) {
+function Signup({ LN }) {
+
   const [userInfo, setUserInfo] = useState({
     username: "",
     email: "",
@@ -25,15 +19,40 @@ function Signup({
   const [checkMobile, setCheckMobile] = useState(true);
   const [checkEmail, setCheckEmail] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const [addressResult, setAddressResult] = useState([]);
+  const [addressIdx, setAddressIdx] = useState(-1);
   const history = useHistory();
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
   };
   const handleInputAddress = (e) => {
-    setUserInfo({ ...userInfo, ["address"]: searchResult[searchResultIdx] });
+    // setUserInfo({ ...userInfo, ["address"]: addressResult[addressIdx] });
+    setUserInfo({ ...userInfo, ["address"]: e.target.value });
   };
+  const deleteInputAddress = () =>{
+    setUserInfo({ ...userInfo, ["address"]: "" });
+  }
   console.log(userInfo);
+
+  // userInfo.address 값이 바뀔 때 마다 새로운 AddressResult 생성 useEffect
+  useEffect(() => {
+    if (!userInfo.address) {
+      setAddressResult([]);
+      setAddressIdx(-1);
+    } else {
+      setAddressResult(LN
+        .filter(el => getRegExp(userInfo.address).test(el))
+        .filter((el, idx) => idx < 5 ? el : null)
+      );
+    }
+  }, [userInfo.address]);
+
+  // userInfo.address를 선택했을 시 상태값 초기화 useEffect
+  useEffect(() => {
+    if (userInfo.address === addressResult[0]) setAddressResult([]);
+    if (addressResult.length === 0) setAddressIdx(-1);
+  }, [userInfo.address, addressResult]);
 
   const isValidEmail = (e) => {
     let regExp =
@@ -104,6 +123,23 @@ function Signup({
     }
   };
 
+  // * AddressDropDown에 있는 li 클릭 시, userInfo.address 해당 innerText로 변경
+  const handleAddressDropDownClick = (e) => {
+    setUserInfo({ ...userInfo, ["address"]: e.target.innerText });
+  }
+
+  // * AddressDropDonw에서 방향키, Enter 클릭 시 작용
+  const handleAddressDropDown = (e) => {
+    if (e.key === "ArrowDown" && addressIdx < addressResult.length - 1) {
+      setAddressIdx(addressIdx + 1)
+    } else if (e.key === "ArrowUp" &&  -1 < addressIdx && addressIdx <= addressResult.length - 1) {
+      setAddressIdx(addressIdx - 1)
+    }
+    if (e.key === "Enter" && addressResult.length !== 0) {
+      setUserInfo({...userInfo, ["address"]: addressResult[addressIdx]});
+    }
+  }
+
   return (
     <div className="Signup">
       <Link to="/">
@@ -171,42 +207,33 @@ function Signup({
         </div>
         <div>
           <div className="Signup_info">주소</div>
-          <input
+          {/* <input
             placeholder="주소를 검색해주세요"
             onBlur={handleInputValue("address")}
             className="Signup_input"
-          ></input>{" "}
+          ></input>{" "} */}
           <div>
             <input
               type="text"
-              onChange={(e) => {
-                handleKeywordChange(e);
-              }}
-              onKeyUp={(e) => handleDropDown(e)}
-
-              onBlur={handleInputAddress}
+              onChange={handleInputAddress}
+              onKeyUp={handleAddressDropDown}
               placeholder="주소를 검색해주세요" 
-
-              value={keyword}
+              value={userInfo.address}
               className="Signup_input"
             />
             <input
               type="submit"
-              onClick={handleKeywordDelete}
+              onClick={deleteInputAddress}
               value={"주소 삭제"}
             />
           </div>
-          {searchResult.length === 0 ? null : (
+          {addressResult.length === 0 ? null : (
             <div>
-              {searchResult.map((el, idx) => (
+              {addressResult.map((el, idx) => (
                 <li
-                  className={
-                    searchResultIdx === idx ? "hoverList" : "resultList"
-                  }
+                  className={addressIdx === idx ? "hoverList" : "resultList"}
                   value={el}
-                  onClick={(e) => {
-                    handleDropDownClick(e);
-                  }}
+                  onClick={handleAddressDropDownClick}
                   key={idx}
                 >
                   {el}
@@ -215,7 +242,6 @@ function Signup({
             </div>
           )}
         </div>
-
         <button className="Signup_btn" onClick={handleSignupRequest}>
           회원가입
         </button>
