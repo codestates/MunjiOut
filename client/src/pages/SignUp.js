@@ -4,7 +4,17 @@ import "./SignUp.css";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
-function Signup() {
+function Signup(
+  {
+    keyword,
+    searchResult,
+    searchResultIdx,
+    handleKeywordChange,
+    handleKeywordDelete,
+    handleDropDownClick,
+    handleDropDown
+  }) {
+
   const [userInfo, setUserInfo] = useState({
     username: "",
     email: "",
@@ -20,6 +30,9 @@ function Signup() {
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
+  };
+  const handleInputAddress = (e) => {
+    setUserInfo({ ...userInfo, ["address"]: searchResult[searchResultIdx] });
   };
   console.log(userInfo);
 
@@ -147,10 +160,43 @@ function Signup() {
         </div>
         <div>
           <div className="info">주소</div>
-          <input
+          {/* <input
             placeholder="주소를 검색해주세요"
             onBlur={handleInputValue("address")}
-          ></input>
+          ></input> */}
+          <div>
+            <input 
+              type="text"
+              onChange={(e) => {
+                handleKeywordChange(e)
+              }}
+              onKeyUp={(e) => handleDropDown(e)}
+              onBlur={handleInputAddress}
+              placeholder="주소를 검색해주세요" 
+              value={keyword}
+            /> 
+            <input 
+              type="submit" 
+              onClick={handleKeywordDelete} 
+              value={"주소 삭제"} 
+            />
+          </div>
+          {searchResult.length === 0 ? null :
+            <div>
+              {searchResult.map((el, idx) => 
+                <li
+                  className={searchResultIdx === idx ? "hoverList" : "resultList"}
+                  value={el}
+                  onClick={(e) => {
+                    handleDropDownClick(e)
+                  }}
+                  key={idx}
+                >
+                  {el}
+                </li>
+              )}
+            </div>
+          }
         </div>
         <button className="btn_SU" onClick={handleSignupRequest}>
           회원가입
