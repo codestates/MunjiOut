@@ -17,6 +17,10 @@ module.exports = {
       if (!isCookie) {
         return null
       }
+      const authorization = req.headers.cookie.split('; ')[0].split('accessToken=')[1];
+      if (!authorization) {
+          return null;
+      }
       try {
         return jwt.verify(authorization, process.env.ACCESS_SECRET);
       } catch (err) {
