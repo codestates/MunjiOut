@@ -1,17 +1,50 @@
+.searchContainer {
+  margin: 0px;
+  display: flex;
+}
+
 .searchBar {
-  margin: 2px;
+  margin: 0px;
   padding: 4px 12px;
-  width: 65vw;
-  height: 40px;
-  border-radius: 5px;
-  border: 1px solid gray;
+  width: 50vw;
+  font-size: 14px;
+  border-radius: 12px 0 0 12px;
+  border: 0.3px solid gray;
 }
 
 .deleteBtn {
-  margin: 2px;
-  padding: 10px;
+  margin: 0px;
   font-size: 20px;
-  background-color: rgb(255, 196, 185);
-  border-radius: 5px;
-  border: 1px solid whitesmoke;
+  width: 45px;
+  height: 35px;
+  background-color: orange;
+  border-radius: 0 12px 12px 0;
+  border: 0.3px solid gray;
+  border-left-style: none;
+}
+
+.searchList {
+  position: absolute;
+  z-index: 1;
+  margin: 0px;
+  padding: 4px 12px;
+  width: 50vw;
+  border-radius: 12px;
+  background-color: white;
+  border: 0.3px solid gray;
+}
+
+.resultList,
+.hoverList {
+  list-style: none;
+  font-size: 14px;
+  margin: 5px;
+  padding: 8px 4px;
+}
+
+.resultList:hover,
+.hoverList {
+  background-color: whitesmoke;
+  font-weight: bold;
+  color: orange;
 }

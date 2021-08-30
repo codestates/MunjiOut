@@ -1,0 +1,7 @@
+.mainPage_header {
+  z-index: 1;
+}
+
+.mainPage_body {
+  z-index: 0;
+}

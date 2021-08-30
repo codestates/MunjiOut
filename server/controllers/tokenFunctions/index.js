@@ -1,30 +1,39 @@
 require("dotenv").config();
-const { sign, verify } = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
-  gernerateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
+  generateAccessToken: (data) => {
+    return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
   },
-
-  sendAccessToken: (res, accessToken) => {
-    res
-      .cookie(`jwt=${accessToken}`, {
-        httpOnly: true,
-        secure: true,
-        samesite: "none",
-      })
-      .json({ data: { accessToken }, message: "ok" });
+  generateRefreshToken: (data) => {
+    return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: "7d" });
   },
-
+  resendAccessToken: (res, accessToken, data) => {
+    res.json({ data: { accessToken, data }, message: "ok" });
+  },
   isAuthorized: (req) => {
-    const authorization = req.headers.cookie;
+    const isCookie = req.headers.cookie;
+    // console.log(isCookie);
+    if (!isCookie) {
+      return null;
+    }
+    const authorization = req.headers.cookie
+      .split("; ")[0]
+      .split("accessToken=")[1];
+
     if (!authorization) {
       return null;
     }
-    const token = authorization.split("=")[1];
     try {
-      return verify(token, process.env.ACCESS_SECRET);
+      return jwt.verify(authorization, process.env.ACCESS_SECRET);
     } catch (err) {
+      return null;
+    }
+  },
+  checkRefreshToken: (refreshToken) => {
+    try {
+      return jwt.decode(refreshToken);
+    } catch {
       return null;
     }
   },

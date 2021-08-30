@@ -1,5 +1,6 @@
 const { User } = require("../../models");
 const { isAuthorized } = require("../tokenFunctions");
+const crypto = require("crypto");
 
 module.exports = async (req, res) => {
   try {
@@ -13,26 +14,35 @@ module.exports = async (req, res) => {
           id: accessTokenData.id,
         },
       });
+      console.log(newUserInfo.username);
 
-      if (username) {
-        newUserInfo.username = username;
-      }
-
-      if (address) {
-        newUserInfo.address = address;
-      }
-
-      await newUserInfo.save();
+      const salt = crypto.randomBytes(64).toString("hex");
+      const encryptedPassword = crypto
+        .pbkdf2Sync(req.body.password, salt, 9999, 64, "sha512")
+        .toString("base64");
 
       const payload = {
-        id: newUserInfo.id,
-        username: newUserInfo.username,
-        email: newUserInfo.email,
-        mobile: newUserInfo.mobile,
-        address: newUserInfo.address,
+        username: req.body.username,
+        email: req.body.email,
+        salt: salt,
+        password: encryptedPassword,
+        mobile: req.body.mobile,
+        address: req.body.address,
       };
 
-      // const accessToken = gernerateAccessToken(payload);
+      console.log(payload);
+
+      const result = await User.update(
+        {
+          username: req.body.username,
+          email: req.body.email,
+          salt: salt,
+          password: encryptedPassword,
+          mobile: req.body.mobile,
+          address: req.body.address,
+        },
+        { where: { id: accessTokenData.id } }
+      );
 
       res.status(200).json({
         // accessToken,
@@ -44,7 +54,3 @@ module.exports = async (req, res) => {
     res.status(400).json({ message: "에러입니다." });
   }
 };
-
-// // console.log(req.body);
-// const { username, email, address } = req.body;
-// console.log(req.body);

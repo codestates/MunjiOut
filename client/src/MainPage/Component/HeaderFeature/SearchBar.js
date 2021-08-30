@@ -1,26 +1,46 @@
 import './SearchBar.css';
 import { useState } from 'react';
 
-export default function SearchBar ({ keyword, searchResult, handleKeywordChange, handleDropDownClick, handleKeywordDelete }) {
-
+export default function SearchBar (
+    { 
+        keyword, 
+        searchResult, 
+        searchResultIdx, 
+        handleKeywordChange, 
+        handleKeywordDelete, 
+        handleDropDownClick, 
+        handleDropDown 
+    }) {
+        
     return (
         <div>
-            <input 
-                className="searchBar"
-                placeholder="시/구를 입력해 주세요!" 
-                value={keyword} 
-                onChange={(e) => handleKeywordChange(e)}
-            /> 
-            {keyword === "" ? null : (searchResult.map((el, idx) => {
-                <li
-                    className="dropDownList"
-                    onClick={(e) => handleDropDownClick(e)}
-                    key={idx + 1}
-                >
-                    {el}
-                </li>
-            }))}
-            <span className="deleteBtn" onClick={handleKeywordDelete}>&times;</span>
+            <div className="searchContainer">
+                <input 
+                    type="text"
+                    className="searchBar"
+                    placeholder="미세먼지 수치가 궁금한 지역을 입력하세요!" 
+                    value={keyword} 
+                    onChange={(e) => handleKeywordChange(e)}
+                    onKeyUp={(e) => handleDropDown(e)}
+                /> 
+                <input type="submit" className="deleteBtn" onClick={handleKeywordDelete} value={"x"} />
+            </div>
+            {searchResult.length === 0 ? null :
+                <div className="searchList">
+                    {searchResult.map((el, idx) => 
+                        <li
+                            className={searchResultIdx === idx ? "hoverList" : "resultList"}
+                            value={el}
+                            onClick={(e) => {
+                                handleDropDownClick(e)
+                            }}
+                            key={idx}
+                        >
+                            {el}
+                        </li>
+                    )}
+                </div>
+            }
         </div>
     );
 }
