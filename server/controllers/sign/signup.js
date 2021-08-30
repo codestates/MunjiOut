@@ -1,6 +1,5 @@
 const { isAuthorized } = require('../tokenFunctions');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
+const crypto = require('crypto');
 const db = require('../../models');
 
 module.exports = async (req, res) => {
@@ -22,39 +21,68 @@ module.exports = async (req, res) => {
         return res.status(422).json({ message: 'insufficient parameters supplied' });
     }
 
-    await db.User.findOne({
+    let conflictMessage;
+
+    const isEmailConflict = await db.User.findAll({
         where: {
-            [Op.or]: [{
-                username: req.body.username
-            }],
-            [Op.or]: [{
-                email: req.body.email
-            }],
-            [Op.or]: [{
-                mobile: req.body.mobile
-            }]
+            email: req.body.email
         }
-    })
-    .then(() => {
-        db.User.findOrCreate({
+    });
+
+    const isMobileConflict = await db.User.findAll({
+        where: {
+            mobile: req.body.mobile
+        }
+    });
+
+    // console.log(isEmailConflict.length + "\n"+ isMobileConflict.length);
+    
+    if (isEmailConflict.length > 0 || isMobileConflict.length > 0) {
+        if (isEmailConflict.length > 0 && isMobileConflict.length > 0) {
+            conflictMessage = "conflict: email & mobile";
+        } else if (isEmailConflict.length > 0 && isMobileConflict.length == 0) {
+            conflictMessage = "conflict: email";
+        } else if (isEmailConflict.length == 0 && isMobileConflict.length > 0) {
+            conflictMessage = "conflict: mobile";
+        } 
+        // console.log(conflictMessage)
+        return res.status(409).json({ message: conflictMessage });
+    }
+
+    const salt = crypto.randomBytes(64).toString('hex');
+    const encryptedPassword = crypto.pbkdf2Sync(req.body.password, salt, 9999, 64, 'sha512').toString('base64');
+    // console.log("==============\n", encryptedPassword);
+    
+    try {
+        await db.Location.findOrCreate({
+            where: {
+                location_name: req.body.address,
+            },
+            defaults: {
+                location_name: req.body.address,
+            }
+        })
+    } catch(err) {
+        console.error(err);
+    }
+
+    try {
+        await db.User.findOrCreate({
             where: {
                 email: req.body.email,
             },
             defaults: {
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password,
+                salt: salt,
+                password: encryptedPassword,
                 mobile: req.body.mobile,
                 address: req.body.address
             }
         })
-        .then(([result, created]) => {
-            if (!created) {
-                return res.status(409).json({ message: 'conflicting user info exists' });
-            }
-            // console.log('++++++++++++\n', result.dataValues);
-            userInfo = result.dataValues;
-            res.status(201).json({ data: userInfo, message: 'thank you for signing up!' });
-        });
-    });
+        res.status(201).json({ message: 'thank you for signing up!' });
+    } catch(err) {
+        console.error(err);
+        res.status(501).json({ message: 'failed' });
+    }
 };
