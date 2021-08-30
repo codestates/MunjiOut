@@ -1,14 +1,15 @@
-require('dotenv').config();
-const axios = require('axios');
-var Sequelize = require('sequelize');
-require('sequelize-values')(Sequelize);
-const db = require('../../models');
-const { isAuthorized } = require('../tokenFunctions');
+require("dotenv").config();
+const axios = require("axios");
+var Sequelize = require("sequelize");
+require("sequelize-values")(Sequelize);
+const db = require("../../models");
+const { isAuthorized } = require("../tokenFunctions");
 
 const apiKey = process.env.API_KEY;
 const rowNum = 1;
 
 module.exports = async (req, res) => {
+
     // console.log('++++++++++++\n', req.body);
     const accessTokenData = isAuthorized(req);
     // console.log(accessTokenData);

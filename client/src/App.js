@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Mypage from "./pages/Mypage";
 import EmptyPage from "./pages/EmptyPage";
 import { useEffect, useState } from "react";
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { getRegExp } from 'korean-regexp';
 import axios from 'axios';
@@ -50,9 +51,10 @@ function App() {
       setSearchResult([]);
       setSearchResultIdx(-1);
     } else {
-      setSearchResult(LN
-        .filter(el => getRegExp(keyword).test(el))
-        .filter((el, idx) => idx < 5 ? el : null)
+      setSearchResult(
+        LN.filter((el) => getRegExp(keyword).test(el)).filter((el, idx) =>
+          idx < 5 ? el : null
+        )
       );
     }
   }, [keyword]);
@@ -66,7 +68,7 @@ function App() {
 
   // * SearchBar에 단어를 입력하면, keyword가 변경되는 event handler
   const handleKeywordChange = (e) => setKeyword(e.target.value);
-  
+
   // * kewyword를 초기화하는 event handler
   const handleKeywordDelete = () => setKeyword("");
 
@@ -96,23 +98,30 @@ function App() {
 
   // * DropDown에 있는 li 클릭 시 해당 내용으로 keyword update되는 event handler
   const handleDropDownClick = (e) => {
+
     const finalKeyword = e.target.innerText;
     makeSearchLocation(finalKeyword);
     setKeyword("");
   }
 
+
   // * DropDonw에서 방향키, Enter 클릭 시 작용
   const handleDropDown = async (e) => {
     if (e.key === "ArrowDown" && searchResultIdx < searchResult.length - 1) {
-      setSearchResultIdx(searchResultIdx + 1)
-    } else if (e.key === "ArrowUp" &&  -1 < searchResultIdx && searchResultIdx <= searchResult.length - 1) {
-      setSearchResultIdx(searchResultIdx - 1)
+      setSearchResultIdx(searchResultIdx + 1);
+    } else if (
+      e.key === "ArrowUp" &&
+      -1 < searchResultIdx &&
+      searchResultIdx <= searchResult.length - 1
+    ) {
+      setSearchResultIdx(searchResultIdx - 1);
     }
     if (e.key === "Enter" && searchResult.length !== 0) {
       const finalKeyword = searchResult[searchResultIdx];
       makeSearchLocation(finalKeyword);
       setKeyword("");
     }
+
   }
 
   return (
@@ -121,6 +130,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <MainPage
+
             keyword={keyword}
             searchResult={searchResult}
             searchResultIdx={searchResultIdx}
@@ -135,9 +145,9 @@ function App() {
             handleIsStaredDelete={handleIsStaredDelete}
             handleIsSearched={handleIsSearched}
             />
-          </ Route>
+          </Route>
           <Route path="/signup">
-            <Signup 
+            <Signup
               keyword={keyword}
               searchResult={searchResult}
               searchResultIdx={searchResultIdx}
