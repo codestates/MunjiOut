@@ -5,12 +5,13 @@ import Login from "./pages/Login";
 import Mypage from "./pages/Mypage";
 import EmptyPage from "./pages/EmptyPage";
 import { useEffect, useState } from "react";
+
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { getRegExp } from "korean-regexp";
 import axios from "axios";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [isStared, setIsStared] = useState([]);
   const [isSearched, setIsSearched] = useState([]);
   const LN = LocationName.map((el) => el.locationName);

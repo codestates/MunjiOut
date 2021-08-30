@@ -99,7 +99,16 @@ function Signup({
           }
         })
         .catch((error) => {
-          setErrorMsg("이미 존재하는 이메일입니다");
+          console.log(error.response);
+          if (error.response.data.message === "conflict: email") {
+            setErrorMsg("이미 가입된 이메일입니다");
+          }
+          if (error.response.data.message === "conflict: mobile") {
+            setErrorMsg("이미 가입된 전화번호입니다");
+          }
+          if (error.response.data.message === "conflict: email & mobile") {
+            setErrorMsg("이미 가입된 이메일 및 전화번호입니다");
+          }
         });
     }
   };
