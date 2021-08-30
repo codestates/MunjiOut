@@ -14,7 +14,7 @@ export default function CityCard ({ isLogin, data, stared, idx, handleIsStaredDe
                         value={idx}
                         onClick={handleIsStaredDelete}
                     >
-                        🌕 stared pic
+                        선호
                     </div>
                     : 
                     null
@@ -25,19 +25,20 @@ export default function CityCard ({ isLogin, data, stared, idx, handleIsStaredDe
                         value={idx}
                         onClick={handleIsSearched}
                     >
-                        🌑 searched pic
+                        선호
                     </div>
                     : 
                     null
                 }
             </div>
             <div className="icon">
-                {pm10_value === undefined ? 'N/A' : null}
-                {pm10_value <= 50 ? '🟢 Good!' : null}
-                {50 < pm10_value && pm10_value <= 100 ? '🟠 Not Good.' : null}
-                {100 < pm10_value ? '🔴 Bad...' : null}
+                {pm10_value === undefined ? '🚫 N/A' : null}
+                {pm10_value <= 30 ? '🔵 Very Good!' : null}
+                {30 < pm10_value && pm10_value <= 80 ? '🟢 Not Bad!' : null}
+                {80 < pm10_value && pm10_value <= 150 ? '🟠 Not Good.' : null}
+                {150 < pm10_value ? '🔴 Very Bad...' : null}
             </div>
-            <div className="value">{pm10_value}</div>
+            <div className="value">미세먼지 {pm10_value}</div>
             <div className="time">{lastUpdated}</div>
         </div>
     );

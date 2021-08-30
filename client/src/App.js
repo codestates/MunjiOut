@@ -78,17 +78,18 @@ function App() {
       headers: { "Content-Type": "application/json" },
       withCredentials: true
     };
-    const isCitySearchedBefore = isSearched.map( el => {
+    const isCitySearchedBefore = isSearched.map(el => {
       return (el.stationName === final)
-    }).find(el => { if(el) return true }) || false;
-    const isStaredAlready = isStared.map( el => {
+    }).find(el => el === true) || false;
+    const isStaredAlready = isStared.map(el => {
       return (el.stationName === final)
-    }).find(el => { if(el) return true }) || false;
+    }).find(el => el === true ) || false;
     
     if(!isCitySearchedBefore && !isStaredAlready) {
-      const makeData = await axios
+      await axios
         .get(searchURL, searchConfig)
         .then(datas => setIsSearched(isSearched.concat(datas.data)))
+      // ! Loading을 만들어야 할 것 같습니다!
     } else {
       alert('[선호 지역] 혹은 [검색 지역]에 이미 결과가 있습니다.')
     }
