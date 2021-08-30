@@ -1,7 +1,7 @@
-const { isAuthorized } = require('../tokenFunctions');
+const { isAuthorized } = require("../tokenFunctions");
 
 module.exports = async (req, res) => {
-  const accessTokenData = isAuthorized(req.cookies);
+  const accessTokenData = isAuthorized(req);
   // console.log('++++++++++++\n', accessTokenData)
   if (accessTokenData) {
     const payload = {
@@ -13,8 +13,10 @@ module.exports = async (req, res) => {
       createdAt: accessTokenData.createdAt,
       updatedAt: accessTokenData.updatedAt,
     };
-    return res.status(200).json({ data: { userInfo: payload }, message:' ok' })
+    return res
+      .status(200)
+      .json({ data: { userInfo: payload }, message: " ok" });
   } else {
-    return res.status(401).json({ data: null, message: 'not authorized' });
+    return res.status(401).json({ data: null, message: "not authorized" });
   }
 };

@@ -1,6 +1,8 @@
 const { isAuthorized } = require("../tokenFunctions");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+
+const crypto = require("crypto");
 const db = require("../../models");
 
 module.exports = async (req, res) => {
@@ -24,47 +26,67 @@ module.exports = async (req, res) => {
       .json({ message: "insufficient parameters supplied" });
   }
 
-  await db.User.findOne({
+  const isNewUser = await db.User.findOne({
     where: {
-      [Op.or]: [
-        {
-          username: req.body.username,
-        },
-      ],
+      // [Op.or]: [
+      //   {
+      //     username: req.body.username,
+      //   },
+      // ],
       [Op.or]: [
         {
           email: req.body.email,
         },
       ],
-      [Op.or]: [
-        {
-          mobile: req.body.mobile,
-        },
-      ],
+      // [Op.or]: [
+      //   {
+      //     mobile: req.body.mobile,
+      //   },
+      // ],
     },
-  }).then(() => {
-    db.User.findOrCreate({
+  });
+  // console.log(isNewUser);
+
+  if (isNewUser) {
+    return res.status(409).json({ message: "conflicting user info exists" });
+  }
+
+  const salt = crypto.randomBytes(64).toString("hex");
+  const encryptedPassword = crypto
+    .pbkdf2Sync(req.body.password, salt, 9999, 64, "sha512")
+    .toString("base64");
+  // console.log("==============\n", encryptedPassword);
+
+  try {
+    await db.Location.findOrCreate({
+      where: {
+        location_name: req.body.address,
+      },
+      defaults: {
+        location_name: req.body.address,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+  }
+
+  try {
+    await db.User.findOrCreate({
       where: {
         email: req.body.email,
       },
       defaults: {
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
+        salt: salt,
+        password: encryptedPassword,
         mobile: req.body.mobile,
         address: req.body.address,
       },
-    }).then(([result, created]) => {
-      if (!created) {
-        return res
-          .status(409)
-          .json({ message: "conflicting user info exists" });
-      }
-      // console.log('++++++++++++\n', result.dataValues);
-      userInfo = result.dataValues;
-      res
-        .status(201)
-        .json({ data: userInfo, message: "thank you for signing up!" });
     });
-  });
+    res.status(201).json({ message: "thank you for signing up!" });
+  } catch (err) {
+    console.error(err);
+    res.status(501).json({ message: "failed" });
+  }
 };

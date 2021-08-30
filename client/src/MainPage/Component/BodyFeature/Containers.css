@@ -1,5 +1,5 @@
-.stared,
-.searched {
+.stared_container,
+.searched_container {
   margin: 10px;
   height: 250px;
   border-radius: 8px;
@@ -11,8 +11,9 @@
   text-align: center;
 }
 
-.staredCards,
-.searchedCards {
+.stared_cards,
+.searched_cards {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  /* justify-content: space-evenly; */
 }

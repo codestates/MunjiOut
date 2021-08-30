@@ -30,6 +30,9 @@ function Signup({
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
   };
+  const handleInputAddress = (e) => {
+    setUserInfo({ ...userInfo, ["address"]: searchResult[searchResultIdx] });
+  };
   console.log(userInfo);
 
   const isValidEmail = (e) => {
@@ -168,11 +171,6 @@ function Signup({
         </div>
         <div>
           <div className="Signup_info">주소</div>
-          <input
-            placeholder="주소를 검색해주세요"
-            onBlur={handleInputValue("address")}
-            className="Signup_input"
-          ></input>{" "}
           <div>
             <input
               type="text"
@@ -180,8 +178,7 @@ function Signup({
                 handleKeywordChange(e);
               }}
               onKeyUp={(e) => handleDropDown(e)}
-              // ! 이 부분에서 어떻게 userInfo를 다뤄야할지 생각이 나질 않습니다...
-              onBlur={handleInputValue("address")}
+              onBlur={handleInputAddress}
               placeholder="주소를 검색해주세요"
               value={keyword}
               className="Signup_input"
