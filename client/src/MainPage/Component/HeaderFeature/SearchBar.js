@@ -18,7 +18,7 @@ export default function SearchBar (
                 <input 
                     type="text"
                     className="searchBar"
-                    placeholder="시/구를 입력해 주세요!" 
+                    placeholder="미세먼지 수치가 궁금한 지역을 입력하세요!" 
                     value={keyword} 
                     onChange={(e) => handleKeywordChange(e)}
                     onKeyUp={(e) => handleDropDown(e)}

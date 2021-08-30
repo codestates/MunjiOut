@@ -2,33 +2,33 @@ import './Containers.css';
 import CityCard from './Cards/CityCard';
 import EmptyCard from './Cards/EmptyCard';
 
-export default function Container ({ isLogin, isStared, isSearched}) {
+export default function Container ({ isLogin, isStared, isSearched, handleIsStaredDelete, handleIsSearched }) {
 
-    const staredEmptyCard = new Array(3 - (isStared.length % 3)).fill()
-        .map((el, idx) => idx + 1);
-    const searchedEmptyCard = new Array(3 - (isSearched.length % 3)).fill()
-        .map((el, idx) => idx + 1);
+    const staredEmptyCardLen = 3 - isStared.length;
+    const searchedEmptyCardLen = (isSearched.length % 3 === 0 && isSearched.length !== 0) ? 0 : 3 - (isSearched.length % 3);
+    const staredEmptyCard = new Array(staredEmptyCardLen).fill().map((el, idx) => idx);
+    const searchedEmptyCard = new Array(searchedEmptyCardLen).fill().map((el, idx) => idx);
 
     return (
         <>
             <div>
-                <section className="stared">
+                <section className="stared_container">
                     <div className="title">
                         🌕 Stared City Card 🌕
                     </div>
-                    <div className="staredCards">
-                        {isStared.map(el => <CityCard isLogin={isLogin} data={el} stared={true} key={el.id} />)}
+                    <div className="stared_cards">
+                        {isStared.map((el, idx) => <CityCard key={idx} isLogin={isLogin} data={el} stared={true} idx={idx} handleIsStaredDelete={handleIsStaredDelete} />)}
                         {staredEmptyCard.map(el => <EmptyCard key={el} />)}
                     </div>
                 </section>
             </div>
             <div>
-                <section className="searched">
+                <section className="searched_container">
                     <div className="title">
                         🌑 Searched City Card 🌑
                     </div>
-                    <div className="searchedCards">
-                        {isSearched.map(el => <CityCard isLogin={isLogin} data={el} stared={false} key={el.id} />)}
+                    <div className="searched_cards">
+                        {isSearched.map((el, idx) => <CityCard key={idx} isLogin={isLogin} data={el} stared={false} idx={idx}handleIsSearched={handleIsSearched} />)}
                         {searchedEmptyCard.map(el => <EmptyCard key={el} />)}
                     </div>
                 </section>
