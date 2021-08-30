@@ -6,6 +6,7 @@ const db = require('../../models');
 module.exports = async (req, res) => {
     // console.log('++++++++++++\n', req.body);
     const stations = [];
+    let isLocationEmpty = false;
 
     await db.UserLocation.findAll({
         where: { userId: req.body.userId },
@@ -17,23 +18,27 @@ module.exports = async (req, res) => {
             data.map((el => {
                 stations.push(el.locationId);
             }));
-            console.log(stations);
+            // console.log(stations);
+        } else {
+            isLocationEmpty = true;
         }
     });
-
-    db.Location.findAll()
-    .then((data) => {
-        // console.log(Sequelize.getValues(data));
-        const stationList = Sequelize.getValues(data);
-        const pLocation = [];
-        stationList.filter((station) => {
-            if (stations.includes(station.id)) {
-                pLocation.push(station.location_name);
-            }
+    
+    if (isLocationEmpty == false) {
+        db.Location.findAll()
+        .then((data) => {
+            // console.log(Sequelize.getValues(data));
+            const stationList = Sequelize.getValues(data);
+            const pLocation = [];
+            stationList.filter((station) => {
+                if (stations.includes(station.id)) {
+                    pLocation.push(station.location_name);
+                }
+            })
+            console.log(pLocation);
+            return res.status(200).send(pLocation);
         })
-        console.log(pLocation);
-        return res.status(200).send(pLocation);
-    })
-
-    return res.status(400);
+    } else {
+        return res.status(400).json({ message: "please choose your preferred locations" });
+    }
 };
