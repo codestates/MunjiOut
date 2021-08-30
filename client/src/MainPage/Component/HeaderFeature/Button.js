@@ -1,7 +1,8 @@
 import './Button.css';
 import { Link } from 'react-router-dom';
 
-export default function Button ({ isLogin }) {
+export default function Button ({ isLogin, handleLogout}) {
+
     return (
         <div>
             { !isLogin ? 
@@ -9,9 +10,7 @@ export default function Button ({ isLogin }) {
                     <button className="btn login">Login</button>
                 </Link> 
                 :
-                <Link to="/logout" style={{ textDecoration: 'none' }}>
-                    <button className="btn logout">Logout</button>
-                </Link>
+                <button className="btn logout" onClick={handleLogout}>Logout</button>
             }
             { !isLogin ?
                 <Link to="/signup" style={{ textDecoration: 'none' }}> 
