@@ -43,7 +43,8 @@ export default function Container ({ isLogin, isStared, isSearched, handleIsStar
                                 isLogin={isLogin} 
                                 data={el} 
                                 stared={false} 
-                                idx={idx}handleIsSearched={handleIsSearched} 
+                                idx={idx}
+                                handleIsSearched={handleIsSearched} 
                             />
                         )}
                         {searchedEmptyCard.map(el => <EmptyCard key={el} />)}
