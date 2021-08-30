@@ -47,6 +47,19 @@ module.exports = async (req, res) => {
     // console.log("==============\n", encryptedPassword);
     
     try {
+        await db.Location.findOrCreate({
+            where: {
+                location_name: req.body.address,
+            },
+            defaults: {
+                location_name: req.body.address,
+            }
+        })
+    } catch(err) {
+        console.error(err);
+    }
+
+    try {
         await db.User.findOrCreate({
             where: {
                 email: req.body.email,
