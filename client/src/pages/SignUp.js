@@ -4,7 +4,15 @@ import "./SignUp.css";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 
-function Signup() {
+function Signup({
+  keyword,
+  searchResult,
+  searchResultIdx,
+  handleKeywordChange,
+  handleKeywordDelete,
+  handleDropDownClick,
+  handleDropDown,
+}) {
   const [userInfo, setUserInfo] = useState({
     username: "",
     email: "",
@@ -96,7 +104,7 @@ function Signup() {
   return (
     <div className="Signup">
       <Link to="/">
-        <img src={logo}></img>
+        <img src={logo} className="Logo"></img>
       </Link>
       <div className="Signup_container">
         <div>
@@ -105,6 +113,7 @@ function Signup() {
             type="text"
             onChange={handleInputValue("username")}
             placeholder="이름을 입력해주세요"
+            className="Signup_input"
           ></input>
         </div>
         <div>
@@ -114,6 +123,7 @@ function Signup() {
             onChange={handleInputValue("email")}
             onBlur={isValidEmail}
             placeholder="이메일을 입력해주세요  ex)abcd@munjiout.com"
+            className="Signup_input"
           ></input>
           <div className="check_email">
             {checkEmail ? null : "올바른 이메일 형식이 아닙니다."}
@@ -126,6 +136,7 @@ function Signup() {
             onChange={handleInputValue("password")}
             onBlur={isValidPassword}
             placeholder="영문/숫자 조합 8~10글자"
+            className="Signup_input"
           ></input>
           <div className="check_password">
             {checkPassword ? null : "올바른 비밀번호 형식이 아닙니다."}
@@ -133,7 +144,11 @@ function Signup() {
         </div>
         <div>
           <div className="Signup_info">비밀번호 확인</div>
-          <input type="password" onChange={handleCheckPassword}></input>
+          <input
+            type="password"
+            onChange={handleCheckPassword}
+            className="Signup_input"
+          ></input>
           <div className="check_retypepassword">
             {checkRetypePassword ? null : "비밀번호가 일치하지 않습니다"}
           </div>
@@ -145,6 +160,7 @@ function Signup() {
             onChange={handleInputValue("mobile")}
             onBlur={isValidMobile}
             placeholder=" - 를 제외하고 입력해주세요"
+            className="Signup_input"
           ></input>
           <div className="check_mobile">
             {checkMobile ? null : "전화번호 형식이 올바르지 않습니다"}
@@ -155,7 +171,45 @@ function Signup() {
           <input
             placeholder="주소를 검색해주세요"
             onBlur={handleInputValue("address")}
-          ></input>
+            className="Signup_input"
+          ></input>{" "}
+          <div>
+            <input
+              type="text"
+              onChange={(e) => {
+                handleKeywordChange(e);
+              }}
+              onKeyUp={(e) => handleDropDown(e)}
+              // ! 이 부분에서 어떻게 userInfo를 다뤄야할지 생각이 나질 않습니다...
+              onBlur={handleInputValue("address")}
+              placeholder="주소를 검색해주세요"
+              value={keyword}
+              className="Signup_input"
+            />
+            <input
+              type="submit"
+              onClick={handleKeywordDelete}
+              value={"주소 삭제"}
+            />
+          </div>
+          {searchResult.length === 0 ? null : (
+            <div>
+              {searchResult.map((el, idx) => (
+                <li
+                  className={
+                    searchResultIdx === idx ? "hoverList" : "resultList"
+                  }
+                  value={el}
+                  onClick={(e) => {
+                    handleDropDownClick(e);
+                  }}
+                  key={idx}
+                >
+                  {el}
+                </li>
+              ))}
+            </div>
+          )}
         </div>
 
         <button className="Signup_btn" onClick={handleSignupRequest}>

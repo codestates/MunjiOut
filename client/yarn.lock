@@ -8255,6 +8255,11 @@
   "resolved" "https://registry.npmjs.org/klona/-/klona-2.0.4.tgz"
   "version" "2.0.4"
 
+"korean-regexp@^1.0.9":
+  "integrity" "sha512-rhuYSVkwH2NDskWhaZbzeOC480t/wr8a/WED1gFk60NPeZIM7Ohl1F2/Mtn038V9Op2XXvQ4cSRAhtm44V+lfg=="
+  "resolved" "https://registry.npmjs.org/korean-regexp/-/korean-regexp-1.0.9.tgz"
+  "version" "1.0.9"
+
 "language-subtag-registry@~0.3.2":
   "integrity" "sha512-L0IqwlIXjilBVVYKFT37X9Ih11Um5NEl9cbJIuU/SwP/zEEAbBPOnEeeuxVMf45ydWQRDQN3Nqc96OgbH1K+Pg=="
   "resolved" "https://registry.npmjs.org/language-subtag-registry/-/language-subtag-registry-0.3.21.tgz"
