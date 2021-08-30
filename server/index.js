@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ["https://localhost:3000"],
+    origin: ["http://localhost:3000"],
     credentials: true,
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
   })
@@ -21,13 +21,13 @@ app.use(
 
 app.use(cookieParser());
 
-app.get('/auth', controllers.auth);
-app.post('/signup', controllers.signup);
-app.post('/login', controllers.login);
-app.post('/logout', controllers.logout);
-app.get('/search', findOne);
-app.get('/email', controllers.email);
-app.get('/mainpage', controllers.mainpage);
+app.get("/auth", controllers.auth);
+app.post("/signup", controllers.signup);
+app.post("/login", controllers.login);
+app.post("/logout", controllers.logout);
+app.get("/search", findOne);
+app.get("/email", controllers.email);
+app.get("/mainpage", controllers.mainpage);
 app.get("/userinfo", controllers.userinfo);
 app.post("/editUserinfo", controllers.editUserinfo);
 app.post("/withdrawal", controllers.withdrawal);

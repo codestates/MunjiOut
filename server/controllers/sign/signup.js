@@ -47,7 +47,7 @@ module.exports = async (req, res) => {
         } else if (isEmailConflict.length == 0 && isMobileConflict.length > 0) {
             conflictMessage = "conflict: mobile";
         } 
-        // console.log(conflictMessage)
+        // console.log(conflictMessage);
         return res.status(409).json({ message: conflictMessage });
     }
 

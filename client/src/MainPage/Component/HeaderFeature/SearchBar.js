@@ -1,5 +1,4 @@
 import './SearchBar.css';
-import { useState } from 'react';
 
 export default function SearchBar (
     { 
@@ -23,7 +22,12 @@ export default function SearchBar (
                     onChange={(e) => handleKeywordChange(e)}
                     onKeyUp={(e) => handleDropDown(e)}
                 /> 
-                <input type="submit" className="deleteBtn" onClick={handleKeywordDelete} value={"x"} />
+                <button 
+                    className="deleteBtn" 
+                    onClick={handleKeywordDelete} 
+                >
+                    &times;
+                </button>
             </div>
             {searchResult.length === 0 ? null :
                 <div className="searchList">

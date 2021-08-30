@@ -1,5 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 .Signup {
   text-align: center;
+  background-color: rgb(235, 235, 235);
+  height: 100vh;
 }
 
 .Signup_container {
@@ -10,28 +16,21 @@
   margin-right: auto;
 }
 
-body {
-  display: flex;
-  background-color: rgb(235, 235, 235);
-}
-
-input {
+.Signup_input {
   width: 300px;
   height: 25px;
   margin-bottom: 10px;
 }
-
-.info {
+*/ .Signup_info {
   font-size: 17px;
   text-align: left;
   font-weight: bold;
 }
 
-img {
+.Logo {
   margin-bottom: 30px;
 }
-
-.btn_SU {
+*/ .Signup_btn {
   font-size: 0.8rem;
   font-weight: bold;
   width: 100px;
