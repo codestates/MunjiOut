@@ -11,7 +11,7 @@ import { getRegExp } from "korean-regexp";
 import axios from "axios";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [isStared, setIsStared] = useState([]);
   const [isSearched, setIsSearched] = useState([]);
   const LN = LocationName.map((el) => el.locationName);
@@ -28,6 +28,7 @@ function App() {
   const handleLogin = () => {
     setIsLogin(true);
   };
+  console.log("?????????????", isLogin);
 
   // * stared pic이 클릭되면, 해당 stared City Card delete
   // ! query

@@ -12,12 +12,15 @@ function Login({ handleLogin }) {
   });
   const [errorMsg, setErrorMsg] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
   const history = useHistory();
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
-  console.log(loginInfo);
+  const handleHistory = () => {
+    history.push("/");
+  };
   const handleLoginRequest = () => {
     if ((loginInfo.email === "", loginInfo.password === "")) {
       setErrorMsg("이메일과 비밀번호를 입력해주세요");
@@ -30,8 +33,8 @@ function Login({ handleLogin }) {
         .then((res) => {
           console.log(res);
           handleLogin();
+          setMessage("먼지아웃에 오신걸 환영합니다");
           setIsOpen(true);
-          // history.push("/");
         })
         .catch((err) => {
           console.log(err.response);
@@ -57,7 +60,7 @@ function Login({ handleLogin }) {
             onChange={handleInputValue("email")}
           ></input>
         </div>
-        <Modal isOpen={isOpen} />
+        {isOpen ? <Modal message={message} onClick={handleHistory} /> : null}
         <div>
           <div className="Login_info">비밀번호</div>
           <input
