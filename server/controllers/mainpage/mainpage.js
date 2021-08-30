@@ -1,7 +1,5 @@
 require('dotenv').config();
 const axios = require('axios');
-var Sequelize = require('sequelize');
-require('sequelize-values')(Sequelize);
 const db = require('../../models');
 const { isAuthorized } = require('../tokenFunctions');
 
@@ -27,10 +25,8 @@ module.exports = async (req, res) => {
             }
         ],
         where: { userId: accessTokenData.id },
-    })
-    
-    locationData = Sequelize.getValues(locationData);
-    
+    });
+
     if (locationData.length > 0) {
         locationData.map((el => {
             stations.push(el.Location.location_name);
@@ -38,6 +34,7 @@ module.exports = async (req, res) => {
         // console.log(stations);
         const fetchStationInfo = async () => {
             const stationInfo = stations.map(async (station) => {
+                const stationData = station;
                 station = station.split(' ')[1];
                 const encodedLocation = encodeURIComponent(station);
                 const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=${encodedLocation}&dataTerm=month&pageNo=1&numOfRows=${rowNum}&returnType=json&serviceKey=${apiKey}`;
@@ -47,18 +44,34 @@ module.exports = async (req, res) => {
                     url: url,
                 });
 
+                const locationInfo = await db.Location.findOne({
+                    where: {
+                        location_name: stationData
+                    }
+                });
+
+                const howManyLikes = await db.UserLocation.findAll({
+                    where: {
+                        locationId: locationInfo.id
+                    }
+                });
+
+                // console.log("++++++++++\n" + howManyLikes.length);
+
                 // 측정소가 점검 중일 경우 => pm10Value가 "-"으로 표기됨
-                if (res.data.response.body.items[0].pm10Value = "-") {
+                if (res.data.response.body.items[0].pm10Value === "-") {
                     return {
                         stationName: station,
                         lastUpdated: res.data.response.body.items[0].dataTime,
-                        pm10_value: "the station is currently under inspection."
+                        pm10_value: "the station is currently under inspection.",
+                        likes: howManyLikes.length
                     };
                 }
                 return {
                     stationName: station,
                     lastUpdated: res.data.response.body.items[0].dataTime,
-                    pm10_value: res.data.response.body.items[0].pm10Value
+                    pm10_value: res.data.response.body.items[0].pm10Value,
+                    likes: howManyLikes.length
                 };
             });
             
