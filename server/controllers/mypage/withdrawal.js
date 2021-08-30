@@ -4,14 +4,19 @@ const { isAuthorized } = require("../tokenFunctions");
 module.exports = async (req, res) => {
   try {
     const accessTokenData = isAuthorized(req);
+    console.log(accessTokenData);
 
     if (!accessTokenData) {
       return res.status(404).send({ message: "회원정보를 다시 확인해주세요." });
     } else {
       await User.destroy({
-        // where: { id: deleteUser.id },
         where: { id: accessTokenData.id },
       });
+
+      console.log(req.headers.cookie);
+
+      res.cookie("accessToken", "");
+      res.cookie("refreshToken", "");
 
       res
         .status(200)
@@ -21,7 +26,3 @@ module.exports = async (req, res) => {
     res.status(400).json({ message: "에러입니다." });
   }
 };
-
-// const email = await User.findOne({
-//   where: { email: req.body.email },
-// });

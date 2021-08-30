@@ -4,6 +4,7 @@ const { isAuthorized } = require("../tokenFunctions");
 module.exports = async (req, res) => {
   try {
     const accessTokenData = isAuthorized(req);
+    console.log(accessTokenData);
 
     if (!accessTokenData) {
       return res
@@ -26,7 +27,3 @@ module.exports = async (req, res) => {
     res.status(400).json({ message: "에러입니다." });
   }
 };
-
-// const email = await User.findOne({
-//   where: { email: req.body.email },
-// });
