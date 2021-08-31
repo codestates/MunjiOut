@@ -4,7 +4,7 @@ import "./Mypage.css";
 // import axios from "axios";
 import { Link } from "react-router-dom";
 
-function Mypage() {
+function Mypage({ userinfo }) {
   return (
     <div className="Mypage">
       <Link to="/">
@@ -15,8 +15,8 @@ function Mypage() {
           <div className="Mypage_info">이름</div>
           <input
             type="text"
-            placeholder="이름을 입력해주세요"
             className="Mypage_input"
+            value={userinfo.username}
           ></input>
         </div>
         <div>
@@ -25,6 +25,7 @@ function Mypage() {
             type="email"
             placeholder="이메일을 입력해주세요  ex)abcd@munjiout.com"
             className="Mypage_input"
+            value={userinfo.email}
           ></input>
           <div className="check_email"></div>
         </div>
@@ -46,8 +47,8 @@ function Mypage() {
           <div className="Mypage_info">전화번호</div>
           <input
             type="text"
-            placeholder=" - 를 제외하고 입력해주세요"
             className="Mypage_input"
+            value={userinfo.mobile}
           ></input>
           <div className="check_mobile"></div>
         </div>
