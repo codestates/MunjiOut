@@ -1,5 +1,6 @@
 require('dotenv').config();
 const fetch = require('node-fetch');
+const db = require('../../models');
 
 const apiKey = process.env.API_KEY;
 const rowNum = 1;
@@ -8,14 +9,25 @@ let lastUpdated;
 let pmValue;
 
 module.exports = {
-    // 예시: http://localhost:4000/search?query=서울+강남구
-    findOne: (req, res) => {
+    // 예시(http 환경일 때): http://localhost:4000/search?query=서울+강남구
+    findOne: async (req, res) => {
         if (req.query.query !== undefined) {
             console.log(req.query.query);
             if (req.query.query.length == 0) {
                 return res.status(400).json({ message: "please enter a search term" });
             }
-           
+            try {
+                await db.Location.findOrCreate({
+                    where: {
+                        location_name: req.query.query,
+                    },
+                    defaults: {
+                        location_name: req.query.query,
+                    }
+                })
+            } catch(err) {
+                console.error(err);
+            }
             stationLocation = req.query.query
             // console.log("station: " + stationLocation);
             const encodedLocation = encodeURIComponent(stationLocation.split(' ')[1]);
@@ -36,7 +48,6 @@ module.exports = {
             .catch(error => {
                 throw(error);
             });
-            
         } else {
             return res.status(400);
         }
