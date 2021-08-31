@@ -61,14 +61,14 @@ module.exports = async (req, res) => {
                 // 측정소가 점검 중일 경우 => pm10Value가 "-"으로 표기됨
                 if (res.data.response.body.items[0].pm10Value === "-") {
                     return {
-                        stationName: station,
+                        stationName: stationData,
                         lastUpdated: res.data.response.body.items[0].dataTime,
                         pm10_value: "the station is currently under inspection.",
                         likes: howManyLikes.length
                     };
                 }
                 return {
-                    stationName: station,
+                    stationName: stationData,
                     lastUpdated: res.data.response.body.items[0].dataTime,
                     pm10_value: res.data.response.body.items[0].pm10Value,
                     likes: howManyLikes.length
