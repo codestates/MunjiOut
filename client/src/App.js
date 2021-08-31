@@ -28,7 +28,6 @@ function App() {
   const handleLogin = () => {
     setIsLogin(true);
   };
-  console.log("?????????????", isLogin);
 
   // * stared pic이 클릭되면, 해당 stared City Card delete
   // ! query

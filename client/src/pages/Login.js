@@ -31,7 +31,6 @@ function Login({ handleLogin }) {
           withCredentials: true,
         })
         .then((res) => {
-          console.log(res);
           handleLogin();
           setMessage("먼지아웃에 오신걸 환영합니다");
           setIsOpen(true);
