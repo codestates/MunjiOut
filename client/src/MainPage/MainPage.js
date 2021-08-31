@@ -16,7 +16,6 @@ export default function MainPage({
   handleLogout,
   handleIsStaredDelete,
   handleIsSearched,
-  getUserinfo,
 }) {
   return (
     <div className="mainPage">
@@ -31,7 +30,6 @@ export default function MainPage({
           handleDropDown={handleDropDown}
           isLogin={isLogin}
           handleLogout={handleLogout}
-          getUserinfo={getUserinfo}
         />
       </div>
       <div className="mainPage_body">

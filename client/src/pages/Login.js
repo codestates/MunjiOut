@@ -5,7 +5,7 @@ import "./Login.css";
 import axios from "axios";
 import Modal from "../components/Modal";
 
-function Login({ handleLogin, getAccessToken }) {
+function Login({ handleLogin }) {
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -14,6 +14,7 @@ function Login({ handleLogin, getAccessToken }) {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const history = useHistory();
+  const aT = localStorage.getItem("accessToken");
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
@@ -31,12 +32,29 @@ function Login({ handleLogin, getAccessToken }) {
           withCredentials: true,
         })
         .then((res) => {
-          console.log("login :", res);
-          getAccessToken(res.data.accessToken);
           localStorage.setItem("accessToken", res.data.accessToken);
           handleLogin();
-          setMessage("먼지아웃에 오신걸 환영합니다");
+          setMessage("환영합니다");
           setIsOpen(true);
+          return res.data.accessToken;
+        })
+        .then((token) => {
+          axios
+            .get("https://localhost:4000/userinfo", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            })
+            .then((res) => {
+              console.log("userinfo :", res.data.data);
+              // setUserinfo(res.data.data);
+              localStorage.setItem("userinfo", JSON.stringify(res.data.data));
+            })
+            .catch((err) => {
+              console.log("userinfo error :", err.response);
+            });
         })
         .catch((err) => {
           console.log(err.response);

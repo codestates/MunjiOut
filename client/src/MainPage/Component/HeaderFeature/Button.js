@@ -1,7 +1,7 @@
 import "./Button.css";
 import { Link } from "react-router-dom";
 
-export default function Button({ isLogin, handleLogout, getUserinfo }) {
+export default function Button({ isLogin, handleLogout }) {
   return (
     <div>
       {!isLogin ? (
@@ -19,9 +19,7 @@ export default function Button({ isLogin, handleLogout, getUserinfo }) {
         </Link>
       ) : (
         <Link to="/mypage" style={{ textDecoration: "none" }}>
-          <button className="btn mypage" onClick={getUserinfo}>
-            MyPage
-          </button>
+          <button className="btn mypage">MyPage</button>
         </Link>
       )}
     </div>

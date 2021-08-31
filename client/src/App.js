@@ -17,25 +17,22 @@ function App() {
   const [keyword, setKeyword] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultIdx, setSearchResultIdx] = useState(-1);
-  const [accessToken, setAccessToken] = useState(null);
   const aT = localStorage.getItem("accessToken");
-  const [userinfo, setUserinfo] = useState({
-    id: "",
-    username: "",
-    email: "",
-    mobile: "",
-    address: "",
-  });
+  // const [userinfo, setUserinfo] = useState({
+  //   id: "",
+  //   username: "",
+  //   email: "",
+  //   mobile: "",
+  //   address: "",
+  // });
+  // const infomation = JSON.parse(localStorage.getItem("userinfo"));
+  // console.log("info:", infomation);
   // ! Loaidng #1
   // const [isLoading, setIsLoading] = useState([]);
 
-  const getAccessToken = (token) => {
-    setAccessToken(token);
-  };
-  console.log("Token :", accessToken);
-
   // * Logout을 클릭하면, isLogin => false
   const handleLogout = (e) => {
+    setIsStared([]);
     setIsLogin(false);
     alert("로그아웃 되었습니다.");
 
@@ -47,16 +44,16 @@ function App() {
     };
     axios.post(logoutURL, logoutConfig);
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("userinfo");
   };
 
   const handleLogin = () => {
     setIsLogin(true);
   };
 
-  // * isLogin이 false로 변경되면, isStared rerender 되는 useEffect
-  useEffect(() => {
-    setIsStared([]);
-  }, [isLogin === false]);
+  const afterWithdrawal = () => {
+    setIsLogin(false);
+  };
 
   // * stared pic이 클릭되면, 해당 stared City Card delete
   // ! query
@@ -76,14 +73,13 @@ function App() {
       setIsStared(isSearched.slice(curValue, curValue + 1).concat(isStared));
       setIsSearched(isSearched.filter((el, idx) => idx !== curValue));
 
-      console.log("🟢", accessToken);
       const setLocationURL = "https://localhost:4000/setLocation";
       const setLocationPayload = {
         location_name: isSearched[curValue].data.stationName,
       };
       const setLocationConfig = {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${aT}`,
           "Content-Type": "application/json",
         },
         withCredentials: true,
@@ -184,24 +180,7 @@ function App() {
     }
   };
 
-  const getUserinfo = () => {
-    axios
-      .get("https://localhost:4000/userinfo", {
-        headers: {
-          Authorization: `Bearer ${aT}`,
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log("userinfo :", res);
-        setUserinfo(res.data.data);
-      })
-      .catch((err) => {
-        console.log("userinfo error :", err.response);
-      });
-  };
-
+  console.log("-------------------------------------------------------");
   axios
     .get("https://localhost:4000/accesstokenrequest", {
       headers: {
@@ -211,7 +190,7 @@ function App() {
       withCredentials: true,
     })
     .then((res) => {
-      console.log("mmmmmmmmmmmmmmmm :", res);
+      // console.log("mmmmmmmmmmmmmmmm :", res);
       setIsLogin(true);
     });
 
@@ -234,17 +213,16 @@ function App() {
               handleLogout={handleLogout}
               handleIsStaredDelete={handleIsStaredDelete}
               handleIsSearched={handleIsSearched}
-              getUserinfo={getUserinfo}
             />
           </Route>
           <Route path="/signup">
             <Signup LN={LN} />
           </Route>
           <Route path="/login">
-            <Login handleLogin={handleLogin} getAccessToken={getAccessToken} />
+            <Login handleLogin={handleLogin} />
           </Route>
           <Route path="/mypage">
-            <Mypage userinfo={userinfo} />
+            <Mypage afterWithdrawal={afterWithdrawal} />
           </Route>
           <Route>
             <EmptyPage />
