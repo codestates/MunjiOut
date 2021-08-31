@@ -11,7 +11,7 @@ const rowNum = 1;
 
 const sendEmail = () => {
     // console.log("email module test");
-    cron.schedule('24 16 * * *', async () => {
+    cron.schedule('0 9 * * *', async () => {
         console.log("node-cron script running");
 
         let users = await db.User.findAll({ });
@@ -77,8 +77,8 @@ const sendEmail = () => {
                                 "선호지역" : String(idx + 1) + "*",
                                 "측정소:": fullStation,
                                 "측정시간:": res.data.response.body.items[0].dataTime,
-                                "상태:": status,
-                                "미세먼지 농도:": "현재 측정소가 점검 중입니다."
+                                "상태:": "현재 측정소가 점검 중입니다.",
+                                "미세먼지 농도:": status
                             };
                         }
                         return {

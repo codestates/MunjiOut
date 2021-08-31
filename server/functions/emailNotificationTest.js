@@ -86,8 +86,8 @@ const sendEmailTest = () => {
                                 "선호지역" : String(idx + 1) + "*",
                                 "측정소:": fullStation,
                                 "측정시간:": res.data.response.body.items[0].dataTime,
-                                "상태:": status,
-                                "미세먼지 농도:": "현재 측정소가 점검 중입니다."
+                                "상태:": "현재 측정소가 점검 중입니다.",
+                                "미세먼지 농도:": status
                             };
                         }
                         return {
