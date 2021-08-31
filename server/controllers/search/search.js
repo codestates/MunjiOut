@@ -19,7 +19,7 @@ module.exports = {
         );
         // console.log(dbLocationData.includes(req.query.query));
         
-        if (!dbLocationData.includes(req.query.query)) {
+        if (!dbLocationData.includes(req.query.query) && req.query.query !== "") {
             return res.status(404).json({ message: "location not found" });
         } 
 
