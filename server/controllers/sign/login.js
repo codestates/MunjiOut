@@ -5,7 +5,7 @@ const { generateAccessToken, generateRefreshToken, isAuthorized } = require("../
 module.exports = async (req, res) => {
   // console.log('++++++++++++\n', req.body);
   const accessTokenData = isAuthorized(req);
-  console.log(req.headers);
+  // console.log(req.headers);
 
   // 이미 로그인 중인 상태에서 다시 로그인을 시도하는 경우
   if (accessTokenData) {

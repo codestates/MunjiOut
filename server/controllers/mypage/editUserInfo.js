@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
           id: accessTokenData.id,
         },
       });
-      console.log(newUserInfo.username);
+      // console.log(newUserInfo.dataValues);
 
       const salt = crypto.randomBytes(64).toString("hex");
       const encryptedPassword = crypto
@@ -30,22 +30,21 @@ module.exports = async (req, res) => {
         address: req.body.address,
       };
 
-      console.log(payload);
+      // console.log(payload);
 
-      const result = await User.update(
+      await User.update(
         {
-          username: req.body.username,
-          email: req.body.email,
+          username: payload.username,
+          email: payload.email,
           salt: salt,
           password: encryptedPassword,
-          mobile: req.body.mobile,
-          address: req.body.address,
+          mobile: payload.mobile,
+          address: payload.address,
         },
         { where: { id: accessTokenData.id } }
       );
 
       res.status(200).json({
-        // accessToken,
         data: payload,
         message: "회원정보가 수정되었습니다.",
       });

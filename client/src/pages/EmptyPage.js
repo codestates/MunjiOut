@@ -5,7 +5,7 @@ function EmptyPage() {
   return (
     <div className="emptyPage">
       <Link to="/">
-        <img className="emptyPage_logo" src={logo} />
+        <img className="emptyPage_logo" src={logo} alt="MunjiOut" />
       </Link>
       <div className="emptyPage_caution">
         <h1>잘못된 접근입니다. 로고를 클릭해 메인 화면으로 돌아가세요.</h1>

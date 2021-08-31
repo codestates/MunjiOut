@@ -1,3 +1,8 @@
+.mainPage {
+  background-color: rgb(235, 235, 235);
+  /* 전체 뒷 배경색 변경 방법 강구 필요*/
+  height: 200vh;
+}
 .mainPage_header {
   z-index: 1;
 }
