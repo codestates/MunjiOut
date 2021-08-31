@@ -18,6 +18,7 @@ function App() {
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultIdx, setSearchResultIdx] = useState(-1);
   const [accessToken, setAccessToken] = useState(null);
+  const aT = localStorage.getItem("accessToken");
   const [userinfo, setUserinfo] = useState({
     id: "",
     username: "",
@@ -45,6 +46,7 @@ function App() {
       withCredentials: true,
     };
     axios.post(logoutURL, logoutConfig);
+    localStorage.removeItem("accessToken");
   };
 
   const handleLogin = () => {
@@ -77,7 +79,7 @@ function App() {
       console.log("🟢", accessToken);
       const setLocationURL = "https://localhost:4000/setLocation";
       const setLocationPayload = {
-        location_name: isSearched[curValue].stationName,
+        location_name: isSearched[curValue].data.stationName,
       };
       const setLocationConfig = {
         headers: {
@@ -86,7 +88,7 @@ function App() {
         },
         withCredentials: true,
       };
-      console.log("🟠", setLocationPayload, setLocationConfig);
+      // console.log("🟠", setLocationPayload, setLocationConfig);
 
       axios
         .post(setLocationURL, setLocationPayload, setLocationConfig)
@@ -186,18 +188,32 @@ function App() {
     axios
       .get("https://localhost:4000/userinfo", {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${aT}`,
           "Content-Type": "application/json",
         },
         withCredentials: true,
       })
       .then((res) => {
         console.log("userinfo :", res);
+        setUserinfo(res.data.data);
       })
       .catch((err) => {
         console.log("userinfo error :", err.response);
       });
   };
+
+  axios
+    .get("https://localhost:4000/accesstokenrequest", {
+      headers: {
+        Authorization: `Bearer ${aT}`,
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    })
+    .then((res) => {
+      console.log("mmmmmmmmmmmmmmmm :", res);
+      setIsLogin(true);
+    });
 
   return (
     <BrowserRouter>
@@ -228,7 +244,7 @@ function App() {
             <Login handleLogin={handleLogin} getAccessToken={getAccessToken} />
           </Route>
           <Route path="/mypage">
-            <Mypage />
+            <Mypage userinfo={userinfo} />
           </Route>
           <Route>
             <EmptyPage />

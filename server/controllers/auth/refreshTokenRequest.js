@@ -2,21 +2,21 @@ const {
   checkRefeshToken,
   generateAccessToken,
   resendAccessToken,
-} = require('../tokenFunctions');
-const db = require('../../models');
+} = require("../tokenFunctions");
+const db = require("../../models");
 
 module.exports = (req, res) => {
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
-    return res.json({ data: null, message: 'refresh token not provided' });
+    return res.json({ data: null, message: "refresh token not provided" });
   }
 
   const refreshTokenData = checkRefeshToken(refreshToken);
   if (!refreshTokenData) {
     return res.json({
       data: null,
-      message: 'invalid refresh token, please log in again',
+      message: "invalid refresh token, please log in again",
     });
   }
 
@@ -26,7 +26,7 @@ module.exports = (req, res) => {
       if (!data) {
         return res.json({
           data: null,
-          message: 'refresh token has been tempered',
+          message: "refresh token has been tempered",
         });
       }
       delete data.dataValues.password;
