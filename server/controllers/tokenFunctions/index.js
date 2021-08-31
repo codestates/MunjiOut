@@ -3,10 +3,10 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   generateAccessToken: (data) => {
-    return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
+    return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: "15s" });
   },
   generateRefreshToken: (data) => {
-    return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: "7d" });
+    return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: "30d" });
   },
   resendAccessToken: (res, accessToken, data) => {
     res.json({ data: { accessToken, data }, message: "ok" });
@@ -30,10 +30,10 @@ module.exports = {
       return null;
     }
   },
-  checkRefreshToken: (refreshToken) => {
+  checkRefeshToken: (refreshToken) => {
     try {
-      return jwt.decode(refreshToken);
-    } catch {
+      return jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+    } catch (err) {
       return null;
     }
   },
