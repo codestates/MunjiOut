@@ -31,7 +31,7 @@ function App() {
   const getAccessToken = (token) => {
     setAccessToken(token);
   };
-  console.log("Token :", accessToken);
+  // console.log("Token :", accessToken);
 
   // * Logout을 클릭하면, isLogin => false
   const handleLogout = (e) => {
@@ -198,6 +198,11 @@ function App() {
         console.log("userinfo error :", err.response);
       });
   };
+  
+  axios
+    .get("https://localhost:4000/refreshtokenrequest", { headers: { "Content-Type": "application/json" }, withCredentials: true })
+    .then(console.log);
+
 
   return (
     <BrowserRouter>
