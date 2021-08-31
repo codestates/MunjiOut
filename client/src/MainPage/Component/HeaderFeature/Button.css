@@ -1,15 +1,21 @@
 .btn {
-  margin: 2px;
+  margin-right: 10px;
   padding: 4px 12px;
   width: 80px;
-  height: 48px;
-  border-radius: 3px;
+  height: 36px;
+  border: 2px solid gray;
+  border-radius: 5px;
   display: inline;
+  color: gray;
   font-size: 14px;
-  font-weight: bold;
-  background-color: yellowgreen;
+  font-weight: 700;
+  background-color: white;
 }
 
 .btn:hover {
-  background-color: rgb(196, 233, 123);
+  background-color: gray;
+  color: white;
+  font-weight: 900;
+  transition: all 0.5s;
+  cursor: pointer;
 }

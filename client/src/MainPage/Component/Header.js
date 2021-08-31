@@ -12,12 +12,14 @@ export default function Header (
         handleKeywordDelete,
         handleDropDownClick, 
         handleDropDown, 
-        isLogin 
+        isLogin,
+        handleLogout
     }) {
         
     return (
         <div className="header">
             <Logo />
+            <div className="header_space" />
             <SearchBar 
                 keyword={keyword}
                 searchResult={searchResult}
@@ -27,7 +29,8 @@ export default function Header (
                 handleDropDownClick={handleDropDownClick}
                 handleDropDown={handleDropDown}
             />
-            <Button isLogin={isLogin} />
+            <div className="header_space" />
+            <Button isLogin={isLogin} handleLogout={handleLogout} />
         </div>
     );
 }
