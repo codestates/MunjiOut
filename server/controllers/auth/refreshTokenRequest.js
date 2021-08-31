@@ -7,7 +7,10 @@ const db = require("../../models");
 
 module.exports = (req, res) => {
   const refreshToken = req.cookies.refreshToken;
-
+  console.log(
+    "🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴",
+    req.client.server.key
+  );
   if (!refreshToken) {
     return res.json({ data: null, message: "refresh token not provided" });
   }
