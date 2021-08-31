@@ -19,6 +19,7 @@ module.exports = (req, res) => {
         });
       }
       delete data.dataValues.password;
+      delete data.dataValues.salt;
       return res.json({ data: { userInfo: data.dataValues }, message: 'ok' });
     })
     .catch((err) => {

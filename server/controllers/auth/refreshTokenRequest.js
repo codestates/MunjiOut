@@ -30,6 +30,7 @@ module.exports = (req, res) => {
         });
       }
       delete data.dataValues.password;
+      delete data.dataValues.salt;
 
       const newAccessToken = generateAccessToken(data.dataValues);
       resendAccessToken(res, newAccessToken, data.dataValues);
