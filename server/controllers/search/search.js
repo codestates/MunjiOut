@@ -80,9 +80,7 @@ module.exports = {
         })
         .then(() => {
           // console.log(res.response.body);
-          if (apiFailed === true) {
-            isSearchFailed = true;
-          } else if (!res.response.body) {
+          if (apiFailed || !res.response.body) {
             isSearchFailed = true;
           } else {
             // console.log(res.response.body.items[0]);
