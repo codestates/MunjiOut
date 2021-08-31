@@ -4,7 +4,7 @@ import { FadeLoader } from 'react-spinners';
 
 export default function CityCard ({ isLogin, data, stared, idx, handleIsStaredDelete, handleIsSearched,}) {
 
-    const { stationName, lastUpdated, pm10_value } = data;
+    const { stationName, lastUpdated, pm10_value } = data.data;
     // ! 임시 Loading
     const [isLoading, setIsLoading] = useState(false);
 

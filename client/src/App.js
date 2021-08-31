@@ -77,7 +77,7 @@ function App() {
       console.log("🟢", accessToken);
       const setLocationURL = "https://localhost:4000/setLocation";
       const setLocationPayload = {
-        location_name: isSearched[curValue].stationName,
+        location_name: isSearched[curValue].data.stationName,
       };
       const setLocationConfig = {
         headers: {
