@@ -33,6 +33,7 @@ function Login({ handleLogin, getAccessToken }) {
         .then((res) => {
           console.log("login :", res);
           getAccessToken(res.data.accessToken);
+          localStorage.setItem("accessToken", res.data.accessToken);
           handleLogin();
           setMessage("먼지아웃에 오신걸 환영합니다");
           setIsOpen(true);
