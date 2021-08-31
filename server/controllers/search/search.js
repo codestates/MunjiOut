@@ -65,13 +65,24 @@ module.exports = {
       // console.log("station: " + stationLocation);
       const encodedLocation = encodeURIComponent(stationLocation.split(" ")[1]);
       const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=${encodedLocation}&dataTerm=month&pageNo=1&numOfRows=${rowNum}&returnType=json&serviceKey=${apiKey}`;
+      let apiFailed = false;
       let isSearchFailed = false;
-
+      
       fetch(url)
-        .then((res) => res.json())
         .then((res) => {
+          const apiResponse = res[Object.getOwnPropertySymbols(res)[1]];
+          // console.log(apiResponse);
+          if (apiResponse.statusText === "Internal Server Error") {
+            apiFailed = true;
+          } else {
+            res = res.json();
+          }
+        })
+        .then(() => {
           // console.log(res.response.body);
-          if (!res.response.body) {
+          if (apiFailed === true) {
+            isSearchFailed = true;
+          } else if (!res.response.body) {
             isSearchFailed = true;
           } else {
             // console.log(res.response.body.items[0]);
@@ -81,13 +92,16 @@ module.exports = {
         })
         .then(() => {
           // OpenAPI 에러로 인해로 검색이 되지 않을 경우
-          if (isSearchFailed) {
+          if (isSearchFailed && apiFailed) {
+            console.log("Internal Server Error");
+            return res.status(500).json({ message: "OpenAPI error" });
+          } else if (isSearchFailed) {
             return res.status(500).json({ message: "retry later" });
           }
 
           // 측정소 점검 중
           if (pmValue === "-") {
-            res.status(200).json({
+            return res.status(200).json({
               data: {
                 stationName: stationLocation,
                 lastUpdated: lastUpdated,
@@ -99,7 +113,7 @@ module.exports = {
           }
 
           // 검색 성공
-          res.status(200).json({
+          return res.status(200).json({
             data: {
               stationName: stationLocation,
               lastUpdated: lastUpdated,
