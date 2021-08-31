@@ -5,7 +5,7 @@ import "./Login.css";
 import axios from "axios";
 import Modal from "../components/Modal";
 
-function Login({ handleLogin }) {
+function Login({ handleLogin, getAccessToken }) {
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -31,7 +31,8 @@ function Login({ handleLogin }) {
           withCredentials: true,
         })
         .then((res) => {
-          console.log(res);
+          console.log("login :", res);
+          getAccessToken(res.data.accessToken);
           handleLogin();
           setMessage("먼지아웃에 오신걸 환영합니다");
           setIsOpen(true);

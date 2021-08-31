@@ -6,7 +6,7 @@ module.exports = {
     login: require("./user/login"),
     logout: require("./user/logout"),
     search: require("./search/search"),
-    email: require("./notification/email"),
+    // email: require("./notification/email"),
     mainpage: require("./mainpage/mainpage"),
     userinfo: require("./mypage/userinfo"),
     editUserinfo: require("./mypage/editUserInfo"),

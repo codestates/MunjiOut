@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    httpOnly: true,
+    // httpOnly: true,
     credentials: true,
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
   })
@@ -31,7 +31,7 @@ app.post("/signup", controllers.signup);
 app.post("/login", controllers.login);
 app.post("/logout", controllers.logout);
 app.get("/search", findOne);
-app.get("/email", controllers.email);
+// app.get("/email", controllers.email);
 app.get("/mainpage", controllers.mainpage);
 app.get("/userinfo", controllers.userinfo);
 app.post("/editUserinfo", controllers.editUserinfo);

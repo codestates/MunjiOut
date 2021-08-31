@@ -5,20 +5,33 @@ import Login from "./pages/Login";
 import Mypage from "./pages/Mypage";
 import EmptyPage from "./pages/EmptyPage";
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { getRegExp } from 'korean-regexp';
-import axios from 'axios';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { getRegExp } from "korean-regexp";
+import axios from "axios";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [isStared, setIsStared] = useState([]);
   const [isSearched, setIsSearched] = useState([]);
   const LN = LocationName.map((el) => el.locationName);
   const [keyword, setKeyword] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultIdx, setSearchResultIdx] = useState(-1);
+  const [accessToken, setAccessToken] = useState(null);
+  const [userinfo, setUserinfo] = useState({
+    id: "",
+    username: "",
+    email: "",
+    mobile: "",
+    address: "",
+  });
   // ! Loaidng #1
   // const [isLoading, setIsLoading] = useState([]);
+
+  const getAccessToken = (token) => {
+    setAccessToken(token);
+  };
+  console.log("Token :", accessToken);
 
   // * Logout을 클릭하면, isLogin => false
   const handleLogout = (e) => {
@@ -31,7 +44,7 @@ function App() {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
-    axios.post(logoutURL, logoutConfig)
+    axios.post(logoutURL, logoutConfig);
   };
 
   const handleLogin = () => {
@@ -40,23 +53,44 @@ function App() {
 
   // * isLogin이 false로 변경되면, isStared rerender 되는 useEffect
   useEffect(() => {
-    setIsStared([])
-  }, [isLogin === false])
+    setIsStared([]);
+  }, [isLogin === false]);
 
   // * stared pic이 클릭되면, 해당 stared City Card delete
   // ! query
-  const handleIsStaredDelete = (e) => { 
-    const curValue = Number(e.currentTarget.getAttribute('value'));
-    setIsStared(isStared.slice(0, curValue).concat(isStared.slice(curValue + 1)));
-  }
+  const handleIsStaredDelete = (e) => {
+    const curValue = Number(e.currentTarget.getAttribute("value"));
+    setIsStared(
+      isStared.slice(0, curValue).concat(isStared.slice(curValue + 1))
+    );
+  };
 
-  // * searched pic이 클릭되면, 해당 searched City Card가 isStared로 포함 
+  // * searched pic이 클릭되면, 해당 searched City Card가 isStared로 포함
   // ! query
-  const handleIsSearched = (e) => { 
-    const curValue = Number(e.currentTarget.getAttribute('value'));
+  const handleIsSearched = (e) => {
+    const curValue = Number(e.currentTarget.getAttribute("value"));
+    console.log("🔴", isSearched[curValue]);
     if (isStared.length < 3) {
       setIsStared(isSearched.slice(curValue, curValue + 1).concat(isStared));
       setIsSearched(isSearched.filter((el, idx) => idx !== curValue));
+
+      console.log("🟢", accessToken);
+      const setLocationURL = "https://localhost:4000/setLocation";
+      const setLocationPayload = {
+        location_name: isSearched[curValue].stationName,
+      };
+      const setLocationConfig = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      };
+      console.log("🟠", setLocationPayload, setLocationConfig);
+
+      axios
+        .post(setLocationURL, setLocationPayload, setLocationConfig)
+        .then((res) => console.log(res));
     } else {
       alert("즐겨찾기는 최대 3개까지 가능합니다.");
     }
@@ -68,9 +102,10 @@ function App() {
       setSearchResult([]);
       setSearchResultIdx(-1);
     } else {
-      setSearchResult(LN
-        .filter(el => getRegExp(keyword).test(el))
-        .filter((el, idx) => idx < 5 ? el : null)
+      setSearchResult(
+        LN.filter((el) => getRegExp(keyword).test(el)).filter((el, idx) =>
+          idx < 5 ? el : null
+        )
       );
     }
   }, [keyword]);
@@ -84,7 +119,7 @@ function App() {
 
   // * SearchBar에 단어를 입력하면, keyword가 변경되는 event handler
   const handleKeywordChange = (e) => setKeyword(e.target.value);
-  
+
   // * kewyword를 초기화하는 event handler
   const handleKeywordDelete = () => setKeyword("");
 
@@ -98,21 +133,25 @@ function App() {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
-    const isCitySearchedBefore = isSearched.map(el => {
-      return (el.stationName === final)
-    }).find(el => el === true) || false;
-    const isStaredAlready = isStared.map(el => {
-      return (el.stationName === final)
-    }).find(el => el === true ) || false;
-    
-    if(!isCitySearchedBefore && !isStaredAlready) {
-      await axios
-        .get(searchURL, searchConfig)
-        .then(datas => {
-          setIsSearched([datas.data].concat(isSearched))
-          // ! Loaidng #3
-          // setIsLoading(isLoading.map((el, idx) => idx === isSearched.length - 1 ? true : el))
-        });
+    const isCitySearchedBefore =
+      isSearched
+        .map((el) => {
+          return el.stationName === final;
+        })
+        .find((el) => el === true) || false;
+    const isStaredAlready =
+      isStared
+        .map((el) => {
+          return el.stationName === final;
+        })
+        .find((el) => el === true) || false;
+
+    if (!isCitySearchedBefore && !isStaredAlready) {
+      await axios.get(searchURL, searchConfig).then((datas) => {
+        setIsSearched([datas.data].concat(isSearched));
+        // ! Loaidng #3
+        // setIsLoading(isLoading.map((el, idx) => idx === isSearched.length - 1 ? true : el))
+      });
     } else {
       alert("[선호 지역] 혹은 [검색 지역]에 이미 결과가 있습니다.");
     }
@@ -128,9 +167,13 @@ function App() {
   // * DropDonw에서 방향키, Enter 클릭 시 작용
   const handleDropDown = async (e) => {
     if (e.key === "ArrowDown" && searchResultIdx < searchResult.length - 1) {
-      setSearchResultIdx(searchResultIdx + 1)
-    } else if (e.key === "ArrowUp" &&  -1 < searchResultIdx && searchResultIdx <= searchResult.length - 1) {
-      setSearchResultIdx(searchResultIdx - 1)
+      setSearchResultIdx(searchResultIdx + 1);
+    } else if (
+      e.key === "ArrowUp" &&
+      -1 < searchResultIdx &&
+      searchResultIdx <= searchResult.length - 1
+    ) {
+      setSearchResultIdx(searchResultIdx - 1);
     }
     if (e.key === "Enter" && searchResult.length !== 0) {
       const finalKeyword = searchResult[searchResultIdx];
@@ -139,34 +182,50 @@ function App() {
     }
   };
 
+  const getUserinfo = () => {
+    axios
+      .get("https://localhost:4000/userinfo", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log("userinfo :", res);
+      })
+      .catch((err) => {
+        console.log("userinfo error :", err.response);
+      });
+  };
+
   return (
     <BrowserRouter>
       <div>
         <Switch>
           <Route exact path="/">
             <MainPage
-            keyword={keyword}
-            searchResult={searchResult}
-            searchResultIdx={searchResultIdx}
-            handleKeywordChange={handleKeywordChange}
-            handleKeywordDelete={handleKeywordDelete}
-            handleDropDownClick={handleDropDownClick}
-            handleDropDown={handleDropDown}
-            isLogin={isLogin}
-            isStared={isStared}
-            isSearched={isSearched}
-            handleLogout={handleLogout}
-            handleIsStaredDelete={handleIsStaredDelete}
-            handleIsSearched={handleIsSearched}
-            />
-          </ Route>
-          <Route path="/signup">
-            <Signup 
-              LN={LN}
+              keyword={keyword}
+              searchResult={searchResult}
+              searchResultIdx={searchResultIdx}
+              handleKeywordChange={handleKeywordChange}
+              handleKeywordDelete={handleKeywordDelete}
+              handleDropDownClick={handleDropDownClick}
+              handleDropDown={handleDropDown}
+              isLogin={isLogin}
+              isStared={isStared}
+              isSearched={isSearched}
+              handleLogout={handleLogout}
+              handleIsStaredDelete={handleIsStaredDelete}
+              handleIsSearched={handleIsSearched}
+              getUserinfo={getUserinfo}
             />
           </Route>
+          <Route path="/signup">
+            <Signup LN={LN} />
+          </Route>
           <Route path="/login">
-            <Login handleLogin={handleLogin} />
+            <Login handleLogin={handleLogin} getAccessToken={getAccessToken} />
           </Route>
           <Route path="/mypage">
             <Mypage />
