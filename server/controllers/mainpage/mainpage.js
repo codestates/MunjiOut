@@ -70,18 +70,18 @@ module.exports = async (req, res) => {
                 return {
                     stationName: stationData,
                     lastUpdated: res.data.response.body.items[0].dataTime,
-                    pm10_value: res.data.response.body.items[0].pm10Value,
+                    pm10_value: Number(res.data.response.body.items[0].pm10Value),
                     likes: howManyLikes.length
                 };
             });
             
             const results = await Promise.all(stationInfo);
             // console.log(results);
-            res.status(200).json(results);
+            res.status(200).json({ data: results, message: "ok"});
         }
         fetchStationInfo();
     } else {
-        return res.status(404).json({ message: "please choose your preferred locations" });
+        return res.status(404).json({ data: null, message: "please choose your preferred locations" });
     }
     return res.status(400);
 };

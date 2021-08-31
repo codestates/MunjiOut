@@ -6,7 +6,7 @@ module.exports = {
     return jwt.sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
   },
   generateRefreshToken: (data) => {
-    return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: "7d" });
+    return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: "30d" });
   },
   resendAccessToken: (res, accessToken, data) => {
     res.json({ data: { accessToken, data }, message: "ok" });
@@ -27,13 +27,14 @@ module.exports = {
     try {
       return jwt.verify(token, process.env.ACCESS_SECRET);
     } catch (err) {
+      // return null if invalid token
       return null;
     }
   },
-  checkRefreshToken: (refreshToken) => {
+  checkRefeshToken: (refreshToken) => {
     try {
-      return jwt.decode(refreshToken);
-    } catch {
+      return jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+    } catch (err) {
       return null;
     }
   },
