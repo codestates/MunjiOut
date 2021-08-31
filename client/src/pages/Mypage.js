@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import logo from "../MunjioutLogo.png";
 import "./Mypage.css";
 // import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { debounce } from "lodash";
+import axios from "axios";
 
-function Mypage({ userinfo }) {
+// const debounceSomethingFunc = debounce(() => {
+//   console.log("called debounceSomethingFunc");
+// }, 1000);
 
-  const { username, email, mobile } = userinfo;
-  console.log('🟡', username, email, mobile);
+function Mypage({ afterWithdrawal }) {
   const [checkPassword, setCheckPassword] = useState(true);
+  const [checkRetypePassword, setCheckRetypePassword] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
+  const information = JSON.parse(localStorage.getItem("userinfo"));
+  const history = useHistory();
+  const token = localStorage.getItem("accessToken");
+
   const [myInfo, setMyInfo] = useState({
     password: "",
   });
@@ -23,10 +32,61 @@ function Mypage({ userinfo }) {
     } else {
       setCheckPassword(false);
     }
-    // console.log("password :", regExp.test(e.target.value));
+    console.log("password :", regExp.test(e.target.value));
+  };
+  const handleCheckPassword = (e) => {
+    if (e.target.value !== "" && e.target.value === myInfo.password) {
+      setCheckRetypePassword(true);
+    } else {
+      setCheckRetypePassword(false);
+    }
   };
 
-  const handleEditUserRequest = () => {};
+  const handleEditUserRequest = () => {
+    if (
+      myInfo.password === "" ||
+      checkPassword !== true ||
+      checkRetypePassword !== true
+    ) {
+      setErrorMsg("변경할 비밀번호를 올바르게 입력해주세요");
+    } else {
+      axios
+        .post("https://localhost:4000/editUserinfo", myInfo, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    }
+  };
+
+  const handleWithdrawalRequest = () => {
+    axios
+      .post(
+        "https://localhost:4000/withdrawal",
+        { data: null },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        localStorage.removeItem("userinfo");
+        localStorage.removeItem("accessToken");
+        history.push("/");
+        afterWithdrawal();
+      });
+  };
+
   return (
     <div className="Mypage">
       <Link to="/">
@@ -38,7 +98,7 @@ function Mypage({ userinfo }) {
           <input
             type="text"
             className="Mypage_input"
-            placeholder={userinfo.username}
+            value={information.username}
           ></input>
         </div>
         <div>
@@ -47,7 +107,7 @@ function Mypage({ userinfo }) {
             type="email"
             placeholder="이메일을 입력해주세요  ex)abcd@munjiout.com"
             className="Mypage_input"
-            value={userinfo.email}
+            value={information.email}
           ></input>
           <div className="check_email"></div>
         </div>
@@ -60,28 +120,38 @@ function Mypage({ userinfo }) {
             onChange={handleInputValue("password")}
             onBlur={isValidPassword}
           ></input>
-          <div className="check_password"></div>
+          <div className="check_password">
+            {checkPassword ? null : "올바른 비밀번호 형식이 아닙니다."}
+          </div>
         </div>
         <div>
           <div className="Mypage_info">비밀번호 확인</div>
-          <input type="password" className="Mypage_input"></input>
-          <div className="check_retypepassword"></div>
+          <input
+            type="password"
+            className="Mypage_input"
+            onChange={handleCheckPassword}
+          ></input>
+          <div className="check_retypepassword">
+            {checkRetypePassword ? null : "비밀번호가 일치하지 않습니다"}
+          </div>
         </div>
         <div>
           <div className="Mypage_info">전화번호</div>
           <input
             type="text"
             className="Mypage_input"
-            value={userinfo.mobile}
+            value={information.mobile}
           ></input>
           <div className="check_mobile"></div>
         </div>
-        {/* <div> */}
-        {/* <div className="Mypage_info">주소</div> */}
-        {/* <input placeholder="주소를 검색해주세요"></input> */}
-        {/* </div> */}
-        <button className="Mypage_btn">정보수정</button>
-        <button className="Mypage_btn">회원탈퇴</button>
+
+        <button className="Mypage_btn" onClick={handleEditUserRequest}>
+          정보수정
+        </button>
+        <button className="Mypage_btn" onClick={handleWithdrawalRequest}>
+          회원탈퇴
+        </button>
+        <div className="alert-box">{errorMsg}</div>
       </div>
     </div>
   );

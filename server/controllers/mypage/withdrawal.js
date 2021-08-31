@@ -4,7 +4,6 @@ const { isAuthorized } = require("../tokenFunctions");
 module.exports = async (req, res) => {
   try {
     const accessTokenData = isAuthorized(req);
-    console.log(accessTokenData);
 
     if (!accessTokenData) {
       return res.status(404).send({ message: "회원정보를 다시 확인해주세요." });
@@ -13,7 +12,7 @@ module.exports = async (req, res) => {
         where: { id: accessTokenData.id },
       });
 
-      console.log(req.headers.cookie);
+      // console.log(req.headers.cookie);
 
       res.setHeader("authorization", "");
       res.cookie("refreshToken", "");
