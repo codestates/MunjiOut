@@ -5,6 +5,28 @@ import "./Mypage.css";
 import { Link } from "react-router-dom";
 
 function Mypage({ userinfo }) {
+
+  const { username, email, mobile } = userinfo;
+  console.log('🟡', username, email, mobile);
+  const [checkPassword, setCheckPassword] = useState(true);
+  const [myInfo, setMyInfo] = useState({
+    password: "",
+  });
+  // console.log("userinfo :", userinfo);
+  const handleInputValue = (key) => (e) => {
+    setMyInfo({ ...myInfo, [key]: e.target.value });
+  };
+  const isValidPassword = (e) => {
+    let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/;
+    if (regExp.test(e.target.value)) {
+      setCheckPassword(true);
+    } else {
+      setCheckPassword(false);
+    }
+    // console.log("password :", regExp.test(e.target.value));
+  };
+
+  const handleEditUserRequest = () => {};
   return (
     <div className="Mypage">
       <Link to="/">
@@ -16,7 +38,7 @@ function Mypage({ userinfo }) {
           <input
             type="text"
             className="Mypage_input"
-            value={userinfo.username}
+            placeholder={userinfo.username}
           ></input>
         </div>
         <div>
@@ -35,6 +57,8 @@ function Mypage({ userinfo }) {
             type="password"
             placeholder="영문/숫자 조합 8~10글자"
             className="Mypage_input"
+            onChange={handleInputValue("password")}
+            onBlur={isValidPassword}
           ></input>
           <div className="check_password"></div>
         </div>

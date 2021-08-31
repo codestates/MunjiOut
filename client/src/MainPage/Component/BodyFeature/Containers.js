@@ -3,7 +3,6 @@ import CityCard from './Cards/CityCard';
 import EmptyCard from './Cards/EmptyCard';
 
 export default function Container ({ isLogin, isStared, isSearched, handleIsStaredDelete, handleIsSearched }) {
-
     const staredEmptyCardLen = 3 - isStared.length;
     const searchedEmptyCardLen = (isSearched.length % 3 === 0 && isSearched.length !== 0) ? 0 : 3 - (isSearched.length % 3);
     const staredEmptyCard = new Array(staredEmptyCardLen).fill().map((el, idx) => idx);
