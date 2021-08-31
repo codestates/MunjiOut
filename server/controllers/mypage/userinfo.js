@@ -4,7 +4,7 @@ const { isAuthorized } = require("../tokenFunctions");
 module.exports = async (req, res) => {
   try {
     const accessTokenData = isAuthorized(req);
-    console.log(accessTokenData);
+    console.log("accessData :", accessTokenData);
 
     if (!accessTokenData) {
       return res

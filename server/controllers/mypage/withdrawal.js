@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
 
       console.log(req.headers.cookie);
 
-      res.cookie("accessToken", "");
+      res.setHeader("authorization", "");
       res.cookie("refreshToken", "");
 
       res
