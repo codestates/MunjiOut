@@ -50,19 +50,9 @@ module.exports = async (req, res) => {
                     }
                 });
 
-<<<<<<< HEAD
-                    // 측정소가 점검 중일 경우 => pm10Value가 "-"으로 표기됨
-                    if (res.data.response.body.items[0].pm10Value = "-") {
-                        return {
-                            stationName: station,
-                            lastUpdated: res.data.response.body.items[0].dataTime,
-                            pm10_value: "the station is currently under inspection."
-                        };
-=======
                 const howManyLikes = await db.UserLocation.findAll({
                     where: {
                         locationId: locationInfo.id
->>>>>>> 2571dc4ac2767cae2907e92157ea93faf02c4e48
                     }
                 });
 
@@ -71,33 +61,27 @@ module.exports = async (req, res) => {
                 // 측정소가 점검 중일 경우 => pm10Value가 "-"으로 표기됨
                 if (res.data.response.body.items[0].pm10Value === "-") {
                     return {
-<<<<<<< HEAD
-                        stationName: station,
-                        lastUpdated: res.data.response.body.items[0].dataTime,
-                        pm10_value: res.data.response.body.items[0].pm10Value
-=======
                         stationName: stationData,
                         lastUpdated: res.data.response.body.items[0].dataTime,
                         pm10_value: "the station is currently under inspection.",
                         likes: howManyLikes.length
->>>>>>> 2571dc4ac2767cae2907e92157ea93faf02c4e48
                     };
                 }
                 return {
                     stationName: stationData,
                     lastUpdated: res.data.response.body.items[0].dataTime,
-                    pm10_value: res.data.response.body.items[0].pm10Value,
+                    pm10_value: Number(res.data.response.body.items[0].pm10Value),
                     likes: howManyLikes.length
                 };
             });
             
             const results = await Promise.all(stationInfo);
             // console.log(results);
-            res.status(200).json(results);
+            res.status(200).json({ data: results, message: "ok"});
         }
         fetchStationInfo();
     } else {
-        return res.status(404).json({ message: "please choose your preferred locations" });
+        return res.status(404).json({ data: null, message: "please choose your preferred locations" });
     }
     return res.status(400);
 };

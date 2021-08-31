@@ -88,19 +88,25 @@ module.exports = {
                     // 측정소 점검 중
                     if (pmValue === "-") {
                         res.status(200).json({
-                            stationName: stationLocation,
-                            lastUpdated: lastUpdated,
-                            pm10_value: "현재 측정소가 점검 중입니다.",
-                            likes: howManyLikes.length
+                            data: {
+                                stationName: stationLocation,
+                                lastUpdated: lastUpdated,
+                                pm10_value: "현재 측정소가 점검 중입니다.",
+                                likes: howManyLikes.length
+                            },
+                            message:  "under inspection"
                         })
                     }
 
                     // 검색 성공
                     res.status(200).json({
-                        stationName: stationLocation,
-                        lastUpdated: lastUpdated,
-                        pm10_value: pmValue,
-                        likes: howManyLikes.length
+                        data: {
+                            stationName: stationLocation,
+                            lastUpdated: lastUpdated,
+                            pm10_value: Number(pmValue),
+                            likes: howManyLikes.length
+                        },
+                        message: "ok"
                     })
                 })
                 .catch(error => {
