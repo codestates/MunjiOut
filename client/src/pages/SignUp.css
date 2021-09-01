@@ -18,19 +18,29 @@
 
 .Signup_input {
   width: 300px;
-  height: 25px;
+  height: 27px;
+  margin-top: 5px;
   margin-bottom: 10px;
+  border-color: rgb(255, 255, 255);
+  border-width: 0.2px;
 }
-*/ .Signup_info {
-  font-size: 17px;
+
+.Signup_input:focus {
+  outline: none;
+}
+.Signup_info {
+  font-size: 14px;
+  padding-left: 6px;
   text-align: left;
   font-weight: bold;
 }
 
 .Logo {
-  margin-bottom: 30px;
+  margin-top: 10px;
+  width: 18%;
 }
-*/ .Signup_btn {
+
+.Signup_btn {
   font-size: 0.8rem;
   font-weight: bold;
   width: 100px;
@@ -38,7 +48,28 @@
   letter-spacing: 3px;
   margin-top: 15px;
 }
-
+.Submit_btn {
+  padding: 2px 5px;
+  border: none;
+  background-color: rgb(203, 203, 203);
+  /* border-radius: 5px; */
+}
+.Submit_btn:hover {
+  background-color: gray;
+}
+.Signup_btn {
+  font-size: 0.8rem;
+  font-weight: bold;
+  background-color: yellow;
+  width: 300px;
+  height: 40px;
+  letter-spacing: 3px;
+  margin-top: 15px;
+  border: none;
+}
+.Signup_btn:hover {
+  background-color: gray;
+}
 .check_password,
 .check_retypepassword,
 .check_mobile,
@@ -47,7 +78,7 @@
   text-align: left;
   color: red;
   font-size: 0.8rem;
-  margin-top: -10px;
+  margin-top: -8px;
   margin-bottom: 10px;
 }
 

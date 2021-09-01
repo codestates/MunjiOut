@@ -1,11 +1,12 @@
 .cityCard,
 .cityCard_isLoading {
-  margin: 10px;
+  margin: 10px 10px 23px;
   width: 30vw;
   height: 200px;
   text-align: center;
   border-radius: 0px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
+  box-shadow: 3px 3px 3px rgba(19, 19, 19, 0.4);
   background-color: whitesmoke;
   font-size: 16px;
 }
@@ -24,6 +25,7 @@
 }
 
 .location {
+  padding-top: 15px;
   position: relative;
   font-weight: bold;
 }

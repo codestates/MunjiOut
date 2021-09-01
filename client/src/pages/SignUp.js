@@ -232,6 +232,7 @@ function Signup({ LN }) {
             />
             <input
               type="submit"
+              className="Submit_btn"
               onClick={deleteInputAddress}
               value={"주소 삭제"}
             />
