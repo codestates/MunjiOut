@@ -9,7 +9,7 @@ export default function Container({
   handleIsStaredDelete,
   handleIsSearched,
 }) {
-  const staredEmptyCardLen = 3 - isStared.length || 0;
+  const staredEmptyCardLen = 3 - isStared.length || 0;  
   const searchedEmptyCardLen =
     isSearched.length % 3 === 0 && isSearched.length !== 0
       ? 0
