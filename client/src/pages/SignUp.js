@@ -4,6 +4,7 @@ import "./SignUp.css";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import { getRegExp } from 'korean-regexp';
+require('dotenv').config();
 
 function Signup({ LN }) {
 
@@ -106,7 +107,7 @@ function Signup({ LN }) {
       setErrorMsg("모든 항목을 바르게 작성해주세요");
     } else {
       axios
-        .post("https://localhost:4000/signup", userInfo, {
+        .post(process.env.REACT_APP_API_URL + "/signup", userInfo, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })

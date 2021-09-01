@@ -4,6 +4,7 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
 import Modal from "../components/Modal";
+require("dotenv").config();
 
 function Login({ handleLogin }) {
   const [loginInfo, setLoginInfo] = useState({
@@ -28,7 +29,7 @@ function Login({ handleLogin }) {
       setErrorMsg("이메일과 비밀번호를 입력해주세요");
     } else {
       axios
-        .post("https://localhost:4000/login", loginInfo, {
+        .post(process.env.REACT_APP_API_URL + "/login", loginInfo, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
@@ -41,7 +42,7 @@ function Login({ handleLogin }) {
         })
         .then((token) => {
           axios
-            .get("https://localhost:4000/userinfo", {
+            .get(process.env.REACT_APP_API_URL + "/userinfo", {
               headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",

@@ -5,6 +5,7 @@ import "./Mypage.css";
 import { Link, useHistory } from "react-router-dom";
 import { debounce } from "lodash";
 import axios from "axios";
+require("dotenv").config();
 
 // const debounceSomethingFunc = debounce(() => {
 //   console.log("called debounceSomethingFunc");
@@ -51,7 +52,7 @@ function Mypage({ afterWithdrawal }) {
       setErrorMsg("변경할 비밀번호를 올바르게 입력해주세요");
     } else {
       axios
-        .post("https://localhost:4000/editUserinfo", myInfo, {
+        .post(process.env.REACT_APP_API_URL + "/editUserinfo", myInfo, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -71,7 +72,7 @@ function Mypage({ afterWithdrawal }) {
   const handleWithdrawalRequest = () => {
     axios
       .post(
-        "https://localhost:4000/withdrawal",
+        process.env.REACT_APP_API_URL + "/withdrawal",
         { data: null },
         {
           headers: {

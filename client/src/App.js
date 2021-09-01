@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { getRegExp } from "korean-regexp";
 import axios from "axios";
+require('dotenv').config();
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -37,7 +38,7 @@ function App() {
     alert("로그아웃 되었습니다.");
 
     // ! Logout Request (로그인 상태 현재 미확인)
-    const logoutURL = "https://localhost:4000/logout";
+    const logoutURL = process.env.REACT_APP_API_URL + "/logout";
     const logoutConfig = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
@@ -71,7 +72,7 @@ function App() {
     console.log("🟢: 지워졌나?");
     axios
       .post(
-        "https://localhost:4000/unsetLocation",
+        process.env.REACT_APP_API_URL + "/unsetLocation",
         { location_name: isStared[curValue].stationName },
         {
           headers: {
@@ -93,7 +94,7 @@ function App() {
       setIsStared(isSearched.slice(curValue, curValue + 1).concat(isStared));
       setIsSearched(isSearched.filter((el, idx) => idx !== curValue));
 
-      const setLocationURL = "https://localhost:4000/setLocation";
+      const setLocationURL = process.env.REACT_APP_API_URL + "/setLocation";
       const setLocationPayload = {
         location_name: isSearched[curValue].stationName,
       };
@@ -145,7 +146,7 @@ function App() {
     // ! Loaidng #2
     // setIsLoading(isLoading.concat(true));
     const searchLocationQuery = "?query=" + final.split(" ").join("+");
-    const searchURL = "https://localhost:4000/search" + searchLocationQuery;
+    const searchURL = process.env.REACT_APP_API_URL + "/search" + searchLocationQuery;
     const searchConfig = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
@@ -202,7 +203,7 @@ function App() {
   console.log("-------------------------------------------------------");
   useEffect(() => {
     axios
-      .get("https://localhost:4000/accesstokenrequest", {
+      .get(process.env.REACT_APP_API_URL + "/accesstokenrequest", {
         headers: {
           Authorization: `Bearer ${aT}`,
           "Content-Type": "application/json",
@@ -218,7 +219,7 @@ function App() {
     // if (isLogin) {
     console.log("🟡: 됐나?!");
     axios
-      .get("https://localhost:4000/mainpage", {
+      .get(process.env.REACT_APP_API_URL + "/mainpage", {
         headers: {
           Authorization: `Bearer ${aT}`,
           "Content-Type": "application/json",
@@ -237,7 +238,7 @@ function App() {
 
   // console.log("🟡: 됐나?!");
   // axios
-  //   .get("https://localhost:4000/mainpage", {
+  //   .get(process.env.REACT_APP_API_URL + "/mainpage", {
   //     headers: {
   //       Authorization: `Bearer ${aT}`,
   //       "Content-Type": "application/json",
