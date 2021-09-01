@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../MunjioutLogo.png";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
 import Modal from "../components/Modal";
@@ -20,7 +20,8 @@ function Login({ handleLogin }) {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
   const handleHistory = () => {
-    history.push("/");
+    // history.push("/");
+    window.location.replace("/");
   };
   const handleLoginRequest = () => {
     if ((loginInfo.email === "", loginInfo.password === "")) {

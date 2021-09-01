@@ -60,6 +60,7 @@ function Mypage({ afterWithdrawal }) {
         })
         .then((res) => {
           console.log(res);
+          window.location.replace("/");
         })
         .catch((err) => {
           console.log(err.response);
@@ -82,7 +83,7 @@ function Mypage({ afterWithdrawal }) {
       .then((res) => {
         localStorage.removeItem("userinfo");
         localStorage.removeItem("accessToken");
-        history.push("/");
+        window.location.replace("/");
         afterWithdrawal();
       });
   };

@@ -200,38 +200,57 @@ function App() {
   };
 
   console.log("-------------------------------------------------------");
+  useEffect(() => {
+    axios
+      .get("https://localhost:4000/accesstokenrequest", {
+        headers: {
+          Authorization: `Bearer ${aT}`,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        setIsLogin(true);
+        console.log("🔺", res);
+      })
+      .catch(console.log);
+
+    // if (isLogin) {
+    console.log("🟡: 됐나?!");
+    axios
+      .get("https://localhost:4000/mainpage", {
+        headers: {
+          Authorization: `Bearer ${aT}`,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      })
+      .then((findStars) => {
+        setIsStared(findStars.data);
+        console.log("🔹", findStars.data);
+      })
+      .catch(console.log);
+    // }
+  }, []);
+
+  // * isLogin이 true라면, 선호지역 가져오기.
+
+  // console.log("🟡: 됐나?!");
   // axios
-  //   .get("https://localhost:4000/accesstokenrequest", {
+  //   .get("https://localhost:4000/mainpage", {
   //     headers: {
   //       Authorization: `Bearer ${aT}`,
   //       "Content-Type": "application/json",
   //     },
   //     withCredentials: true,
   //   })
-  //   .then((res) => {
-  //     setIsLogin(true);
-  //     console.log("🔺", res);
+  //   .then((findStars) => {
+  //     setIsStared(findStars.data);
+  //     console.log("🔹", findStars.data);
   //   })
-  //   .catch(console.log);
-
-  // * isLogin이 true라면, 선호지역 가져오기.
-
-  console.log("🟡: 됐나?!");
-  axios
-    .get("https://localhost:4000/mainpage", {
-      headers: {
-        Authorization: `Bearer ${aT}`,
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    })
-    .then((findStars) => {
-      setIsStared(findStars.data);
-      console.log("🔹", findStars.data);
-    })
-    .catch((err) => {
-      console.log(err.response);
-    });
+  //   .catch((err) => {
+  //     console.log(err.response);
+  //   });
 
   return (
     <BrowserRouter>
