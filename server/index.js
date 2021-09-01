@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: true,
     // httpOnly: true,
     credentials: true,
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
@@ -40,20 +40,22 @@ app.post("/setLocation", controllers.setLocations);
 app.post("/unsetLocation", controllers.unsetLocations);
 app.get("/userLocation", controllers.userLocations);
 
-const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
+const HTTPS_PORT = process.env.HTTPS_PORT || 80;
 
 let server;
 
-if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
-  const privateKey = fs.readFileSync(__dirname + "/key.pem", "utf8");
-  const certificate = fs.readFileSync(__dirname + "/cert.pem", "utf8");
-  const credentials = { key: privateKey, cert: certificate };
+server = app.listen(HTTPS_PORT, () => console.log("http server running"));
 
-  server = https.createServer(credentials, app);
-  server.listen(HTTPS_PORT, () => console.log("https server running"));
-} else {
-  server = app.listen(HTTPS_PORT, () => console.log("http server running"));
-}
+// if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
+//   const privateKey = fs.readFileSync(__dirname + "/key.pem", "utf8");
+//   const certificate = fs.readFileSync(__dirname + "/cert.pem", "utf8");
+//   const credentials = { key: privateKey, cert: certificate };
+
+//   server = https.createServer(credentials, app);
+//   server.listen(HTTPS_PORT, () => console.log("https server running"));
+// } else {
+//   server = app.listen(HTTPS_PORT, () => console.log("http server running"));
+// }
 
 // email notification
 // sendEmail();
