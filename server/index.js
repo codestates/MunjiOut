@@ -58,7 +58,7 @@ server = app.listen(HTTPS_PORT, () => console.log("http server running"));
 // }
 
 // email notification
-// sendEmail();
+sendEmail();
 
 // for testing
 // sendEmailTest();

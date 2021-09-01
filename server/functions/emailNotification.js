@@ -11,7 +11,7 @@ const rowNum = 1;
 
 const sendEmail = () => {
     // console.log("email module test");
-    cron.schedule('0 9 * * *', async () => {
+    cron.schedule('20 18 * * *', async () => {
         console.log("node-cron script running");
 
         let users = await db.User.findAll({ });
