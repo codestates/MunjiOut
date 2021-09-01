@@ -10,7 +10,7 @@ export default function CityCard({
   handleIsStaredDelete,
   handleIsSearched,
 }) {
-  const { stationName, lastUpdated, pm10_value } = data.data;
+  const { stationName, lastUpdated, pm10_value } = data;
   // ! 임시 Loading
   const [isLoading, setIsLoading] = useState(false);
 
