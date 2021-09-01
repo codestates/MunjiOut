@@ -7,7 +7,9 @@ export default function Body (
         isStared, 
         isSearched, 
         handleIsStaredDelete, 
-        handleIsSearched 
+        handleIsSearched,
+        isLoading,
+        isStaredLoading
     }) {
 
     return (
@@ -18,6 +20,8 @@ export default function Body (
                 isSearched={isSearched} 
                 handleIsStaredDelete={handleIsStaredDelete} 
                 handleIsSearched={handleIsSearched} 
+                isLoading={isLoading}
+                isStaredLoading={isStaredLoading}
             />
         </div>
     );

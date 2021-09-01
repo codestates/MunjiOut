@@ -19,25 +19,14 @@ function App() {
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultIdx, setSearchResultIdx] = useState(-1);
   const aT = localStorage.getItem("accessToken");
-  // const [userinfo, setUserinfo] = useState({
-  //   id: "",
-  //   username: "",
-  //   email: "",
-  //   mobile: "",
-  //   address: "",
-  // });
-  // const infomation = JSON.parse(localStorage.getItem("userinfo"));
-  // console.log("info:", infomation);
-  // ! Loaidng #1
-  // const [isLoading, setIsLoading] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isStaredLoading, setIsStaredLoading] = useState(true);
 
   // * Logout을 클릭하면, isLogin => false
   const handleLogout = (e) => {
     setIsStared([]);
     setIsLogin(false);
     alert("로그아웃 되었습니다.");
-
-    // ! Logout Request (로그인 상태 현재 미확인)
     const logoutURL = process.env.REACT_APP_API_URL + "/logout";
     const logoutConfig = {
       headers: { "Content-Type": "application/json" },
@@ -48,28 +37,20 @@ function App() {
     localStorage.removeItem("userinfo");
   };
 
-  // * Loing page 에서 Login 시, isLogin을 false => true 로 변경
+  // * Loing page 에서 Login 시, isLogin을 false => true 변경
   const handleLogin = () => {
     setIsLogin(true);
   };
 
+  // * Mypage에서 회원탈퇴 시, isLogin을 true => flase 변경
   const afterWithdrawal = () => {
     setIsLogin(false);
   };
-  // * isStared Array 를 리 렌더링 함수
-  const rerenderIsStared = (datas) => {
-    setIsStared(datas.data.data);
-    console.log("🔹", datas.data.data);
-  };
 
   // * stared pic이 클릭되면, 해당 stared City Card delete
-  // ! Delete
   const handleIsStaredDelete = (e) => {
     const curValue = Number(e.currentTarget.getAttribute("value"));
-    setIsStared(
-      isStared.slice(0, curValue).concat(isStared.slice(curValue + 1))
-    );
-    console.log("🟢: 지워졌나?");
+    setIsStared(isStared.slice(0, curValue).concat(isStared.slice(curValue + 1)));
     axios
       .post(
         process.env.REACT_APP_API_URL + "/unsetLocation",
@@ -85,15 +66,13 @@ function App() {
       .catch(console.log);
   };
 
-  // * searched pic이 클릭되면, 해당 searched City Card가 isStared로 포함
-  // ! Star
+  // * searched pic이 클릭되면, 해당 searched City Card가 isStared로 포함 (UserLocations DB POST)
+  // ! isStaredLoading (Alert 추가 필요)
   const handleIsSearched = (e) => {
     const curValue = Number(e.currentTarget.getAttribute("value"));
-    console.log("🔴", isSearched[curValue].stationName);
-    if (isStared.length < 3) {
+    if (isStared.length < 3 && !isStaredLoading) {
       setIsStared(isSearched.slice(curValue, curValue + 1).concat(isStared));
       setIsSearched(isSearched.filter((el, idx) => idx !== curValue));
-
       const setLocationURL = process.env.REACT_APP_API_URL + "/setLocation";
       const setLocationPayload = {
         location_name: isSearched[curValue].stationName,
@@ -105,10 +84,11 @@ function App() {
         },
         withCredentials: true,
       };
-
       axios
         .post(setLocationURL, setLocationPayload, setLocationConfig)
         .catch(console.log);
+    } else if (isStaredLoading) {
+      alert("이전 즐겨찾기 결과를 찾는 중입니다. 모든 결과를 찾은 후 즐겨찾기를 등록해주세요.");
     } else {
       alert("즐겨찾기는 최대 3개까지 가능합니다.");
     }
@@ -142,9 +122,8 @@ function App() {
   const handleKeywordDelete = () => setKeyword("");
 
   // * makeSearchLocation Query를 Request하는 함수 (DropDownClick, DropDown에서 공용 사용)
-  const makeSearchLocation = async (final) => {
-    // ! Loaidng #2
-    // setIsLoading(isLoading.concat(true));
+  // ! isLoading (Alert 추가 필요)
+  const makeSearchLocation = (final) => {
     const searchLocationQuery = "?query=" + final.split(" ").join("+");
     const searchURL = process.env.REACT_APP_API_URL + "/search" + searchLocationQuery;
     const searchConfig = {
@@ -163,13 +142,15 @@ function App() {
           return el.stationName === final;
         })
         .find((el) => el === true) || false;
-
-    if (!isCitySearchedBefore && !isStaredAlready) {
-      await axios.get(searchURL, searchConfig).then((datas) => {
-        setIsSearched([datas.data].concat(isSearched));
-        // ! Loaidng #3
-        // setIsLoading(isLoading.map((el, idx) => idx === isSearched.length - 1 ? true : el))
-      });
+    if (!isCitySearchedBefore && !isStaredAlready && !isLoading) {
+      setIsLoading(true);
+      axios
+        .get(searchURL, searchConfig)
+        .then((datas) => setIsSearched([datas.data].concat(isSearched)))
+        .then(() => setIsLoading(false))
+        .catch(console.log)
+    } else if (isLoading) {
+      alert("이전 검색 결과를 찾는 중입니다. 결과를 찾은 후 다시 검색해주세요.");
     } else {
       alert("[선호 지역] 혹은 [검색 지역]에 이미 결과가 있습니다.");
     }
@@ -200,8 +181,9 @@ function App() {
     }
   };
 
-  console.log("-------------------------------------------------------");
+  // * MainPage 도달 시 Accesstoken이 localStrage에 있는지 확인 후, 있다면 isLogin, isStared 상태 값 변화 useEffect
   useEffect(() => {
+    setIsStaredLoading(true)
     axios
       .get(process.env.REACT_APP_API_URL + "/accesstokenrequest", {
         headers: {
@@ -210,14 +192,8 @@ function App() {
         },
         withCredentials: true,
       })
-      .then((res) => {
-        setIsLogin(true);
-        console.log("🔺", res);
-      })
+      .then(() => setIsLogin(true))
       .catch(console.log);
-
-    // if (isLogin) {
-    console.log("🟡: 됐나?!");
     axios
       .get(process.env.REACT_APP_API_URL + "/mainpage", {
         headers: {
@@ -226,32 +202,12 @@ function App() {
         },
         withCredentials: true,
       })
-      .then((findStars) => {
-        setIsStared(findStars.data);
-        console.log("🔹", findStars.data);
-      })
-      .catch(console.log);
-    // }
+      .then((findStars) => setIsStared(findStars.data.reverse()))
+      .catch(console.log)
+      .finally(() => {
+        setIsStaredLoading(false);
+      });
   }, []);
-
-  // * isLogin이 true라면, 선호지역 가져오기.
-
-  // console.log("🟡: 됐나?!");
-  // axios
-  //   .get(process.env.REACT_APP_API_URL + "/mainpage", {
-  //     headers: {
-  //       Authorization: `Bearer ${aT}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //     withCredentials: true,
-  //   })
-  //   .then((findStars) => {
-  //     setIsStared(findStars.data);
-  //     console.log("🔹", findStars.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.response);
-  //   });
 
   return (
     <BrowserRouter>
@@ -272,6 +228,8 @@ function App() {
               handleLogout={handleLogout}
               handleIsStaredDelete={handleIsStaredDelete}
               handleIsSearched={handleIsSearched}
+              isLoading={isLoading}
+              isStaredLoading={isStaredLoading}
             />
           </Route>
           <Route path="/signup">

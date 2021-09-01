@@ -8,6 +8,8 @@ export default function Container({
   isSearched,
   handleIsStaredDelete,
   handleIsSearched,
+  isLoading,
+  isStaredLoading
 }) {
   const staredEmptyCardLen = 3 - isStared.length || 0;  
   const searchedEmptyCardLen =
@@ -35,6 +37,7 @@ export default function Container({
                 stared={true}
                 idx={idx}
                 handleIsStaredDelete={handleIsStaredDelete}
+                isStaredLoading={isStaredLoading}
               />
             ))}
             {staredEmptyCard.map((el) => (
@@ -55,6 +58,7 @@ export default function Container({
                 stared={false}
                 idx={idx}
                 handleIsSearched={handleIsSearched}
+                isLoading={isLoading}
               />
             ))}
             {searchedEmptyCard.map((el) => (

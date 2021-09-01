@@ -13,7 +13,6 @@ export default function Header({
   handleDropDown,
   isLogin,
   handleLogout,
-  getUserinfo,
 }) {
   return (
     <div className="header">
