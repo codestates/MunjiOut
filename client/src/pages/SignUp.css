@@ -21,7 +21,7 @@
   height: 25px;
   margin-bottom: 10px;
 }
-*/ .Signup_info {
+.Signup_info {
   font-size: 17px;
   text-align: left;
   font-weight: bold;
@@ -30,7 +30,7 @@
 .Logo {
   margin-bottom: 30px;
 }
-*/ .Signup_btn {
+.Signup_btn {
   font-size: 0.8rem;
   font-weight: bold;
   width: 100px;
@@ -43,7 +43,7 @@
 .check_retypepassword,
 .check_mobile,
 .check_email {
-  opacity: 60%;
+  opacity: 0.6;
   text-align: left;
   color: red;
   font-size: 0.8rem;

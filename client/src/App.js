@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { getRegExp } from "korean-regexp";
 import axios from "axios";
+import Modal from "./components/Modal";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -17,27 +18,31 @@ function App() {
   const [keyword, setKeyword] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [searchResultIdx, setSearchResultIdx] = useState(-1);
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [page, setPage] = useState();
   const aT = localStorage.getItem("accessToken");
-  // const [userinfo, setUserinfo] = useState({
-  //   id: "",
-  //   username: "",
-  //   email: "",
-  //   mobile: "",
-  //   address: "",
-  // });
-  // const infomation = JSON.parse(localStorage.getItem("userinfo"));
-  // console.log("info:", infomation);
   // ! Loaidng #1
   // const [isLoading, setIsLoading] = useState([]);
+
+  const handleReplace = () => {
+    window.location.replace("/");
+  };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
 
   // * Logout을 클릭하면, isLogin => false
   const handleLogout = (e) => {
     setIsStared([]);
     setIsLogin(false);
-    alert("로그아웃 되었습니다.");
+    setIsOpen(true);
+    setPage("메인화면으로");
+    setMessage("로그아웃 되었습니다");
 
     // ! Logout Request (로그인 상태 현재 미확인)
-    const logoutURL = "https://localhost:4000/logout";
+    const logoutURL = "http://localhost:4000/logout";
     const logoutConfig = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
@@ -71,7 +76,7 @@ function App() {
     console.log("🟢: 지워졌나?");
     axios
       .post(
-        "https://localhost:4000/unsetLocation",
+        "http://localhost:4000/unsetLocation",
         { location_name: isStared[curValue].stationName },
         {
           headers: {
@@ -93,7 +98,8 @@ function App() {
       setIsStared(isSearched.slice(curValue, curValue + 1).concat(isStared));
       setIsSearched(isSearched.filter((el, idx) => idx !== curValue));
 
-      const setLocationURL = "https://localhost:4000/setLocation";
+      axios.post();
+      const setLocationURL = "http://localhost:4000/setLocation";
       const setLocationPayload = {
         location_name: isSearched[curValue].stationName,
       };
@@ -109,7 +115,9 @@ function App() {
         .post(setLocationURL, setLocationPayload, setLocationConfig)
         .catch(console.log);
     } else {
-      alert("즐겨찾기는 최대 3개까지 가능합니다.");
+      setIsOpen(true);
+      setMessage("즐겨찾기는 최대 3개까지 가능합니다");
+      setPage("닫기");
     }
   };
 
@@ -145,7 +153,7 @@ function App() {
     // ! Loaidng #2
     // setIsLoading(isLoading.concat(true));
     const searchLocationQuery = "?query=" + final.split(" ").join("+");
-    const searchURL = "https://localhost:4000/search" + searchLocationQuery;
+    const searchURL = "http://localhost:4000/search" + searchLocationQuery;
     const searchConfig = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
@@ -170,7 +178,9 @@ function App() {
         // setIsLoading(isLoading.map((el, idx) => idx === isSearched.length - 1 ? true : el))
       });
     } else {
-      alert("[선호 지역] 혹은 [검색 지역]에 이미 결과가 있습니다.");
+      setIsOpen(true);
+      setMessage("[선호 지역] 혹은 [검색 지역]에 이미 결과가 있습니다");
+      setPage("닫기");
     }
   };
 
@@ -199,10 +209,9 @@ function App() {
     }
   };
 
-  console.log("-------------------------------------------------------");
   useEffect(() => {
     axios
-      .get("https://localhost:4000/accesstokenrequest", {
+      .get("http://localhost:4000/accesstokenrequest", {
         headers: {
           Authorization: `Bearer ${aT}`,
           "Content-Type": "application/json",
@@ -218,7 +227,7 @@ function App() {
     // if (isLogin) {
     console.log("🟡: 됐나?!");
     axios
-      .get("https://localhost:4000/mainpage", {
+      .get("http://localhost:4000/mainpage", {
         headers: {
           Authorization: `Bearer ${aT}`,
           "Content-Type": "application/json",
@@ -232,25 +241,6 @@ function App() {
       .catch(console.log);
     // }
   }, []);
-
-  // * isLogin이 true라면, 선호지역 가져오기.
-
-  // console.log("🟡: 됐나?!");
-  // axios
-  //   .get("https://localhost:4000/mainpage", {
-  //     headers: {
-  //       Authorization: `Bearer ${aT}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //     withCredentials: true,
-  //   })
-  //   .then((findStars) => {
-  //     setIsStared(findStars.data);
-  //     console.log("🔹", findStars.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err.response);
-  //   });
 
   return (
     <BrowserRouter>
@@ -286,6 +276,14 @@ function App() {
             <EmptyPage />
           </Route>
         </Switch>
+        {isOpen ? (
+          <Modal
+            message={message}
+            onClick={handleReplace}
+            page={page}
+            close={handleModalClose}
+          />
+        ) : null}
       </div>
     </BrowserRouter>
   );

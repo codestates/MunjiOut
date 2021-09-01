@@ -13,35 +13,40 @@ function Login({ handleLogin }) {
   const [errorMsg, setErrorMsg] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
-  const history = useHistory();
+  const [page, setPage] = useState();
   const aT = localStorage.getItem("accessToken");
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
-  const handleHistory = () => {
-    // history.push("/");
+  const handleReplace = () => {
     window.location.replace("/");
   };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
+
   const handleLoginRequest = () => {
     if ((loginInfo.email === "", loginInfo.password === "")) {
       setErrorMsg("이메일과 비밀번호를 입력해주세요");
     } else {
       axios
-        .post("https://localhost:4000/login", loginInfo, {
+        .post("http://localhost:4000/login", loginInfo, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
         .then((res) => {
           localStorage.setItem("accessToken", res.data.accessToken);
           handleLogin();
-          setMessage("환영합니다");
           setIsOpen(true);
+          setPage("메인화면으로");
+          setMessage("환영합니다");
           return res.data.accessToken;
         })
         .then((token) => {
           axios
-            .get("https://localhost:4000/userinfo", {
+            .get("http://localhost:4000/userinfo", {
               headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -68,26 +73,43 @@ function Login({ handleLogin }) {
     }
   };
 
+  const enter = (e) => {
+    if (e.key === "Enter" && e.target.value !== "") {
+      handleLoginRequest();
+    }
+  };
+
   return (
     <div className="Login">
-      <Link to="/">
-        <img src={logo} className="Logo"></img>
-      </Link>
+      <img src={logo} className="Logo" onClick={handleReplace}></img>
       <div className="Login_container">
         <div>
           <div className="Login_info">이메일</div>
           <input
             className="Login_input"
             onChange={handleInputValue("email")}
+            onKeyPress={(e) => {
+              enter(e);
+            }}
           ></input>
         </div>
-        {isOpen ? <Modal message={message} onClick={handleHistory} /> : null}
+        {isOpen ? (
+          <Modal
+            message={message}
+            onClick={handleReplace}
+            page={page}
+            close={handleModalClose}
+          />
+        ) : null}
         <div>
           <div className="Login_info">비밀번호</div>
           <input
             className="Login_input"
             type="password"
             onChange={handleInputValue("password")}
+            onKeyPress={(e) => {
+              enter(e);
+            }}
           ></input>
         </div>
         <button className="Login_btn" onClick={handleLoginRequest}>

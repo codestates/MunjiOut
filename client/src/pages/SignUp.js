@@ -3,10 +3,10 @@ import logo from "../MunjioutLogo.png";
 import "./SignUp.css";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import { getRegExp } from 'korean-regexp';
+import { getRegExp } from "korean-regexp";
+import Modal from "../components/Modal";
 
 function Signup({ LN }) {
-
   const [userInfo, setUserInfo] = useState({
     username: "",
     email: "",
@@ -21,7 +21,9 @@ function Signup({ LN }) {
   const [errorMsg, setErrorMsg] = useState("");
   const [addressResult, setAddressResult] = useState([]);
   const [addressIdx, setAddressIdx] = useState(-1);
-  const history = useHistory();
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [page, setPage] = useState();
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
@@ -30,10 +32,9 @@ function Signup({ LN }) {
     // setUserInfo({ ...userInfo, ["address"]: addressResult[addressIdx] });
     setUserInfo({ ...userInfo, ["address"]: e.target.value });
   };
-  const deleteInputAddress = () =>{
+  const deleteInputAddress = () => {
     setUserInfo({ ...userInfo, ["address"]: "" });
-  }
-  console.log(userInfo);
+  };
 
   // userInfo.address 값이 바뀔 때 마다 새로운 AddressResult 생성 useEffect
   useEffect(() => {
@@ -41,9 +42,10 @@ function Signup({ LN }) {
       setAddressResult([]);
       setAddressIdx(-1);
     } else {
-      setAddressResult(LN
-        .filter(el => getRegExp(userInfo.address).test(el))
-        .filter((el, idx) => idx < 5 ? el : null)
+      setAddressResult(
+        LN.filter((el) => getRegExp(userInfo.address).test(el)).filter(
+          (el, idx) => (idx < 5 ? el : null)
+        )
       );
     }
   }, [userInfo.address]);
@@ -91,6 +93,14 @@ function Signup({ LN }) {
     }
   };
 
+  const handleReplace = () => {
+    window.location.replace("/login");
+  };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
+
   const handleSignupRequest = () => {
     if (
       userInfo.username === "" ||
@@ -106,15 +116,15 @@ function Signup({ LN }) {
       setErrorMsg("모든 항목을 바르게 작성해주세요");
     } else {
       axios
-        .post("https://localhost:4000/signup", userInfo, {
+        .post("http://localhost:4000/signup", userInfo, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
         .then((res) => {
           if (res.status === 201) {
-            console.log(res);
-            // setErrorMsg("회원가입 성공");
-            history.push("/");
+            setIsOpen(true);
+            setPage("로그인페이지로");
+            setMessage("회원가입이 완료되었습니다");
           }
         })
         .catch((error) => {
@@ -135,25 +145,27 @@ function Signup({ LN }) {
   // * AddressDropDown에 있는 li 클릭 시, userInfo.address 해당 innerText로 변경
   const handleAddressDropDownClick = (e) => {
     setUserInfo({ ...userInfo, ["address"]: e.target.innerText });
-  }
+  };
 
   // * AddressDropDonw에서 방향키, Enter 클릭 시 작용
   const handleAddressDropDown = (e) => {
     if (e.key === "ArrowDown" && addressIdx < addressResult.length - 1) {
-      setAddressIdx(addressIdx + 1)
-    } else if (e.key === "ArrowUp" &&  -1 < addressIdx && addressIdx <= addressResult.length - 1) {
-      setAddressIdx(addressIdx - 1)
+      setAddressIdx(addressIdx + 1);
+    } else if (
+      e.key === "ArrowUp" &&
+      -1 < addressIdx &&
+      addressIdx <= addressResult.length - 1
+    ) {
+      setAddressIdx(addressIdx - 1);
     }
     if (e.key === "Enter" && addressResult.length !== 0) {
-      setUserInfo({...userInfo, ["address"]: addressResult[addressIdx]});
+      setUserInfo({ ...userInfo, ["address"]: addressResult[addressIdx] });
     }
-  }
+  };
 
   return (
     <div className="Signup">
-      <Link to="/">
-        <img src={logo} className="Logo"></img>
-      </Link>
+      <img src={logo} className="Logo" onClick={handleReplace}></img>
       <div className="Signup_container">
         <div>
           <div className="Signup_info">이름</div>
@@ -177,6 +189,14 @@ function Signup({ LN }) {
             {checkEmail ? null : "올바른 이메일 형식이 아닙니다."}
           </div>
         </div>
+        {isOpen ? (
+          <Modal
+            message={message}
+            onClick={handleReplace}
+            page={page}
+            close={handleModalClose}
+          />
+        ) : null}
         <div>
           <div className="Signup_info">비밀번호</div>
           <input
@@ -226,7 +246,7 @@ function Signup({ LN }) {
               type="text"
               onChange={handleInputAddress}
               onKeyUp={handleAddressDropDown}
-              placeholder="주소를 검색해주세요" 
+              placeholder="주소를 검색해주세요"
               value={userInfo.address}
               className="Signup_input"
             />

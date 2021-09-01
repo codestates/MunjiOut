@@ -5,6 +5,7 @@ import "./Mypage.css";
 import { Link, useHistory } from "react-router-dom";
 import { debounce } from "lodash";
 import axios from "axios";
+import Modal from "../components/Modal";
 
 // const debounceSomethingFunc = debounce(() => {
 //   console.log("called debounceSomethingFunc");
@@ -15,7 +16,9 @@ function Mypage({ afterWithdrawal }) {
   const [checkRetypePassword, setCheckRetypePassword] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const information = JSON.parse(localStorage.getItem("userinfo"));
-  const history = useHistory();
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [page, setPage] = useState();
   const token = localStorage.getItem("accessToken");
 
   const [myInfo, setMyInfo] = useState({
@@ -41,6 +44,13 @@ function Mypage({ afterWithdrawal }) {
       setCheckRetypePassword(false);
     }
   };
+  const handleReplace = () => {
+    window.location.replace("/");
+  };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
 
   const handleEditUserRequest = () => {
     if (
@@ -51,7 +61,7 @@ function Mypage({ afterWithdrawal }) {
       setErrorMsg("변경할 비밀번호를 올바르게 입력해주세요");
     } else {
       axios
-        .post("https://localhost:4000/editUserinfo", myInfo, {
+        .post("http://localhost:4000/editUserinfo", myInfo, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -59,8 +69,11 @@ function Mypage({ afterWithdrawal }) {
           withCredentials: true,
         })
         .then((res) => {
-          console.log(res);
-          window.location.replace("/");
+          if (res.status === 200) {
+            setIsOpen(true);
+            setPage("메인페이지로");
+            setMessage("회원정보가 수정되었습니다");
+          }
         })
         .catch((err) => {
           console.log(err.response);
@@ -71,7 +84,7 @@ function Mypage({ afterWithdrawal }) {
   const handleWithdrawalRequest = () => {
     axios
       .post(
-        "https://localhost:4000/withdrawal",
+        "http://localhost:4000/withdrawal",
         { data: null },
         {
           headers: {
@@ -81,18 +94,20 @@ function Mypage({ afterWithdrawal }) {
         }
       )
       .then((res) => {
+        if (res.status === 200) {
+          setIsOpen(true);
+          setMessage("회원탈퇴가 완료되었습니다");
+          setPage("메인페이지로");
+          afterWithdrawal();
+        }
         localStorage.removeItem("userinfo");
         localStorage.removeItem("accessToken");
-        window.location.replace("/");
-        afterWithdrawal();
       });
   };
 
   return (
     <div className="Mypage">
-      <Link to="/">
-        <img src={logo} className="Logo"></img>
-      </Link>
+      <img src={logo} className="Logo" onClick={handleReplace}></img>
       <div className="Mypage_container">
         <div>
           <div className="Mypage_info">이름</div>
@@ -112,6 +127,14 @@ function Mypage({ afterWithdrawal }) {
           ></input>
           <div className="check_email"></div>
         </div>
+        {isOpen ? (
+          <Modal
+            message={message}
+            onClick={handleReplace}
+            page={page}
+            close={handleModalClose}
+          />
+        ) : null}
         <div>
           <div className="Mypage_info">비밀번호</div>
           <input

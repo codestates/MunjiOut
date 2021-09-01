@@ -40,7 +40,7 @@ app.post("/setLocation", controllers.setLocations);
 app.post("/unsetLocation", controllers.unsetLocations);
 app.get("/userLocation", controllers.userLocations);
 
-const HTTPS_PORT = process.env.HTTPS_PORT || 80;
+const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
 
 let server;
 
