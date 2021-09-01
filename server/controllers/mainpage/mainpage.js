@@ -55,9 +55,7 @@ module.exports = async (req, res) => {
                         locationId: locationInfo.id
                     }
                 });
-
-                // console.log("++++++++++\n" + howManyLikes.length);
-
+                
                 // 측정소가 점검 중일 경우 => pm10Value가 "-"으로 표기됨
                 if (res.data.response.body.items[0].pm10Value === "-") {
                     return {
@@ -77,7 +75,7 @@ module.exports = async (req, res) => {
             
             const results = await Promise.all(stationInfo);
             // console.log(results);
-            res.status(200).json({ data: results, message: "ok"});
+            res.status(200).json(results);
         }
         fetchStationInfo();
     } else {
