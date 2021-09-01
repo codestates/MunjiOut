@@ -72,65 +72,62 @@ module.exports = {
           const timer = setTimeout(() => {
             return res.status(500).json({ message: "OpenAPI error" });
             // reject(new Error('TIMEOUT'))
-          }, ms)
-      
+          }, ms);
+
           promise
-            .then(value => {
-              clearTimeout(timer)
-              resolve(value)
+            .then((value) => {
+              clearTimeout(timer);
+              resolve(value);
             })
-            .catch(reason => {
-                clearTimeout(timer)
-                  reject(reason)
-            })
-        })
+            .catch((reason) => {
+              clearTimeout(timer);
+              reject(reason);
+            });
+        });
       }
 
-      timeout(12000, fetch(url)
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log(res.response.body);
-        if (!res.response.body) {
-          isSearchFailed = true;
-        } else {
-          // console.log(res.response.body.items[0]);
-          lastUpdated = res.response.body.items[0].dataTime;
-          pmValue = res.response.body.items[0].pm10Value;
-        }
-      })
-      .then(() => {
-        // OpenAPI 에러로 인해로 검색이 되지 않을 경우
-        if (isSearchFailed) {
-          return res.status(500).json({ message: "retry later" });
-        }
+      timeout(
+        12000,
+        fetch(url)
+          .then((res) => res.json())
+          .then((res) => {
+            // console.log(res.response.body);
+            if (!res.response.body) {
+              isSearchFailed = true;
+            } else {
+              // console.log(res.response.body.items[0]);
+              lastUpdated = res.response.body.items[0].dataTime;
+              pmValue = res.response.body.items[0].pm10Value;
+            }
+          })
+          .then(() => {
+            // OpenAPI 에러로 인해로 검색이 되지 않을 경우
+            if (isSearchFailed) {
+              return res.status(500).json({ message: "retry later" });
+            }
 
-        // 측정소 점검 중
-        if (pmValue === "-") {
-          res.status(200).json({
-            data: {
+            // 측정소 점검 중
+            if (pmValue === "-") {
+              res.status(200).json({
+                stationName: stationLocation,
+                lastUpdated: lastUpdated,
+                pm10_value: "현재 측정소가 점검 중입니다.",
+                likes: howManyLikes.length,
+              });
+            }
+
+            // 검색 성공
+            res.status(200).json({
               stationName: stationLocation,
               lastUpdated: lastUpdated,
-              pm10_value: "현재 측정소가 점검 중입니다.",
+              pm10_value: Number(pmValue),
               likes: howManyLikes.length,
-            },
-            message: "under inspection",
-          });
-        }
-
-        // 검색 성공
-        res.status(200).json({
-          data: {
-            stationName: stationLocation,
-            lastUpdated: lastUpdated,
-            pm10_value: Number(pmValue),
-            likes: howManyLikes.length,
-          },
-          message: "ok",
-        });
-      })
-      .catch((error) => {
-        throw error;
-      }))
+            });
+          })
+          .catch((error) => {
+            throw error;
+          })
+      );
     } else {
       return res.status(400);
     }

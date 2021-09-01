@@ -34,7 +34,6 @@ function App() {
   const handleLogout = (e) => {
     setIsStared([]);
     setIsLogin(false);
-    setIsStared([]);
     alert("로그아웃 되었습니다.");
 
     // ! Logout Request (로그인 상태 현재 미확인)
@@ -75,7 +74,10 @@ function App() {
         "https://localhost:4000/unsetLocation",
         { location_name: isStared[curValue].stationName },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            Authorization: `Bearer ${aT}`,
+            "Content-Type": "application/json",
+          },
           withCredentials: true,
         }
       )
@@ -86,7 +88,7 @@ function App() {
   // ! Star
   const handleIsSearched = (e) => {
     const curValue = Number(e.currentTarget.getAttribute("value"));
-    console.log("🔴", isSearched[curValue].data.stationName);
+    console.log("🔴", isSearched[curValue].stationName);
     if (isStared.length < 3) {
       setIsStared(isSearched.slice(curValue, curValue + 1).concat(isStared));
       setIsSearched(isSearched.filter((el, idx) => idx !== curValue));
@@ -198,37 +200,38 @@ function App() {
   };
 
   console.log("-------------------------------------------------------");
+  // axios
+  //   .get("https://localhost:4000/accesstokenrequest", {
+  //     headers: {
+  //       Authorization: `Bearer ${aT}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //     withCredentials: true,
+  //   })
+  //   .then((res) => {
+  //     setIsLogin(true);
+  //     console.log("🔺", res);
+  //   })
+  //   .catch(console.log);
+
+  // * isLogin이 true라면, 선호지역 가져오기.
+
+  console.log("🟡: 됐나?!");
   axios
-    .get("https://localhost:4000/accesstokenrequest", {
+    .get("https://localhost:4000/mainpage", {
       headers: {
-        Authorization: `Bearer ${AT}`,
+        Authorization: `Bearer ${aT}`,
         "Content-Type": "application/json",
       },
       withCredentials: true,
     })
-    .then((res) => {
-      setIsLogin(true);
-      console.log("🔺", res);
+    .then((findStars) => {
+      setIsStared(findStars.data);
+      console.log("🔹", findStars.data);
     })
-    .catch(console.log);
-
-  // * isLogin이 true라면, 선호지역 가져오기.
-  if (isLogin) {
-    console.log("🟡: 됐나?!");
-    axios
-      .get("https://localhost:4000/mainpage", {
-        headers: {
-          Authorization: `Bearer ${AT}`,
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      })
-      .then((findStars) => {
-        setIsStared(findStars.data.data);
-        console.log("🔹", findStars.data.data);
-      })
-      .catch(console.log);
-  }
+    .catch((err) => {
+      console.log(err.response);
+    });
 
   return (
     <BrowserRouter>
