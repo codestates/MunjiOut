@@ -11,7 +11,7 @@ const rowNum = 1;
 
 const sendEmail = () => {
     // console.log("email module test");
-    cron.schedule('0 9 * * *', async () => {
+    cron.schedule('55 20 * * *', async () => {
         console.log("node-cron script running");
 
         let users = await db.User.findAll({ });
@@ -96,8 +96,8 @@ const sendEmail = () => {
                     results = results.replace(":1*", " #1");
                     results = results.replace("선호지역:2*", "\n선호지역 #2");
                     results = results.replace("선호지역:3*", "\n선호지역 #3");
-                    results = results.replaceAll(",", "\n");
-                    results = results.replaceAll("::", ": ");
+                    results = results.replace(/,/g, "\n");
+                    results = results.replace(/::/g, ": ");
                     // console.log(results);
 
                     // email message options
@@ -129,10 +129,10 @@ const sendEmail = () => {
                 fetchStationInfo();
             }
         });
-    }, {
-        schedule: true,
-        timeZone: "Asia/Seoul"
-    });
+    }, 
+        true,
+        "Asia/Seoul"
+    );
 };
 
 module.exports = {

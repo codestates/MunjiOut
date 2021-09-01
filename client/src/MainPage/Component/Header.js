@@ -29,11 +29,7 @@ export default function Header({
         handleDropDown={handleDropDown}
       />
       <div className="header_space" />
-      <Button
-        isLogin={isLogin}
-        handleLogout={handleLogout}
-        getUserinfo={getUserinfo}
-      />
+      <Button isLogin={isLogin} handleLogout={handleLogout} />
     </div>
   );
 }

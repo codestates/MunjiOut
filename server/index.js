@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: true,
     // httpOnly: true,
     credentials: true,
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
@@ -58,7 +58,7 @@ server = app.listen(HTTPS_PORT, () => console.log("http server running"));
 // }
 
 // email notification
-// sendEmail();
+sendEmail();
 
 // for testing
 // sendEmailTest();

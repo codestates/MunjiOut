@@ -1,6 +1,7 @@
 import "./MainPage.css";
 import Header from "./Component/Header";
 import Body from "./Component/Body";
+import axios from "axios";
 
 export default function MainPage({
   keyword,
@@ -16,8 +17,35 @@ export default function MainPage({
   handleLogout,
   handleIsStaredDelete,
   handleIsSearched,
-  getUserinfo,
 }) {
+  // * "/" 엔드포인트에 도달 시, accessToken이 localStrage에 있는지 확인 후, isStared 배열 수정
+  // axios
+  // .get("https://localhost:4000/accesstokenrequest", {
+  //   headers: {
+  //     Authorization: `Bearer ${AT}`,
+  //     "Content-Type": "application/json"
+  //   },
+  //   withCredentials: true,
+  // })
+  // .then((res) => {
+  //   handleLogin();
+  //   console.log('🔺', res);
+  // })
+  // .then(() => {
+  //   axios
+  //     .get("https://localhost:4000/mainpage", {
+  //       headers: {
+  //         Authorization: `Bearer ${AT}`,
+  //         "Content-Type": "application/json"
+  //       },
+  //       withCredentials: true,
+  //     }).then(console);
+  //     .then((datas) => {
+  //       rerenderIsStared(datas);
+  //     });
+  // })
+  // .catch (console.log);
+
   return (
     <div className="mainPage">
       <div className="mainPage_header">
@@ -31,7 +59,6 @@ export default function MainPage({
           handleDropDown={handleDropDown}
           isLogin={isLogin}
           handleLogout={handleLogout}
-          getUserinfo={getUserinfo}
         />
       </div>
       <div className="mainPage_body">
