@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+}
+
+.Signup {
+  text-align: center;
+  background-color: rgb(235, 235, 235);
+  height: 100vh;
+}
+
+.Signup_container {
+  /* border: 1px black solid; */
+  width: 310px;
+  height: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Signup_input {
+  width: 300px;
+  height: 25px;
+  margin-bottom: 10px;
+}
+*/ .Signup_info {
+  font-size: 17px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.Logo {
+  margin-bottom: 30px;
+}
+*/ .Signup_btn {
+  font-size: 0.8rem;
+  font-weight: bold;
+  width: 100px;
+  height: 40px;
+  letter-spacing: 3px;
+  margin-top: 15px;
+}
+
+.check_password,
+.check_retypepassword,
+.check_mobile,
+.check_email {
+  opacity: 60%;
+  text-align: left;
+  color: red;
+  font-size: 0.8rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.alert-box {
+  color: red;
+  /* background-color: #f8d7da; */
+  border-color: #f5c6cb;
+
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.nonHoverOption,
+.hoverOption {
+  list-style: none;
+  font-size: 14px;
+  margin: 5px;
+  padding: 8px 4px;
+}
+
+.nonHoverOption:hover,
+.hoverOption {
+  background-color: whitesmoke;
+  font-weight: bold;
+  color: orange;
+}
