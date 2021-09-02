@@ -42,7 +42,7 @@ export default function Button({ isLogin, handleLogout }) {
       <div>
         {!isLogin ? (
           <Link to="/login" style={{ textDecoration: "none" }}>
-            <button className="btn login" id="loin">Login</button>
+            <button className="btn login" id="login">Login</button>
           </Link>
         ) : (
           <button className="btn logout" id="logout" onClick={handleLogout}>

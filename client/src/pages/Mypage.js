@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   }
   .Mypage {
     text-align: center;
-    background-color: rgb(235, 235, 235);
+    background-color: #f8f8f8;
     height: 100vh;
   }
   .Mypage_container {

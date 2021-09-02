@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   }
   .searchBar {
     padding: 4px 12px;
-    width: 65vw;
+    width: 75vw;
     height: 32px;
     font-size: 14px;
     border-radius: 12px 0 0 12px;

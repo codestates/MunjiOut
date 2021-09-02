@@ -86,6 +86,7 @@ function App() {
   const handleIsSearched = (e) => {
     const curValue = Number(e.currentTarget.getAttribute("value"));
     if (isStared.length < 3 && !isStaredLoading) {
+      // !
       setIsStared(isSearched.slice(curValue, curValue + 1).concat(isStared));
       setIsSearched(isSearched.filter((el, idx) => idx !== curValue));
       const setLocationURL = process.env.REACT_APP_API_URL + "/setLocation";
@@ -103,9 +104,13 @@ function App() {
         .post(setLocationURL, setLocationPayload, setLocationConfig)
         .catch(console.log);
     } else if (isStaredLoading) {
-      alert("이전 즐겨찾기 결과를 찾는 중입니다. 모든 결과를 찾은 후 즐겨찾기를 등록해주세요.");
+      setIsOpen(true);
+      setMessage("이전 즐겨찾기 결과를 찾는 중입니다. 모든 결과를 찾은 후 즐겨찾기를 등록해주세요.");
+      setPage("닫기");
     } else {
-      alert("즐겨찾기는 최대 3개까지 가능합니다.");
+      setIsOpen(true);
+      setMessage("즐겨찾기는 최대 3개까지 가능합니다");
+      setPage("닫기");
     }
   };
 
@@ -224,11 +229,29 @@ function App() {
         withCredentials: true,
       })
       .then((findStars) => setIsStared(findStars.data.reverse()))
-      .catch(console.log)
+      .catch((err) => console.log('🔹', err))
       .finally(() => {
         setIsStaredLoading(false);
       });
   }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(process.env.REACT_APP_API_URL + "/mainpage", {
+  //       headers: {
+  //         Authorization: `Bearer ${aT}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //       withCredentials: true,
+  //     })
+  //     .then((findStars) => {
+  //       if (findStars.data.length !== 0) {
+  //         setIsStared(findStars.data.reverse());
+  //         console.log('🔴', findStars.data.reverse());
+  //       }
+  //     })
+  //     .catch((err) => console.log('🟠', err));
+  // }, [isSearched]);
 
   return (
     <BrowserRouter>

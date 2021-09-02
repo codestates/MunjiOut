@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   }
   .Login {
     text-align: center;
-    background-color: rgb(235, 235, 235);
+    background-color: #f8f8f8;
     height: 100vh;
   }
   .Login_container {

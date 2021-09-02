@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   }
   .Signup {
     text-align: center;
-    background-color: rgb(235, 235, 235);
+    background-color: #f8f8f8;
     height: 200vh;
   }
   .Signup_container {

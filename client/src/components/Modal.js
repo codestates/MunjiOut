@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-// import "./Modal.css";
-
 import styled from 'styled-components';
 import { media } from '../components/utils/_media-queries';
 import { fonts, colors } from '../components/utils/_var';
 
 const Wrapper = styled.div`
-  /* .Modal_container {
-    height: 15rem;
-    text-align: center;
-    margin: 1px auto;
-  } */
   * {
     color: ${colors.darkGray};
   }
@@ -41,19 +34,25 @@ const Wrapper = styled.div`
   .Modal_btn_left {
     position: absolute;
     left: 50%;
-    top: 70%;
+    top: 67%;
+    padding: 4px 12px;
     transform: translate(-50%);
     ${media.huge`font-size: 14px;`}
     ${media.tablet`font-size: 12px;`}
+    background-color: ${colors.yellow};
+    border-radius: 8px;
     font-family: ${fonts.dohyun}, sans-serif;
   }
   .Modal_btn_center {
     position: absolute;
     left: 50%;
-    top: 70%;
+    top: 67%;
+    padding: 4px 12px;
     transform: translate(-50%);
     ${media.huge`font-size: 14px;`}
     ${media.tablet`font-size: 12px;`}
+    background-color: ${colors.yellow};
+    border-radius: 8px;
     font-family: ${fonts.dohyun}, sans-serif;
   }
   .Modal_btn_right,
