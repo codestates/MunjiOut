@@ -43,7 +43,7 @@ function App() {
     setMessage("로그아웃 되었습니다");
 
     // ! Logout Request (로그인 상태 현재 미확인)
-    const logoutURL = "http://localhost:80/logout";
+    const logoutURL = process.env.REACT_APP_API_URL + "/logout";
     const logoutConfig = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
@@ -68,7 +68,7 @@ function App() {
     setIsStared(isStared.slice(0, curValue).concat(isStared.slice(curValue + 1)));
     axios
       .post(
-        "http://localhost:80" + "/unsetLocation",
+        process.env.REACT_APP_API_URL + "/unsetLocation",
         { location_name: isStared[curValue].stationName },
         {
           headers: {
@@ -88,7 +88,7 @@ function App() {
     if (isStared.length < 3 && !isStaredLoading) {
       setIsStared(isSearched.slice(curValue, curValue + 1).concat(isStared));
       setIsSearched(isSearched.filter((el, idx) => idx !== curValue));
-      const setLocationURL = "http://localhost:80" + "/setLocation";
+      const setLocationURL = process.env.REACT_APP_API_URL + "/setLocation";
       const setLocationPayload = {
         location_name: isSearched[curValue].stationName,
       };
@@ -140,7 +140,7 @@ function App() {
   // ! isLoading (Alert 추가 필요)
   const makeSearchLocation = (final) => {
     const searchLocationQuery = "?query=" + final.split(" ").join("+");
-    const searchURL = "http://localhost:80" + "/search" + searchLocationQuery;
+    const searchURL = process.env.REACT_APP_API_URL + "/search" + searchLocationQuery;
     const searchConfig = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
@@ -206,7 +206,7 @@ function App() {
   useEffect(() => {
     setIsStaredLoading(true)
     axios
-      .get("http://localhost:80" + "/accesstokenrequest", {
+      .get(process.env.REACT_APP_API_URL + "/accesstokenrequest", {
         headers: {
           Authorization: `Bearer ${aT}`,
           "Content-Type": "application/json",
@@ -216,7 +216,7 @@ function App() {
       .then(() => setIsLogin(true))
       .catch(console.log);
     axios
-      .get("http://localhost:80" + "/mainpage", {
+      .get(process.env.REACT_APP_API_URL + "/mainpage", {
         headers: {
           Authorization: `Bearer ${aT}`,
           "Content-Type": "application/json",

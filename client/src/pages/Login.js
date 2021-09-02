@@ -115,7 +115,7 @@ function Login({ handleLogin }) {
     } else {
       axios
         // 
-        .post("http://localhost:80" + "/login", loginInfo, {
+        .post(process.env.REACT_APP_API_URL + "/login", loginInfo, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
@@ -129,7 +129,7 @@ function Login({ handleLogin }) {
         })
         .then((token) => {
           axios
-            .get("http://localhost:80" +"/userinfo", {
+            .get(process.env.REACT_APP_API_URL +"/userinfo", {
               headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
