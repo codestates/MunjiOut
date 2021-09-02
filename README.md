@@ -31,7 +31,7 @@
 
 # 기능소개
 **SignUp**
-![1signup](https://user-images.githubusercontent.com/45756034/131839243-e88ededa-0a9d-421e-985a-10c687d89b07.gif)
+![1signup](https://user-images.githubusercontent.com/45756034/131840027-54dc249f-5b7f-469f-93bd-2882df392a28.gif)
 
 **Login**
 ![2login](https://user-images.githubusercontent.com/45756034/131838048-cc726c78-2058-41f5-828f-a02043dc2406.gif)
