@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  color: rgb(45, 45, 45);
 }
 
 .Login {
@@ -16,11 +17,7 @@
   margin-right: auto;
 }
 
-.Login_info {
-  font-size: 17px;
-  text-align: left;
-  font-weight: bold;
-}
+
 
 .Login_btn {
   font-size: 0.8rem;
@@ -31,16 +28,43 @@
   margin-top: 15px;
 }
 
-.Logo {
-  margin-bottom: 30px;
+@media screen and (max-width: 799px) {
+  .Logo {
+    margin-top: 30px;
+    padding-bottom: 20px;
+    width: 190px;
+  }
+  .Login_info {
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+    text-align: left;
+    padding-left: 6px;
+  }
 }
 
+@media screen and (min-width: 800px) {
+  .Logo {
+    margin-top: 30px;
+    padding-bottom: 25px;
+    width: 250px;
+  }
+  .Login_info {
+    font-family: 'Jua', sans-serif;
+    font-size: 18px;
+    text-align: left;
+    padding-left: 6px;
+  }
+}
 .Login_input {
   width: 300px;
   height: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  border-color: rgb(255, 255, 255);
+  border-width: 0.2px;
 }
-
+.Login_input:focus {
+  outline: none;
+}
 .alert-box {
   color: red;
   /* background-color: #f8d7da; */

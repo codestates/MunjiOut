@@ -148,7 +148,6 @@ const sendEmailTest = () => {
         })
     }, {
         schedule: true,
-        timeZone: "Asia/Seoul"
     });
 };
 

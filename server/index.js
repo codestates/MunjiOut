@@ -44,21 +44,21 @@ const HTTPS_PORT = process.env.HTTPS_PORT || 80;
 
 let server;
 
-server = app.listen(HTTPS_PORT, () => console.log("http server running"));
+// server = app.listen(HTTPS_PORT, () => console.log("http server running"));
 
-// if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
-//   const privateKey = fs.readFileSync(__dirname + "/key.pem", "utf8");
-//   const certificate = fs.readFileSync(__dirname + "/cert.pem", "utf8");
-//   const credentials = { key: privateKey, cert: certificate };
+if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
+  const privateKey = fs.readFileSync(__dirname + "/key.pem", "utf8");
+  const certificate = fs.readFileSync(__dirname + "/cert.pem", "utf8");
+  const credentials = { key: privateKey, cert: certificate };
 
-//   server = https.createServer(credentials, app);
-//   server.listen(HTTPS_PORT, () => console.log("https server running"));
-// } else {
-//   server = app.listen(HTTPS_PORT, () => console.log("http server running"));
-// }
+  server = https.createServer(credentials, app);
+  server.listen(HTTPS_PORT, () => console.log("https server running"));
+} else {
+  server = app.listen(HTTPS_PORT, () => console.log("http server running"));
+}
 
 // email notification
-sendEmail();
+// sendEmail();
 
 // for testing
 // sendEmailTest();

@@ -1,6 +1,10 @@
 .logoImg {
   margin-left: 10px;
-  width: 100px;
-  height: 35px;
+  margin-top: 80px;
+  width: 120px;
+  /* height: 35px; */
   transform: translateY(5%);
+}
+.logoImg:hover {
+  cursor: pointer;
 }

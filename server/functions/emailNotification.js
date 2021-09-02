@@ -11,6 +11,7 @@ const rowNum = 1;
 
 const sendEmail = () => {
     // console.log("email module test");
+    // UTC 기준 시간 설정
     cron.schedule('55 20 * * *', async () => {
         console.log("node-cron script running");
 
@@ -131,7 +132,6 @@ const sendEmail = () => {
         });
     }, 
         true,
-        "Asia/Seoul"
     );
 };
 

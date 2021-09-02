@@ -17,14 +17,42 @@
   height: 100vh;
 }
 
-.Modal_btn {
+.Modal_btn_right {
+  position: absolute;
+  left: 94.5%;
+  top: 3%;
+  transform: translate(-50%);
+  font-size: 25px;
+  font-weight: bold;
+  border: none;
+  background-color: white;
+  font-family: 'Do Hyeon', sans-serif;
+}
+.Modal_btn_left {
   position: absolute;
   left: 50%;
   top: 70%;
   transform: translate(-50%);
   font-size: 14px;
+  font-family: 'Do Hyeon', sans-serif;
 }
-
+.Modal_btn_center {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  transform: translate(-50%);
+  font-size: 14px;
+  font-family: 'Do Hyeon', sans-serif;
+}
+.Modal_btn_right:hover {
+  cursor: grab;
+}
+.Modal_btn_left:hover {
+  cursor: grab;
+}
+.Modal_btn_center:hover {
+  cursor: grab;
+}
 .Modal_view {
   box-sizing: border-box;
   width: 40vh;
@@ -33,15 +61,13 @@
   min-height: 150px;
   background-color: rgb(255, 255, 255);
   position: relative;
-  opacity: 100%;
+  /* opacity: 100%; */
   text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 20px;
+  font-family: 'Jua', sans-serif;
 }
 
 .Modal_message {
-  border: 1px black solid;
   position: absolute;
   left: 50%;
   top: 45%;

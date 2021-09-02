@@ -77,7 +77,7 @@ module.exports = async (req, res) => {
       });
 
       const results = await Promise.all(stationInfo);
-      console.log("제에에에에발 :", results.statusCode);
+      // console.log("제에에에에발 :", results.statusCode);
       res.status(200).send(results);
     };
     fetchStationInfo();

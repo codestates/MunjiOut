@@ -12,12 +12,15 @@
   border-radius: 12px 0 0 12px;
   border: 2px solid gray;
 }
+.searchBar:focus {
+  outline: none;
+}
 
 .deleteBtn {
   margin: 0px;
   font-size: 20px;
   width: 45px;
-  height: 37px;
+  height: 49px;
   color: gray;
   font-size: 25px;
   background-color: gold;
