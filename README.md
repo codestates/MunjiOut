@@ -30,6 +30,35 @@
 ![system_architecture](https://user-images.githubusercontent.com/45756034/131592859-63e408ef-6098-446a-94d9-78161ada303c.png)
 
 # 기능소개
+**SignUp**
+![1signup](https://user-images.githubusercontent.com/45756034/131839243-e88ededa-0a9d-421e-985a-10c687d89b07.gif)
+
+**Login**
+![2login](https://user-images.githubusercontent.com/45756034/131838048-cc726c78-2058-41f5-828f-a02043dc2406.gif)
+
+**Logout**
+![3logout](https://user-images.githubusercontent.com/45756034/131838112-5edf12ad-7bd1-4108-ba6c-045511e847a0.gif)
+
+**Search Area(회원)**
+![4searchuser](https://user-images.githubusercontent.com/45756034/131838214-5fadbe32-7309-4265-8bec-df18a08fec44.gif)
+
+**Search Area(비회원)**
+![7searchnotuser](https://user-images.githubusercontent.com/45756034/131838880-147776a5-561a-4d03-a89d-773a2c19749c.gif)
+
+**Search Area(같은 지역을 검색했을 경우)**
+![5searchconflict](https://user-images.githubusercontent.com/45756034/131838310-1ca0d0fb-c513-4f5d-a886-96b94afe62c5.gif)
+
+**Setting/Unsetting Favorite Area**
+![8settingstars](https://user-images.githubusercontent.com/45756034/131838588-be793889-e666-4dad-88f3-6018159cf2e4.gif)
+
+**Setting Favorite Area(3개 초과로 선택했을 경우)**
+![6addingthreeplus](https://user-images.githubusercontent.com/45756034/131838750-d184c6dc-2183-4f0a-9862-523d09b2a462.gif)
+
+**Edit Userinfo**
+![9editmypage](https://user-images.githubusercontent.com/45756034/131838963-5f035795-5af6-4ed7-b650-9165ef21614c.gif)
+
+**Withdrawal**
+![10withdrawal](https://user-images.githubusercontent.com/45756034/131839046-0c90ab57-5001-4d36-9a2e-26a7cc0f4f32.gif)
 
 # 프로젝트 회고
 
