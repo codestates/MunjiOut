@@ -7,6 +7,7 @@
 - `먼지아웃(MunjiOut)`은 매일 오전 즐겨찾기에 등록된 지역의 미세먼지 정보를 메일로 받아 보실 수 있습니다.
 - `먼지아웃(MunjiOut)`은 여러분의 건강을 위한 정보를 제공합니다.
 - `WIKI` : https://github.com/codestates/MunjiOut/wiki
+- `Service Link` : http://munjiout.com
 
 # Team
 
