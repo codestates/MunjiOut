@@ -1,10 +1,8 @@
-// import "./Containers.css";
 import CityCard from "./Cards/CityCard";
 import EmptyCard from "./Cards/EmptyCard";
 
 import styled from 'styled-components';
-import { media } from '../../../components/utils/_media-queries';
-import { fonts, colors } from '../../../components/utils/_var';
+import { fonts } from '../../../components/utils/_var';
 
 const Wrapper = styled.div`
   .stared_container,

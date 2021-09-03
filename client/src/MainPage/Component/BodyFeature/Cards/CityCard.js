@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FadeLoader } from "react-spinners";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import styled from 'styled-components';
-// import { media } from '../../../../components/utils/_media-queries';
 import { fonts, colors } from '../../../../components/utils/_var';
 
 const Wrapper = styled.div`

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import logo from "../MunjioutLogo.png";
-import { Link, Redirect, useHistory } from "react-router-dom";
-// import "./Login.css";
 import axios from "axios";
 import Modal from "../components/Modal";
 import styled from 'styled-components';

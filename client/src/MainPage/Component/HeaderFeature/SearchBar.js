@@ -1,7 +1,4 @@
-// import "./SearchBar.css";
-
 import styled from 'styled-components';
-import { media } from '../../../components/utils/_media-queries';
 import { colors } from '../../../components/utils/_var';
 
 const Wrapper = styled.div`

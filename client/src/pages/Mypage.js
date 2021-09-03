@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import logo from "../MunjioutLogo.png";
-// import "./Mypage.css";
-// import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
-import { debounce } from "lodash";
 import axios from "axios";
 import Modal from "../components/Modal";
 import styled from 'styled-components';

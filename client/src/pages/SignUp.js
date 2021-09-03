@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../MunjioutLogo.png";
-// import "./SignUp.css";
 import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
 import { getRegExp } from "korean-regexp";
 import Modal from "../components/Modal";
 import styled from 'styled-components';
