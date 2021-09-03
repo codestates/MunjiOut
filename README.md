@@ -1,5 +1,8 @@
 # MunjiOut
 
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) <img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> ![VS Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+<br><br>
+
 ![munjiout-logo](https://user-images.githubusercontent.com/45756034/131592339-3dbd88df-c89d-416a-933f-0f1466ce2aff.png)
 
 - `먼지아웃(MunjiOut)`은 여러분이 검색한 지역의 미세먼지 수치를 확인할 수 있습니다.
@@ -31,7 +34,7 @@
 | **Auth**   | JSON Web Token (JWT) |
 | **Email**   | Nodemailer |
 | **Distribution**   | AWS, EC2, S3, RDS, Route53 |
-| **SR / Design**   | Figma, Photoshop, Illustrator |
+| **SR / Design**   | dbdiagram, GitBook, Figma, Photoshop, Illustrator |
 | **Communication**   | Zoom, Discord |
 
 
@@ -43,14 +46,14 @@
 **Server-Side**
 ![system_architecture](https://user-images.githubusercontent.com/45756034/131592859-63e408ef-6098-446a-94d9-78161ada303c.png)
 
-# UI
+# UI Design
 
-[Full UI Design](https://github.com/codestates/MunjiOut/wiki/UI-Design)
+### [Full UI Design Link](https://github.com/codestates/MunjiOut/wiki/UI-Design)
 
 **Mobile vs. Web**
 
 <img height="495" alt="mainpagemobile" src="https://user-images.githubusercontent.com/29108753/132062987-94bd0b8f-beb4-4405-9cf5-fd76f9ad7ce9.png">
-<br><br>
+<br>
 
 <img width="608" alt="maipageweb" src="https://user-images.githubusercontent.com/29108753/132062991-da4e617e-a9e9-4c5e-aa8b-9092f5191880.png">
 
@@ -70,6 +73,14 @@
 **Setting/Unsetting Favorite Area**
 
 <img height="425" alt="mainpagemobile" src="https://user-images.githubusercontent.com/45756034/131838588-be793889-e666-4dad-88f3-6018159cf2e4.gif">
+
+# Email Notification Sample
+
+<img width="450" alt="email1" src="https://user-images.githubusercontent.com/29108753/132073573-d3b31722-6919-4a9d-996a-6bb8ca15fabe.jpg">
+
+<img width="450" alt="email2" src="https://user-images.githubusercontent.com/29108753/132073577-35af7588-f1b7-4efc-986d-8021f1dc51e6.jpg">
+
+
 
 # 프로젝트 회고
 
