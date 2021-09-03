@@ -7,6 +7,7 @@
 - `먼지아웃(MunjiOut)`은 매일 오전 즐겨찾기에 등록된 지역의 미세먼지 정보를 메일로 받아 보실 수 있습니다.
 - `먼지아웃(MunjiOut)`은 여러분의 건강을 위한 정보를 제공합니다.
 - `WIKI` : https://github.com/codestates/MunjiOut/wiki
+- `Service Link` : http://munjiout.com
 
 # Team
 
@@ -17,11 +18,24 @@
 | [하경주](https://github.com/TTurbo0824) | **Back-end**                 |
 | [김태호](https://github.com/TAETAEHO)   | **Back-end**                 |
 
-# 기술스택
+# Tech stack
 
-![first team project's stacks 001](https://user-images.githubusercontent.com/45756034/131592777-a04b88cc-4699-4fdb-86f3-9e8a79c25586.jpeg)
+![tech_stack](https://user-images.githubusercontent.com/29108753/132072660-d56d96f7-a3d7-45b9-b2cb-ec1666a75dc8.png)
 
-# 아키텍처
+| Fields                              | Stacks                     |
+| --------------------------------------- | ---------------------------- |
+| **Common**   | Git, GitHub, JavaScript, VS code |
+| [**Front-end**](https://github.com/codestates/MunjiOut/tree/master/client)    | React, Axios, HTML5, CSS, styled-components |
+| [**Back-end**](https://github.com/codestates/MunjiOut/tree/master/server) | Node.js, Express, Axios |
+| **Data**   | MySQL, Sequelize |
+| **Auth**   | JSON Web Token (JWT) |
+| **Email**   | Nodemailer |
+| **Distribution**   | AWS, EC2, S3, RDS, Route53 |
+| **SR / Design**   | Figma, Photoshop, Illustrator |
+| **Communication**   | Zoom, Discord |
+
+
+# Architecture
 
 **Client-Side**
 ![functions_flowchart](https://user-images.githubusercontent.com/45756034/131592838-c56cc6e3-73c7-4a5c-a30e-54e7bd319f3e.png)
@@ -29,11 +43,42 @@
 **Server-Side**
 ![system_architecture](https://user-images.githubusercontent.com/45756034/131592859-63e408ef-6098-446a-94d9-78161ada303c.png)
 
-# 기능소개
+# UI
+
+[Full UI Design](https://github.com/codestates/MunjiOut/wiki/UI-Design)
+
+**Mobile vs. Web**
+
+<img height="495" alt="mainpagemobile" src="https://user-images.githubusercontent.com/29108753/132062987-94bd0b8f-beb4-4405-9cf5-fd76f9ad7ce9.png">
+<br><br>
+
+<img width="608" alt="maipageweb" src="https://user-images.githubusercontent.com/29108753/132062991-da4e617e-a9e9-4c5e-aa8b-9092f5191880.png">
+
+
+# 기능소개 Brief
+
+### [기능소개 Detail Link](https://github.com/codestates/MunjiOut/wiki/UI-Design)
+
+**Login**
+
+<img height="425" alt="mainpagemobile" src="https://user-images.githubusercontent.com/45756034/131838048-cc726c78-2058-41f5-828f-a02043dc2406.gif">
+
+**Search Area(회원)**
+
+<img height="425" alt="mainpagemobile" src="https://user-images.githubusercontent.com/45756034/131838214-5fadbe32-7309-4265-8bec-df18a08fec44.gif">
+
+**Setting/Unsetting Favorite Area**
+
+<img height="425" alt="mainpagemobile" src="https://user-images.githubusercontent.com/45756034/131838588-be793889-e666-4dad-88f3-6018159cf2e4.gif">
 
 # 프로젝트 회고
 
 ### 김태호
+  
+<details>
+<summary>First Project 회고</summary>
+
+<br>
 
 **프로젝트에서 아쉬웠던 점**
 
@@ -52,10 +97,14 @@
 **느낀점**
 
 - 저는 모든 개발은 혼자하는 것보다 팀 단위로 협업을 통해 이루어질 때 더 좋은 결과가 나온다고 생각합니다. First Project를 진행하면서 이 부분을 다시 한번 느낄 수 있었고 좋은 팀원들과 구현하고자 했던 서비스를 정상적으로 마무리 할 수 있어서 뿌듯했습니다.
-
-<br>
+</details>
 
 ### 하경주
+
+<details>
+<summary>First Project 회고</summary>
+  
+<br>
 
 **프로젝트에서 아쉬웠던 점**
 
@@ -68,3 +117,32 @@
 
 **느낀점**
 - 저 개인적으로는 4인으로 팀을 구상해 프로젝트를 진행하는 것도 처음이었고 프로젝트를 온라인으로만 완성 단계까지 이끌어나가는 것, 모두 처음이었습니다. 생소한 개발 방식이었지만 협업을 통해 보다 완성도 있는 결과물이 나온 것 같아 만족스럽고, 서비스의 기획부터 배포, 발표 준비까지 함께 했던 팀원분들에게 감사한 마음입니다.
+</details>
+
+### 김용우
+
+<details>
+<summary>First Project 회고</summary>
+  
+<br>
+
+**프로젝트에서 아쉬웠던 점**
+
+- 저희 팀에서 원하는 기능들을 효율적으로 구현하기 위해 필요한 기술 스택이 무엇이었는지 고민을 덜 한 것이 아쉬웠습니다. 프로젝트를 도중 프로젝트 처음에 생각한 것보다 관리해야할 states, props들이 많아 관리함에 있어 불편함을 느껴서 Redux의 필요성을, 컴포넌트 당 CSS파일을 만들다 보니Styled-Component의 필요성을 통감했습니다. 추후 특정 프로젝트 규모에서 어떤 스택들을 사용해야 더 효율적으로 수행할 수 있을지 처음 기획 단계에서 더 신중하게 생각하게 되었습니다. 
+- 위 내용과 비슷하게, 프로젝트를 하는 도중 더 효율적이고 좋은 개발 방향은 팀적으로 논의되고 있었지만, 팀에게 할당된 시간이 부족해 이행할 수 없었습니다. 예를들어, 외부 API로 받아오는 정보 응답으로 예상하지 못한 불편한 사항이 많이 발생했습니다. 이를 발견하고 해결할 방법도 구상되었지만, 저희 팀에게 남은 자원을 해당 문제에 소비할 수 없어 개선 포인트로 유지된 것이 아쉬웠습니다.
+
+
+**프로젝트에서 좋았던 점**
+- First Project는 주어진 자원이 최소한으로 주어지고, 저희는 목표만 알고 가보지 않은 길을 같이 걸어가야 했습니다. 무작정 부딪혀 안 되는걸 우리만의 방식으로 될 때까지 해결했던 시간들은 정말 좋은 경험으로 남았습니다.
+- 처음엔 비대면 방식으로 프로젝트를 기획, 개발 하는 것에 대한 의문이 많이 들었습니다. 솔직히 아직도 필요한 부분은 대면으로 진행하는 것이 더 효율적이라고 생각은 하지만, 비대면 방식으로도 프로젝트 기획, 개발이 가능하다는 걸 체험할 수 있는 기회였습니다. 
+
+**느낀점**
+- 프로젝트 중 팀원들과 함께 같이 문제를 해결하는 경험이 있었습니다. ‘정말 도저히 방법을 모르겠다.’ 상태까지 왔지만, 해당 내용을 포기할 수 없는 상태이므로 몇 시간이고 해결책을 강구하려고 노력했습니다. 결국, 매번 팀은 우리만의 방법을 찾게되었습니다. 끝까지 포기하지 않는 팀원들이 멋있었고, 같이 문제를 해결하는 경험을 나눠 즐거웠습니다.
+- 개인적으로 프레임워크에 대한 이해도, 효율적인 컨벤션과 코드의 짜임새에 대해 스스로 아직 많이 부족하다고 생각합니다. 하지만, 프로젝트를 통해 왜 더 프레임워크에 대한 이해가 필요한지, 효율적인 컨벤션은 어떤 것들이 있을 수 있는지, 어떤 방식의 코드가 어떤 상황에서 조금 더 효율적인지, 공부할 동기를 얻을 수 있었습니다. (정말 중요한 부분이라고 생각합니다.)
+</details>
+
+### 김무현
+
+<details>
+<summary>First Project 회고</summary>
+</details> 
