@@ -11,7 +11,6 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-between;
   }
-
   .header_space {
     margin: 10px;
   }

@@ -13,12 +13,11 @@ const Wrapper = styled.div`
     color: rgb(45, 45, 45);
   }
   .Logo {
-    ${media.huge`width: 275px;`}
     ${media.laptop`width: 250px;`} 
     ${media.tablet`width: 190px;`}
     margin-top: 30px;
     margin-bottom: 40px;
-    width: 190px;
+    width: 275px;
     cursor: pointer;
   }
   .Mypage {
@@ -27,13 +26,13 @@ const Wrapper = styled.div`
     height: 100vh;
   }
   .Mypage_container {
-    /* border: 1px black solid; */
     width: 310px;
     height: 50%;
     margin-left: auto;
     margin-right: auto;
   }
   .Mypage_input {
+    ${media.mobile`width: 285px;`}
     width: 300px;
     height: 27px;
     margin-top: 2px;
@@ -46,9 +45,10 @@ const Wrapper = styled.div`
     outline: none;
   }
   .Mypage_info {
-    ${media.huge`font-size: 19px;`}
     ${media.laptop`font-size: 17px;`} 
     ${media.tablet`font-size: 14px;`}
+    ${media.mobile`margin-left: 8px;`}
+    font-size: 19px;
     font-family: ${fonts.jua}, sans-serif;
     margin-top: 2px;
     padding-left: 6px;
@@ -57,6 +57,8 @@ const Wrapper = styled.div`
   .Mypage_btn {
     float: center;
     margin: 15px 15px 15px;
+    ${media.largeMobile`padding: 6px 15px 4px;`}
+    ${media.mobile`padding: 4px 12px 3px;`}
     padding: 8px 20px 6px;
     margin-bottom: -10px;
     background-color: gray;
@@ -86,6 +88,7 @@ const Wrapper = styled.div`
   .check_retypepassword,
   .check_mobile,
   .check_email {
+    ${media.mobile`margin-left: 8px;`}
     opacity: 0.6;
     text-align: left;
     color: red;
@@ -94,13 +97,12 @@ const Wrapper = styled.div`
     font-size: 12px;
     font-family: ${fonts.ibm}, sans-serif;
   }
-
   .alert-box {
-    /* background-color: #f8d7da; */
     color: red;
     font-family: ${fonts.ibm}, sans-serif;
-    ${media.huge`font-size: 15px;`}
     ${media.laptop`font-size: 14px;`}
+    ${media.tablet`font-size: 13px;`}
+    font-size: 15px;
     border-color: #f5c6cb;
     position: relative;
     padding: 0.75rem 1.25rem;
@@ -110,10 +112,6 @@ const Wrapper = styled.div`
     border-radius: 0.25rem;
   }
 `
-
-// const debounceSomethingFunc = debounce(() => {
-//   console.log("called debounceSomethingFunc");
-// }, 1000);
 
 function Mypage({ afterWithdrawal }) {
   const [checkPassword, setCheckPassword] = useState(true);
@@ -139,7 +137,7 @@ function Mypage({ afterWithdrawal }) {
     } else {
       setCheckPassword(false);
     }
-    console.log("password :", regExp.test(e.target.value));
+    // console.log("password :", regExp.test(e.target.value));
   };
   const handleCheckPassword = (e) => {
     if (e.target.value !== "" && e.target.value === myInfo.password) {
@@ -212,7 +210,7 @@ function Mypage({ afterWithdrawal }) {
   return (
     <Wrapper>
       <div className="Mypage">
-        <img src={logo} className="Logo" onClick={handleReplace}></img>
+        <img src={logo} className="Logo" onClick={handleReplace} alt={logo}></img>
         <div className="Mypage_container">
           <div>
             <div className="Mypage_info">이름</div>

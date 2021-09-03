@@ -14,9 +14,9 @@ const Wrapper = styled.div`
     color: ${colors.darkGray};
   }
   .Logo {
-    ${media.huge`width: 275px;`}
     ${media.laptop`width: 250px;`} 
     ${media.tablet`width: 190px;`}
+    width: 275px;
     margin-top: 30px; 
     margin-bottom: 25px;
     cursor: pointer;
@@ -24,16 +24,16 @@ const Wrapper = styled.div`
   .Signup {
     text-align: center;
     background-color: #f8f8f8;
-    height: 200vh;
+    height: 130vh;
   }
   .Signup_container {
-    /* border: 1px black solid; */
     width: 310px;
     height: 50%;
     margin-left: auto;
     margin-right: auto;
   }
   .Signup_input {
+    ${media.largeMobile`width: 260px;`}
     width: 300px;
     height: 27px;
     margin-top: 2px;
@@ -46,13 +46,14 @@ const Wrapper = styled.div`
     outline: none;
   }
   .Signup_input::-webkit-input-placeholder {
-    font-size: 11px;
+    font-size: 12px;
     padding-left: 2px;
   }
   .Signup_info {
-    ${media.huge`font-size: 19px;`}
     ${media.laptop`font-size: 17px;`} 
     ${media.tablet`font-size: 14px;`}
+    ${media.largeMobile`margin-left: 21px;`}
+    font-size: 19px;
     font-family: ${fonts.jua}, sans-serif;
     padding-left: 6px;
     text-align: left;
@@ -71,8 +72,8 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
   .Signup_btn {
-    ${media.huge`font-size: 15px;`}
     ${media.tablet`font-size: 13px;`}
+    font-size: 15px;
     background-color: ${colors.yellow};
     font-family: ${fonts.dohyun}, sans-serif;
     margin-top: 30px;
@@ -94,7 +95,7 @@ const Wrapper = styled.div`
   .check_retypepassword,
   .check_mobile,
   .check_email {
-    /* background-color: black; */
+    ${media.largeMobile`margin-left: 21px;`}
     opacity: 0.8;
     text-align: left;
     color: red;
@@ -104,12 +105,12 @@ const Wrapper = styled.div`
     font-family: ${fonts.ibm}, sans-serif;
   }
   .alert-box {
-    /* background-color: #f8d7da; */
     color: red;
     font-family: ${fonts.ibm}, sans-serif;
     font-weight: 500;
-    ${media.huge`font-size: 16px;`}
     ${media.laptop`font-size: 14px;`}
+    ${media.tablet`font-size: 13px;`}
+    font-size: 16px;
     border-color: #f5c6cb;
     position: relative;
     padding: 0.75rem 1.25rem;
@@ -180,7 +181,6 @@ function Signup({ LN }) {
     setUserInfo({ ...userInfo, [key]: e.target.value });
   };
   const handleInputAddress = (e) => {
-    // setUserInfo({ ...userInfo, ["address"]: addressResult[addressIdx] });
     setUserInfo({ ...userInfo, ["address"]: e.target.value });
   };
   const deleteInputAddress = () => {
@@ -267,7 +267,7 @@ function Signup({ LN }) {
       setErrorMsg("모든 항목을 바르게 작성해주세요");
     } else {
       axios
-        .post(process.env.REACT_APP_API_URL+ "/signup", userInfo, {
+        .post("http://localhost:80" + "/signup", userInfo, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
@@ -317,7 +317,7 @@ function Signup({ LN }) {
   return (
     <Wrapper>
       <div className="Signup">
-        <img src={logo} className="Logo" onClick={handleReplace}></img>
+        <img src={logo} className="Logo" onClick={handleReplace} alt={logo}></img>
         <div className="Signup_container">
           <div>
             <div className="Signup_info">이름</div>
@@ -388,11 +388,6 @@ function Signup({ LN }) {
           </div>
           <div>
             <div className="Signup_info">주소</div>
-            {/* <input
-              placeholder="주소를 검색해주세요"
-              onBlur={handleInputValue("address")}
-              className="Signup_input"
-            ></input>{" "} */}
             <div>
               <input
                 type="text"

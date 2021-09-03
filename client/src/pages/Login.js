@@ -13,15 +13,18 @@ const Wrapper = styled.div`
     color: ${colors.darkGray};
   }
   .Logo {
-    ${media.huge`margin-top: 50px; margin-bottom: 50px; width: 275px;`}
     ${media.laptop`margin-top: 50px; margin-bottom: 50px; width: 250px;`} 
     ${media.tablet`margin-top: 60px; margin-bottom: 60px; width: 220px;`}
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 275px;
     cursor: pointer;
   }
   .Login_info {
-    ${media.huge`font-size: 20px;`}
     ${media.laptop`font-size: 18px;`} 
     ${media.tablet`margin-top: 15px;`}
+    ${media.largeMobile`font-size: 16px; margin-left: 10px`}
+    font-size: 20px;
     font-family: ${fonts.jua}, sans-serif;
     text-align: left;
     padding-left: 6px;
@@ -32,13 +35,12 @@ const Wrapper = styled.div`
     height: 100vh;
   }
   .Login_container {
-    /* border: 1px black solid; */
     width: 310px;
-    /* height: 100vh; */
     margin-left: auto;
     margin-right: auto;
   }
   .Login_btn {
+    ${media.largeMobile`width: 225px`}
     background-color: ${colors.yellow};
     font-family: ${fonts.dohyun}, sans-serif;
     font-size: 1rem;
@@ -50,7 +52,6 @@ const Wrapper = styled.div`
     transition: 0.5s ease-in-out;
   }
   .Login_btn:hover {
-    /* background-color: #ffc83c; */
     background-color: gray;
     width: 300px;
     border: none;
@@ -59,6 +60,7 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
   .Login_input {
+    ${media.largeMobile`width: 280px;`}
     width: 300px;
     height: 25px;
     margin-bottom: 20px;
@@ -70,12 +72,11 @@ const Wrapper = styled.div`
     outline: none;
   }
   .alert-box {
-    /* background-color: #f8d7da; */
     color: red;
     font-family: ${fonts.ibm}, sans-serif;
     font-weight: 500;
-    ${media.huge`font-size: 16px;`}
     ${media.laptop`font-size: 14px;`}
+    font-size: 16px;
     border-color: #f5c6cb;
     position: relative;
     padding: 0.75rem 1.25rem;
@@ -94,7 +95,6 @@ function Login({ handleLogin }) {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [page, setPage] = useState();
-  const aT = localStorage.getItem("accessToken");
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
@@ -108,11 +108,10 @@ function Login({ handleLogin }) {
   };
 
   const handleLoginRequest = () => {
-    if ((loginInfo.email === "", loginInfo.password === "")) {
+    if ((loginInfo.email === "" && loginInfo.password === "")) {
       setErrorMsg("이메일과 비밀번호를 입력해주세요");
     } else {
       axios
-        // 
         .post(process.env.REACT_APP_API_URL + "/login", loginInfo, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -135,8 +134,7 @@ function Login({ handleLogin }) {
               withCredentials: true,
             })
             .then((res) => {
-              console.log("userinfo :", res.data.data);
-              // setUserinfo(res.data.data);
+              // console.log("userinfo :", res.data.data);
               localStorage.setItem("userinfo", JSON.stringify(res.data.data));
             })
             .catch((err) => {
@@ -163,7 +161,7 @@ function Login({ handleLogin }) {
   return (
     <Wrapper>
       <div className="Login">
-        <img src={logo} className="Logo" onClick={handleReplace}></img>
+        <img src={logo} className="Logo" onClick={handleReplace} alt={logo}></img>
         <div className="Login_container">
           <div>
             <div className="Login_info">이메일</div>

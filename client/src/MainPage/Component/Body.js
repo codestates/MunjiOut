@@ -9,7 +9,6 @@ const Wrapper = styled.div`
   .mainPage_header {
     z-index: 1;
   }
-
   .mainPage_body {
     z-index: 0;
   }
@@ -27,18 +26,18 @@ export default function Body (
     }) {
 
     return (
-        <Wrapper>
-            <div className="body">
-                <Containers 
-                    isLogin={isLogin} 
-                    isStared={isStared} 
-                    isSearched={isSearched} 
-                    handleIsStaredDelete={handleIsStaredDelete} 
-                    handleIsSearched={handleIsSearched} 
-                    isLoading={isLoading}
-                    isStaredLoading={isStaredLoading}
-                />
-            </div>
-        </Wrapper>
+      <Wrapper>
+          <div className="body">
+              <Containers 
+                  isLogin={isLogin} 
+                  isStared={isStared} 
+                  isSearched={isSearched} 
+                  handleIsStaredDelete={handleIsStaredDelete} 
+                  handleIsSearched={handleIsSearched} 
+                  isLoading={isLoading}
+                  isStaredLoading={isStaredLoading}
+              />
+          </div>
+      </Wrapper>
     );
 }

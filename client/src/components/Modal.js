@@ -24,8 +24,8 @@ const Wrapper = styled.div`
     left: 94.5%;
     top: 3%;
     transform: translate(-50%);
-    ${media.huge`font-size: 25px;`}
     ${media.tablet`font-size: 20px;`}
+    font-size: 25px;
     font-weight: bold;
     border: none;
     background-color: white;
@@ -37,8 +37,8 @@ const Wrapper = styled.div`
     top: 67%;
     padding: 4px 12px;
     transform: translate(-50%);
-    ${media.huge`font-size: 14px;`}
     ${media.tablet`font-size: 12px;`}
+    font-size: 14px;
     background-color: ${colors.yellow};
     border-radius: 8px;
     font-family: ${fonts.dohyun}, sans-serif;
@@ -49,8 +49,8 @@ const Wrapper = styled.div`
     top: 67%;
     padding: 4px 12px;
     transform: translate(-50%);
-    ${media.huge`font-size: 14px;`}
     ${media.tablet`font-size: 12px;`}
+    font-size: 14px;
     background-color: ${colors.yellow};
     border-radius: 8px;
     font-family: ${fonts.dohyun}, sans-serif;
@@ -62,10 +62,9 @@ const Wrapper = styled.div`
   }
   .Modal_view {
     box-sizing: border-box;
-    /* width: 40vh; */
-    /* height: 20vh; */
-    ${media.huge`min-width: 300px; min-height: 150px;`}
     ${media.tablet`min-width: 250px; min-height: 130px;`}
+    min-width: 300px;
+    min-height: 150px;
     background-color: rgb(255, 255, 255);
     position: relative;
     text-align: center;
@@ -74,8 +73,8 @@ const Wrapper = styled.div`
   }
   .Modal_message {
     position: absolute;
-    ${media.huge`font-size: 20px;`}
     ${media.tablet`font-size: 17px;`}
+    font-size: 20px;
     left: 50%;
     top: 45%;
     transform: translate(-50%, -50%);
