@@ -9,11 +9,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import styled from 'styled-components';
+import { media, media_min } from '../../../../components/utils/_media-queries';
 import { fonts, colors } from '../../../../components/utils/_var';
 
 const Wrapper = styled.div`
   .cityCard,
   .cityCard_isLoading {
+    ${media.largeMobile`min-width: 280px;`}
+    ${media.mobile`min-width: 250px;`}
     min-width: 340px;
     margin: 10px 10px 23px 10px;
     height: 200px;
@@ -38,34 +41,27 @@ const Wrapper = styled.div`
   .pic {
     display: flex;
     margin-top: 5px;
-    /* border: 1px solid black; */
   }
   .pic_stared,
   .pic_searched {
+    ${media.largeMobile`left: 225px;`}
+    ${media.mobile`left: 205px;`}
     position: relative;
-    /* top: 10px;
-    padding: 2px; */
-    /* background-color: gold; */
     font-size: 14px;
-    /* border-radius: 20px; */
     width: 50px;
     left: 270px;
     color: ${colors.yellow};
     margin-top: 5px;
-    /* border: 1px solid black; */
     text-align: center;
   }
   .pic_stared {
-    /* color: goldenrod; */
     font-weight: bold;
-    /* border-radius: 20px; */
   }
   .pic_searched {
     color: gray;
   }
   .pic_stared:hover,
   .pic_searched:hover {
-    /* background-color: rgb(255, 230, 89); */
     cursor: pointer;
     transition: all 0.5s;
   }
@@ -74,18 +70,26 @@ const Wrapper = styled.div`
     justify-content: space-between;
   }
   .location {
+    ${media.mobile`padding-left: 60px;`}
     margin-top: 12px;
+    margin-bottom: 8px;
     position: relative;
     font-family: ${fonts.jua};
-    /* border: 1px solid black; */
     text-align: center;
     font-size: 20px;
     padding-left: 75px;
   }
   .icon {
+    ${media.largeMobile`display: none;`}
     position: relative;
     font-weight: bold;
-    /* border: 1px solid black; */
+    padding-left: 30px;
+    text-align: center;
+  }
+  .iconSmall {
+    ${media_min.largeMobile`display: none;`}
+    position: relative;
+    font-weight: bold;
     padding-left: 30px;
     text-align: center;
   }
@@ -95,10 +99,10 @@ const Wrapper = styled.div`
   }
   .value {
     position: relative;
-    /* font-weight: bold; */
     text-align: center;
     font-family: ${fonts.dohyun};
-    /* border: 1px solid black; */
+    ${media.largeMobile`margin-left: 15px; padding-right: 30px; font-size: 16px;`}
+    ${media.mobile`margin-left: 15px; padding-right: 30px; font-size: 15px;`}
     padding-right: 45px;
     margin-top: 10px;
     font-size: 17px;
@@ -106,17 +110,13 @@ const Wrapper = styled.div`
   .time {
     position: relative;
     font-weight: normal;
-    /* border: 1px solid black; */
     text-align: center;
     font-family: ${fonts.ibm};
     margin-top: 20px;
     font-size: 14px;
     color: #666666;
-    /* width: 80%;
-    top: 175px; */
   }
   .likes {
-    /* border: 1px solid black; */
     text-align: center;
     padding-right: 30px;
     margin-top: 10px;
@@ -180,6 +180,21 @@ export default function CityCard({
                 ) : null}
                 {150 < pm10_value ? (
                   <FontAwesomeIcon icon={faDizzy} size="7x" color="#ff000" />
+                ) : null}
+              </span>
+              <span className="iconSmall">
+                {pm10_value === undefined ? "🚫 N/A" : null}
+                {pm10_value <= 30 ? (
+                  <FontAwesomeIcon icon={faSmile} size="6x" color="#0da2ff" />
+                ) : null}
+                {30 < pm10_value && pm10_value <= 80 ? (
+                  <FontAwesomeIcon icon={faMeh} size="6x" color="#03c04a" />
+                ) : null}
+                {80 < pm10_value && pm10_value <= 150 ? (
+                  <FontAwesomeIcon icon={faFrown} size="6x" color="#ffa500" />
+                ) : null}
+                {150 < pm10_value ? (
+                  <FontAwesomeIcon icon={faDizzy} size="6x" color="#ff000" />
                 ) : null}
               </span>
               <span className="values">

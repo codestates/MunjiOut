@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   .mainPage_header {
     z-index: 1;
   }
-
   .mainPage_body {
     z-index: 0;
   }
@@ -36,32 +35,32 @@ export default function MainPage({
 
   return (
     <Wrapper>
-    <div className="mainPage">
-      <div className="mainPage_header">
-        <Header
-          keyword={keyword}
-          searchResult={searchResult}
-          searchResultIdx={searchResultIdx}
-          handleKeywordChange={handleKeywordChange}
-          handleKeywordDelete={handleKeywordDelete}
-          handleDropDownClick={handleDropDownClick}
-          handleDropDown={handleDropDown}
-          isLogin={isLogin}
-          handleLogout={handleLogout}
-        />
+      <div className="mainPage">
+        <div className="mainPage_header">
+          <Header
+            keyword={keyword}
+            searchResult={searchResult}
+            searchResultIdx={searchResultIdx}
+            handleKeywordChange={handleKeywordChange}
+            handleKeywordDelete={handleKeywordDelete}
+            handleDropDownClick={handleDropDownClick}
+            handleDropDown={handleDropDown}
+            isLogin={isLogin}
+            handleLogout={handleLogout}
+          />
+        </div>
+        <div className="mainPage_body">
+          <Body
+            isLogin={isLogin}
+            isStared={isStared}
+            isSearched={isSearched}
+            handleIsStaredDelete={handleIsStaredDelete}
+            handleIsSearched={handleIsSearched}
+            isLoading={isLoading}
+            isStaredLoading={isStaredLoading}
+          />
+        </div>
       </div>
-      <div className="mainPage_body">
-        <Body
-          isLogin={isLogin}
-          isStared={isStared}
-          isSearched={isSearched}
-          handleIsStaredDelete={handleIsStaredDelete}
-          handleIsSearched={handleIsSearched}
-          isLoading={isLoading}
-          isStaredLoading={isStaredLoading}
-        />
-      </div>
-    </div>
     </Wrapper>
   );
 }

@@ -1,17 +1,23 @@
 import styled from 'styled-components';
 import { colors } from '../../../components/utils/_var';
+import { media, media_min } from '../../../components/utils/_media-queries';
 
 const Wrapper = styled.div`
   .searchContainer {
     margin: 0px;
     display: flex;
     position: absolute;
-    left: 155px;
-    top: -90px;
+    right: 15px;
+    top: -95px;
   }
   .searchBar {
+    ${media.searchLarge`width: 80vw;`}
+    ${media.laptop`width: 65vw;`}
+    ${media.tablet`width: 50vw; font-size: 13px;`}
+    ${media.largeMobile`width: 40vw; font-size: 12px;`}
+    /* ${media.mobile`width: 40vw; font-size: 12px;`} */
     padding: 4px 12px;
-    width: 75vw;
+    width: 80vw;
     height: 32px;
     font-size: 14px;
     border-radius: 12px 0 0 12px;
@@ -34,7 +40,6 @@ const Wrapper = styled.div`
     border-radius: 0 12px 12px 0;
     border: 2px solid ${colors.darkGray};
     border-left-style: none;
-    /* transition: 0.5s ease-in-out; */
   }
   .deleteBtn:hover {
     background-color: ${colors.darkGray};
