@@ -24,10 +24,10 @@
 # 아키텍처
 
 **Client-Side**
-![functions_flowchart](https://user-images.githubusercontent.com/45756034/131592838-c56cc6e3-73c7-4a5c-a30e-54e7bd319f3e.png)
+![스크린샷 2021-09-01 오후 6 41 36](https://user-images.githubusercontent.com/45756034/131649612-c0ac7909-827c-488e-b39e-12d45fb86bb7.png)
 
 **Server-Side**
-![system_architecture](https://user-images.githubusercontent.com/45756034/131592859-63e408ef-6098-446a-94d9-78161ada303c.png)
+![스크린샷 2021-09-01 오후 6 35 55](https://user-images.githubusercontent.com/45756034/131648862-a59bacb9-720d-4bfc-aa51-01ccd7f99a98.png)
 
 # 기능소개
 **SignUp**
