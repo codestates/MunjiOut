@@ -32,6 +32,8 @@
 
 # 기능소개 Brief
 
+### [기능소개 Detail Link](https://github.com/codestates/MunjiOut/wiki/UI-Design)
+
 **Login**
 ![2login](https://user-images.githubusercontent.com/45756034/131838048-cc726c78-2058-41f5-828f-a02043dc2406.gif)
 
@@ -40,8 +42,6 @@
 
 **Setting/Unsetting Favorite Area**
 ![8settingstars](https://user-images.githubusercontent.com/45756034/131838588-be793889-e666-4dad-88f3-6018159cf2e4.gif)
-
-### [기능소개 Detail Link](https://github.com/codestates/MunjiOut/wiki/UI-Design)
 
 # 프로젝트 회고
 
