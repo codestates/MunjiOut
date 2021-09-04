@@ -1,7 +1,8 @@
 # MunjiOut
 
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) <img src="https://img.shields.io/badge/html-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white) ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> ![VS Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
-<br><br>
+<br>
+<br>
 
 ![munjiout-logo](https://user-images.githubusercontent.com/45756034/131592339-3dbd88df-c89d-416a-933f-0f1466ce2aff.png)
 
@@ -34,14 +35,14 @@
 | **Auth**   | JSON Web Token (JWT) |
 | **Email**   | Nodemailer |
 | **Distribution**   | AWS, EC2, S3, RDS, Route53 |
-| **SR / Design**   | dbdiagram, GitBook, Figma, Photoshop, Illustrator |
+| **Planning / Design**   | dbdiagram, GitBook, Figma, Photoshop, Illustrator |
 | **Communication**   | Zoom, Discord |
 
 
 # Architecture
 
 **Client-Side**
-![functions_flowchart](https://user-images.githubusercontent.com/45756034/131592838-c56cc6e3-73c7-4a5c-a30e-54e7bd319f3e.png)
+![131592838-c56cc6e3-73c7-4a5c-a30e-54e7bd319f3e](https://user-images.githubusercontent.com/29108753/132075882-3a7505ad-daa3-4ce0-8136-7917ee351427.png)
 
 **Server-Side**
 ![system_architecture](https://user-images.githubusercontent.com/45756034/131592859-63e408ef-6098-446a-94d9-78161ada303c.png)
@@ -64,15 +65,16 @@
 
 **Login**
 
-<img height="425" alt="mainpagemobile" src="https://user-images.githubusercontent.com/45756034/131838048-cc726c78-2058-41f5-828f-a02043dc2406.gif">
+<img width="625" alt="login" src="https://user-images.githubusercontent.com/45756034/131838048-cc726c78-2058-41f5-828f-a02043dc2406.gif">
 
 **Search Area(회원)**
 
-<img height="425" alt="mainpagemobile" src="https://user-images.githubusercontent.com/45756034/131838214-5fadbe32-7309-4265-8bec-df18a08fec44.gif">
+<img width="625" alt="search" src="https://user-images.githubusercontent.com/45756034/131838214-5fadbe32-7309-4265-8bec-df18a08fec44.gif">
 
 **Setting/Unsetting Favorite Area**
 
-<img height="425" alt="mainpagemobile" src="https://user-images.githubusercontent.com/45756034/131838588-be793889-e666-4dad-88f3-6018159cf2e4.gif">
+<img width="625" alt="settingstars" src="https://user-images.githubusercontent.com/45756034/131838588-be793889-e666-4dad-88f3-6018159cf2e4.gif">
+
 
 # Email Notification Sample
 
