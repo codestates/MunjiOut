@@ -78,10 +78,9 @@
 
 # Email Notification Sample
 
-<img width="450" alt="email1" src="https://user-images.githubusercontent.com/29108753/132073573-d3b31722-6919-4a9d-996a-6bb8ca15fabe.jpg">
+<img width="450" alt="emailImage_" src="https://user-images.githubusercontent.com/29108753/132111441-13ad06fd-3195-43ec-9b14-61c64ef385a5.png">
 
-<img width="450" alt="email2" src="https://user-images.githubusercontent.com/29108753/132073577-35af7588-f1b7-4efc-986d-8021f1dc51e6.jpg">
-
+<img width="450" alt="emailImage2_" src="https://user-images.githubusercontent.com/29108753/132111446-d060b44f-841c-40cb-9147-32d509976de4.png">
 
 
 # 프로젝트 회고
