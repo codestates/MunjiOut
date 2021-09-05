@@ -106,7 +106,7 @@ const sendEmail = () => {
                         from: process.env.SENDER_ADDRESS,
                         to: user.email,
                         subject: "MunjiOut: 미세먼지 알림",
-                        text: user.username + "님이 설정하신 지역의 미세먼지 데이터입니다.\n\n" + results
+                        text: user.username + "님이 설정하신 지역의 미세먼지 데이터입니다.\n\n" + results + "\n\n\n더 많은 정보를 원하시면 아래 웹사이트에 방문해 주세요.\nmunjiout.com"
                     };
 
                     // email transporter configuration
