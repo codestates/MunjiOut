@@ -267,7 +267,7 @@ function Signup({ LN }) {
       setErrorMsg("모든 항목을 바르게 작성해주세요");
     } else {
       axios
-        .post("http://localhost:80" + "/signup", userInfo, {
+        .post(process.env.REACT_APP_API_URL + "/signup", userInfo, {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
